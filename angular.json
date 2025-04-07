@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "proyecto-integrador": {
+    "angular-proyecto": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/proyecto-integrador",
+            "outputPath": "dist/angular-proyecto",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -21,6 +21,8 @@
             ],
             "tsConfig": "tsconfig.app.json",
             "assets": [
+                "src/favicon.ico",
+                "src/assets",
               {
                 "glob": "**/*",
                 "input": "public"
@@ -59,10 +61,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "proyecto-integrador:build:production"
+              "buildTarget": "angular-proyecto:build:production"
             },
             "development": {
-              "buildTarget": "proyecto-integrador:build:development"
+              "buildTarget": "angular-proyecto:build:development"
             }
           },
           "defaultConfiguration": "development"
