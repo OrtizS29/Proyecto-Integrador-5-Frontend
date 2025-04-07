@@ -1,1 +1,19 @@
-<p>login works!</p>
+<div class="login-container">
+    <div class="login-box">
+      <img src="assets/logo.png" alt="IDEAM logo" class="logo" />
+      <h2>Instituto de Hidrología<br>Meteorología y<br>Estudios Ambientales</h2>
+  
+      <form (ngSubmit)="onLogin()">
+        <label class="label1" for="email">Gmail:</label>
+        <input class="input1" id="email" type="email" [(ngModel)]="email" name="email" required />
+  
+        <label class="label2" for="password">Contraseña:</label>
+        <div class="password-wrapper">
+          <input class="input2" [type]="showPassword ? 'text' : 'password'" id="password" [(ngModel)]="password" name="password" required />
+          <span class="toggle" (click)="togglePasswordVisibility()">👁️</span>
+        </div>
+        <button class="merriweather-font" type="submit">Log in</button>
+      </form>
+    </div>
+  </div>
+  
