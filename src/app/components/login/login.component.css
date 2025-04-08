@@ -2,6 +2,8 @@ body, html {
     margin: 0;
     padding: 0;
     height: 100%;
+    width: 100%;
+    overflow: hidden; /* 🔥 Esto previene scroll oculto */
   }
 
 h2{
@@ -11,6 +13,11 @@ h2{
 }
   
   .login-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     background: url('./../../../assets/fondo.jpg') no-repeat center center fixed;
     background-size:cover;
     height: 100vh;
