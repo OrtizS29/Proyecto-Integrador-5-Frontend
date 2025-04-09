@@ -70,7 +70,8 @@ export class UsuarioService {
    * @returns
    */
   buscarUsuario(email: string): Observable<any> {
-    return this.http.get(`${this.apiUrl}/${email}`);
+    const emailCodificado = encodeURIComponent(email);
+    return this.http.get(`${this.apiUrl}/${emailCodificado}`);
   }
   /**
    *
