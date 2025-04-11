@@ -1,4 +1,3 @@
-import { UserCredential } from './../../../../node_modules/@firebase/auth-types/index.d';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -34,16 +33,18 @@ export class LoginComponent {
 
   onLogin() {
     signInWithEmailAndPassword(this.auth, this.email, this.password)
-    .then(async(UserCredential) => {
-      const user = UserCredential.user;
-      const token = await getIdToken(user);
-
-      console.log('Login exitoso');
-      alert('Se inicio sesion');
-    })
-    .catch((error) => {
-      console.error("Error al iniciar sesion",error);
-      alert('Correo o contraseña incorrecta');
-    });
-  }
+      .then(async (UserCredential) => {
+        const user = UserCredential.user;
+        const token = await getIdToken(user);
+  
+        console.log('Login exitoso');
+        alert('Se inició sesión');
+  
+        this.router.navigate(['/admin-inicio']); // ← Redirección
+      })
+      .catch((error) => {
+        console.error("Error al iniciar sesión", error);
+        alert('Correo o contraseña incorrecta');
+      });
+  }  
 }

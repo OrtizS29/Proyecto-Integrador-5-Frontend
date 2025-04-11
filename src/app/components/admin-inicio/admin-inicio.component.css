@@ -1,0 +1,154 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  html, body {
+    height: 100%;
+    width: 100%;
+    overflow: hidden; /* Opcional: evita scroll no deseado */
+  }
+  
+  h1,h2{
+    position: relative;
+    left: 55px;
+  }
+  
+  .admin-layout {
+    height: 100%;
+    width: 100%;
+    min-height: 100vh;
+    min-width: 100vw;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .header {
+    width: 100%;
+    background-color: #005fa3;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 30px;
+  }
+  
+  /* Nueva sección para alinear el botón hamburguesa y el logo */
+  .left-header {
+    display: flex;
+    align-items: center;
+  }
+  
+  /* Botón hamburguesa */
+  .hamburger {
+    position: relative;
+    left: 15px;
+    font-size: 36px;
+    background: none;
+    border: none;
+    color: white;
+    margin-right: 20px;
+    cursor: pointer;
+    display: block;
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease;
+  }
+
+    /* Hover: fondo azul más oscuro como borde */
+    .hamburger:hover {
+        background-color: #004a7c;
+    }
+  
+  /* También cuando sidebar está abierto */
+  .sidebar:not(.collapsed) ~ .content .hamburger {
+    background-color: #004a7c;
+  }
+  
+  .logo-container {
+    display: flex;
+    align-items: center;
+  }
+  
+  .logo {
+    position: relative;
+    left: 55px;
+    height: 80px;
+    margin-right: 10px;
+  }
+  
+  .title h1, .title h2 {
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.2;
+  }
+  
+  .user-icon img {
+    height: 80px;
+    border-radius: 50%;
+    background-color: #005fa3;
+    padding: 1px;
+  }
+  
+  /* Main content */
+  .main-content {
+    display: flex;
+    flex: 1;
+  }
+  
+  /* Sidebar */
+  .sidebar {
+    background-color: #005fa3;
+    color: white;
+    width: 135px;
+    padding-top: 20px;
+    transition: width 0.3s ease, padding 0.3s ease;
+    overflow: hidden;
+  }
+  
+  /* Clase para colapsar sidebar */
+  .sidebar.collapsed {
+    width: 0;
+    padding-top: 0;
+    padding-left: 0;
+    padding-right: 0;
+  }
+  
+  .sidebar ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .sidebar li {
+    padding: 15px 20px;
+  }
+  
+  .sidebar li a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  
+  .sidebar li:hover {
+    background-color: #00385d;
+  }
+  
+  /* Central content */
+  .content {
+    flex: 1;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .fondo-central {
+    opacity: 0.7;
+    max-width: 400px;
+  }
+  
