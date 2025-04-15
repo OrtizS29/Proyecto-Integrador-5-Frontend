@@ -23,9 +23,12 @@
       <!-- Menú lateral -->
       <nav class="sidebar" [class.collapsed]="isSidebarCollapsed">
         <ul>
-          <li><a href="#">Gestión de personal</a></li>
-          <li><a routerLink="/admin/brigadas">Gestión de brigadas</a></li>
-          <li><a href="#">Novedades</a></li>
+          <ul>
+            <li><a routerLink="/admin/personal" routerLinkActive="active">Gestión de personal</a></li>
+            <li><a routerLink="/admin/brigadas" routerLinkActive="active">Gestión de brigadas</a></li>
+            <li><a routerLink="/admin/novedades" routerLinkActive="active">Novedades</a></li>
+          </ul>
+          
         </ul>
       </nav>
   
