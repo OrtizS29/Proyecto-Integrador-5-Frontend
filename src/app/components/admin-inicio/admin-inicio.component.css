@@ -141,11 +141,18 @@
   /* Central content */
   .content {
     flex: 1;
-    background-color: white;
     display: flex;
     justify-content: center;
     align-items: center;
+  
+    background-color: white;
+    background-image: url('../../../assets/ideam-fondo.png');
+    background-size: 30vw auto; /* o 'cover' si quieres que llene el área */
+    background-repeat: no-repeat;
+    background-position: center;
   }
+  
+  
 
   .fondo-central {
     opacity: 0.7;

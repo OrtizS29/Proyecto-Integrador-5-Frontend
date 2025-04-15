@@ -24,14 +24,14 @@
       <nav class="sidebar" [class.collapsed]="isSidebarCollapsed">
         <ul>
           <li><a href="#">Gestión de personal</a></li>
-          <li><a href="#">Gestión de brigadas</a></li>
+          <li><a routerLink="/admin/brigadas">Gestión de brigadas</a></li>
           <li><a href="#">Novedades</a></li>
         </ul>
       </nav>
   
       <!-- Zona central -->
       <section class="content">
-        <img src="../../../assets/ideam-fondo.png" class="fondo-central" alt="Logo IDEAM grande">
+        <router-outlet></router-outlet>
       </section>
     </div>
   </div>

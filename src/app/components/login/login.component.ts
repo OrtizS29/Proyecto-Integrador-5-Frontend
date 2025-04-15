@@ -40,7 +40,7 @@ export class LoginComponent {
         console.log('Login exitoso');
         alert('Se inició sesión');
   
-        this.router.navigate(['/admin-inicio']); // ← Redirección
+        this.router.navigate(['/admin']); // ← Redirección
       })
       .catch((error) => {
         console.error("Error al iniciar sesión", error);
