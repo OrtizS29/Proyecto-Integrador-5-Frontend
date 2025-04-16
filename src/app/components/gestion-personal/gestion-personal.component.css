@@ -1,21 +1,16 @@
-/* tu-componente.component.css */
-.tabla-wrapper {
-    width: 100%;
-    overflow: hidden;
-  }
+.tabla-scroll-wrapper {
+  display: block;
+  overflow: auto;    /* Esto permite el scroll horizontal solo cuando la tabla sea más ancha que el contenedor */
+  width: 160vh;
   
-  .scroll-horizontal {
-    overflow-x: auto;
-    width: 100%;
-  }
-  
-  .tabla-ancha {
-    min-width: 800px; /* Aumenta según la cantidad de columnas */
-    width: max-content;
-  }
-  
-  .mat-header-cell, .mat-cell {
-    white-space: nowrap;
-    padding: 8px 16px;
-  }
-  
+}
+
+.tabla-horizontal {
+  width: max-content;
+  min-width: 800px;   /* Establece un mínimo para que la tabla sea más ancha que el contenedor */
+}
+
+.mat-header-cell, .mat-cell {
+  white-space: nowrap; /* Asegura que el contenido no se envuelva */
+  padding: 10px 160px;   /* Ajuste de espaciado */
+}
