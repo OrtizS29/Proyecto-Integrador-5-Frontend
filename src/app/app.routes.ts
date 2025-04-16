@@ -4,6 +4,7 @@ import { AdminInicioComponent } from './components/admin-inicio/admin-inicio.com
 import { GestionBrigadasComponent } from './components/gestion-brigadas/gestion-brigadas.component';
 import { GestionPersonalComponent } from './components/gestion-personal/gestion-personal.component';
 import { NovedadesComponent } from './components/novedades/novedades.component';
+import { CalendarioComponent } from './components/calendario/calendario.component';
 
 export const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -14,8 +15,9 @@ export const routes: Routes = [
       { path: '', redirectTo: 'brigadas', pathMatch: 'full' }, // Redirección por defecto
       { path: 'brigadas', component: GestionBrigadasComponent },
       { path: 'personal', component: GestionPersonalComponent },
-      { path: 'novedades', component: NovedadesComponent }
+      { path: 'novedades', component: NovedadesComponent },
+      { path: 'calendario', component: CalendarioComponent } // Ruta para calendario
     ]
   },
-  { path: '**', redirectTo: '' }
+  { path: '**', redirectTo: '' } // Redirección en caso de ruta no encontrada
 ];
