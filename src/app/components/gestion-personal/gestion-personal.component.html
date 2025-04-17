@@ -1,6 +1,6 @@
 <!-- gestion-personal.component.html -->
 <div class="tabla-acciones">
-  <button mat-icon-button color="primary" aria-label="Actualizar" (click)="irAActualizarSeleccionado()">
+  <button mat-icon-button color="primary" aria-label="Actualizar" (click)="irAActualizarSeleccionado()"[disabled]="!filaSeleccionada">
     <mat-icon>refresh</mat-icon>
   </button>
   <button mat-icon-button color="warn" aria-label="Eliminar" (click)="eliminar(filaSeleccionada)"[disabled]="!filaSeleccionada">

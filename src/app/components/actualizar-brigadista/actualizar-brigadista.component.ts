@@ -28,9 +28,13 @@ export class ActualizarBrigadistaComponent implements OnInit {
       if (data) {
         this.brigadista = data;
       } else {
-        const local = localStorage.getItem('brigadistaTemporal');
+        const local = localStorage.getItem('brigadistaSeleccionado');
         if (local) {
           this.brigadista = JSON.parse(local);
+
+          this.brigadista.Fecha_Expedicion_Documento = this.formatearFecha(this.brigadista.Fecha_Expedicion_Documento);
+          this.brigadista.Fecha_Nacimiento = this.formatearFecha(this.brigadista.Fecha_Nacimiento);
+
           this.brigadistaService.setBrigadista(this.brigadista);
         } else {
           alert('No se ha seleccionado ningún brigadista.');
@@ -38,6 +42,14 @@ export class ActualizarBrigadistaComponent implements OnInit {
         }
       }
     });
+  }
+
+  formatearFecha(fecha: string): string {
+    const partes = fecha.split('/');
+    if (partes.length === 3) {
+      return `${partes[2]}-${partes[1].padStart(2, '0')}-${partes[0].padStart(2, '0')}`;
+    }
+    return fecha;
   }
 
   guardarCambios() {
