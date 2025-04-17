@@ -92,6 +92,10 @@ export class GestionPersonalComponent implements AfterViewInit {
     }
   }
 
+  actualizarBrigada(arg0: any) {
+    throw new Error('Method not implemented.');
+  }
+
   onFileChange(event: any): void {
     const file = event.target.files[0];
     if (file) {
