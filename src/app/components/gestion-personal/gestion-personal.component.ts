@@ -56,7 +56,7 @@ export class GestionPersonalComponent implements AfterViewInit {
   ];
 
   dataSource = new MatTableDataSource<Brigadista>();
-  filaSeleccionada: Brigadista | null = null;
+  filaSeleccionada: any = null;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
@@ -77,18 +77,10 @@ export class GestionPersonalComponent implements AfterViewInit {
   cargarBrigadistas(): void {
     this.brigadistaService.obtenerTodos().subscribe({
       next: (brigadistas: Brigadista[]) => {
-<<<<<<< HEAD
-        brigadistas.forEach(b => {
-          // Aquí se transforma la fecha al formato yyyy-MM-dd
-          b.fechaNacimiento = this.datePipe.transform(b.fechaNacimiento, 'yyyy-MM-dd')!;
-          b.fechaExpedicionDocumento = this.datePipe.transform(b.fechaExpedicionDocumento, 'yyyy-MM-dd')!;
-        });
-=======
         brigadistas.forEach(brigadista => {
           brigadista.Fecha_Nacimiento = this.datePipe.transform(brigadista.Fecha_Nacimiento, 'dd/MM/yyyy') ?? '';
           brigadista.Fecha_Expedicion_Documento = this.datePipe.transform(brigadista.Fecha_Expedicion_Documento, 'dd/MM/yyyy') ?? '';
-        });   
->>>>>>> 432204ed66edecc8f2ddaf42432c11e862e689a7
+        });
         this.dataSource.data = brigadistas;
         this.dataSource.paginator = this.paginator;
       },
@@ -129,8 +121,8 @@ export class GestionPersonalComponent implements AfterViewInit {
 
       // Convierte las fechas del Excel al formato necesario
       jsonData.forEach((brigadista: Brigadista) => {
-        brigadista.fechaNacimiento = this.datePipe.transform(brigadista.fechaNacimiento, 'yyyy-MM-dd')!;
-        brigadista.fechaExpedicionDocumento = this.datePipe.transform(brigadista.fechaExpedicionDocumento, 'yyyy-MM-dd')!;
+        brigadista.Fecha_Nacimiento = this.datePipe.transform(brigadista.Fecha_Nacimiento, 'yyyy-MM-dd')!;
+        brigadista.Fecha_Expedicion_Documento = this.datePipe.transform(brigadista.Fecha_Expedicion_Documento, 'yyyy-MM-dd')!;
       });
 
       this.dataSource = new MatTableDataSource<Brigadista>(jsonData);
