@@ -4,6 +4,7 @@ import { AdminInicioComponent } from './components/admin-inicio/admin-inicio.com
 import { GestionBrigadasComponent } from './components/gestion-brigadas/gestion-brigadas.component';
 import { CrearBrigadaComponent } from './components/crear-brigada/crear-brigada.component';
 import { GestionPersonalComponent } from './components/gestion-personal/gestion-personal.component';
+import { ActualizarBrigadistaComponent } from './components/actualizar-brigadista/actualizar-brigadista.component';
 import { NovedadesComponent } from './components/novedades/novedades.component';
 import { CalendarioComponent } from './components/calendario/calendario.component';
 
@@ -13,14 +14,22 @@ export const routes: Routes = [
     path: 'admin',
     component: AdminInicioComponent,
     children: [
-      { path: '', redirectTo: 'brigadas', pathMatch: 'full' }, // Redirección por defecto
+      { path: '', redirectTo: 'login', pathMatch: 'full' },
       { path: 'brigadas', component: GestionBrigadasComponent },
       { path: 'crear-brigada', component: CrearBrigadaComponent }, // Redireccion a la creacion de brigadas
       { path: '', redirectTo: 'brigadas', pathMatch: 'full' },
       { path: 'personal', component: GestionPersonalComponent },
+      {
+        path: 'personal',
+        component: GestionPersonalComponent
+      },
+      {
+        path: 'personal/actualizar',
+        component: ActualizarBrigadistaComponent
+      },
       { path: 'novedades', component: NovedadesComponent },
-      { path: 'calendario', component: CalendarioComponent } // Ruta para calendario
+      { path: 'calendario', component: CalendarioComponent }
     ]
   },
-  { path: '**', redirectTo: '' } // Redirección en caso de ruta no encontrada
+  { path: '**', redirectTo: '', pathMatch: 'full' }
 ];

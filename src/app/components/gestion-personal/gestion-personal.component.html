@@ -1,149 +1,148 @@
+<!-- Encabezado de acciones dentro de la tabla -->
+<div class="tabla-acciones">
+  <!-- <button mat-icon-button color="primary" aria-label="Actualizar" (click)="irAActualizar()">
+    <mat-icon>refresh</mat-icon>
+  </button>   -->
+  <button mat-icon-button color="warn" aria-label="Eliminar">
+    <mat-icon>delete</mat-icon>
+  </button>
+</div>
 <div class="tabla-scroll-wrapper">
-  <!-- Encabezado de acciones dentro de la tabla -->
-  <div class="tabla-acciones">
-    <button mat-icon-button color="primary" aria-label="Actualizar">
-      <mat-icon>refresh</mat-icon>
-    </button>
-    <button mat-icon-button color="warn" aria-label="Eliminar">
-      <mat-icon>delete</mat-icon>
-    </button>
-  </div>
-
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 tabla-horizontal">
 
     <!-- Define tus columnas aquí -->
-    <ng-container matColumnDef="numeroDocumento">
+    <ng-container matColumnDef="Numero_Documento">
       <th mat-header-cell *matHeaderCellDef> Documento </th>
-      <td mat-cell *matCellDef="let element"> {{element.numeroDocumento}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.Numero_Documento}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="nombre">
+    <ng-container matColumnDef="Nombre">
       <th mat-header-cell *matHeaderCellDef> Nombre </th>
-      <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.Nombre}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="apellido">
+    <ng-container matColumnDef="Apellido">
       <th mat-header-cell *matHeaderCellDef> Apellido </th>
-      <td mat-cell *matCellDef="let element"> {{element.apellido}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.Apellido}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="tipoDocumento">
+    <ng-container matColumnDef="Tipo_Documento">
       <th mat-header-cell *matHeaderCellDef> Tipo Documento </th>
-      <td mat-cell *matCellDef="let element"> {{element.tipoDocumento}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.Tipo_Documento}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="paisExpedicionDocumento">
+    <ng-container matColumnDef="Pais_Expedicion_Documento">
       <th mat-header-cell *matHeaderCellDef> País Expedición </th>
-      <td mat-cell *matCellDef="let element"> {{element.paisExpedicionDocumento}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.Pais_Expedicion_Documento}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="municipioExpedicionDocumento">
+    <ng-container matColumnDef="Municipio_Expedicion_Documento">
       <th mat-header-cell *matHeaderCellDef> Municipio Expedición </th>
-      <td mat-cell *matCellDef="let element"> {{element.municipioExpedicionDocumento}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.Municipio_Expedicion_Documento}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="fechaExpedicionDocumento">
+    <ng-container matColumnDef="Fecha_Expedicion_Documento">
       <th mat-header-cell *matHeaderCellDef> Fecha Expedición </th>
-      <td mat-cell *matCellDef="let element"> {{element.fechaExpedicionDocumento}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.Fecha_Expedicion_Documento}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="paisNacimiento">
+    <ng-container matColumnDef="Pais_Nacimiento">
       <th mat-header-cell *matHeaderCellDef> País Nacimiento </th>
-      <td mat-cell *matCellDef="let element"> {{element.paisNacimiento}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.Pais_Nacimiento}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="fechaNacimiento">
+    <ng-container matColumnDef="Fecha_Nacimiento">
       <th mat-header-cell *matHeaderCellDef> Fecha Nacimiento </th>
-      <td mat-cell *matCellDef="let element"> {{element.fechaNacimiento}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.Fecha_Nacimiento}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="grupoSanguineo">
+    <ng-container matColumnDef="Grupo_Sanguineo">
       <th mat-header-cell *matHeaderCellDef> Grupo Sanguíneo </th>
-      <td mat-cell *matCellDef="let element"> {{element.grupoSanguineo}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.Grupo_Sanguineo}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="rh">
+    <ng-container matColumnDef="Rh">
       <th mat-header-cell *matHeaderCellDef> RH </th>
-      <td mat-cell *matCellDef="let element"> {{element.rh}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.Rh}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="sexo">
+    <ng-container matColumnDef="Sexo">
       <th mat-header-cell *matHeaderCellDef> Sexo </th>
-      <td mat-cell *matCellDef="let element"> {{element.sexo}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.Sexo}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="estadoCivil">
+    <ng-container matColumnDef="Estado_Civil">
       <th mat-header-cell *matHeaderCellDef> Estado Civil </th>
-      <td mat-cell *matCellDef="let element"> {{element.estadoCivil}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.Estado_Civil}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="telefonoMovil">
+    <ng-container matColumnDef="Telefono_Movil">
       <th mat-header-cell *matHeaderCellDef> Teléfono </th>
-      <td mat-cell *matCellDef="let element"> {{element.telefonoMovil}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.Telefono_Movil}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="correoElectronico">
+    <ng-container matColumnDef="Correo_Electronico">
       <th mat-header-cell *matHeaderCellDef> Correo </th>
-      <td mat-cell *matCellDef="let element"> {{element.correoElectronico}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.Correo_Electronico}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="tallaZapato">
+    <ng-container matColumnDef="Talla_Zapato">
       <th mat-header-cell *matHeaderCellDef> Talla Zapato </th>
-      <td mat-cell *matCellDef="let element"> {{element.tallaZapato}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.Talla_Zapato}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="peso">
+    <ng-container matColumnDef="Peso">
       <th mat-header-cell *matHeaderCellDef> Peso </th>
-      <td mat-cell *matCellDef="let element"> {{element.peso}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.Peso}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="altura">
+    <ng-container matColumnDef="Altura">
       <th mat-header-cell *matHeaderCellDef> Altura </th>
-      <td mat-cell *matCellDef="let element"> {{element.altura}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.Altura}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="ciudadResidencia">
+    <ng-container matColumnDef="Ciudad_Recidencia">
       <th mat-header-cell *matHeaderCellDef> Ciudad </th>
-      <td mat-cell *matCellDef="let element"> {{element.ciudadResidencia}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.Ciudad_Recidencia}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="direccion">
+    <ng-container matColumnDef="Direccion">
       <th mat-header-cell *matHeaderCellDef> Dirección </th>
-      <td mat-cell *matCellDef="let element"> {{element.direccion}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.Direccion}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="profesion">
+    <ng-container matColumnDef="Profesion">
       <th mat-header-cell *matHeaderCellDef> Profesión </th>
-      <td mat-cell *matCellDef="let element"> {{element.profesion}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.Profesion}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="disponibilidad">
+    <ng-container matColumnDef="Disponibilidad">
       <th mat-header-cell *matHeaderCellDef> Disponibilidad </th>
-      <td mat-cell *matCellDef="let element"> {{element.disponibilidad}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.Disponibilidad}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="estado">
+    <ng-container matColumnDef="Estado">
       <th mat-header-cell *matHeaderCellDef> Estado </th>
-      <td mat-cell *matCellDef="let element"> {{element.estado}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.Estado}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="idBrigada">
+    <ng-container matColumnDef="Id_Brigada">
       <th mat-header-cell *matHeaderCellDef> ID Brigada </th>
-      <td mat-cell *matCellDef="let element"> {{element.idBrigada}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.Id_Brigada}} </td>
     </ng-container>
 
     <!-- Filas de la tabla -->
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row
-        *matRowDef="let row; columns: displayedColumns"
-        (click)="seleccionarFila(row)"
-        [class.seleccionada]="filaSeleccionada === row">
+    <tr mat-row *matRowDef="let row; columns: displayedColumns" (click)="seleccionarFila(row)"
+      [class.seleccionada]="filaSeleccionada === row">
     </tr>
 
   </table>
 </div>
 
-<mat-paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 20]"></mat-paginator>
+<mat-paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons>
+</mat-paginator>
+
 
 
 <div class="import-container">

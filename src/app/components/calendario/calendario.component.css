@@ -1,0 +1,100 @@
+/* calendario.component.css */
+.calendar-container {
+    width: 160vh; /* Mantén el tamaño como lo pediste */
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 1); /* El mismo box-shadow */
+}
+
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.calendar-header h2 {
+    font-size: 32px;
+    margin: 0;
+    font-weight: bold; /* Agregado para mayor énfasis */
+    color: #333; /* Color neutro para el encabezado */
+}
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 10px;
+}
+
+.calendar-day-name {
+    text-align: center;
+    font-weight: bold;
+    padding: 10px 0;
+    background-color: #f1f1f1;
+    border-radius: 6px;
+    color: #333; /* Color de texto más oscuro para contraste */
+}
+
+.calendar-day {
+    height: 120px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    padding: 8px;
+    text-align: left;
+    position: relative;
+    font-size: 16px;
+    color: #333;
+    transition: all 0.2s ease-in-out;
+}
+
+.calendar-day:hover {
+    background-color: #e0f7fa;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Añadido efecto de sombra en hover */
+}
+
+.calendar-day.today {
+    border: 2px solid #2196f3;
+    background-color: #e3f2fd;
+}
+
+.calendar-day.empty {
+    background-color: transparent;
+    pointer-events: none;
+}
+
+.calendar-header button {
+    background: linear-gradient(145deg, #ffffff, #e6f0ff);
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+    color: #2196f3;
+    box-shadow: 4px 4px 8px rgba(0,0,0,0.1),
+                -4px -4px 8px rgba(255,255,255,0.7);
+    cursor: pointer;
+    transition: transform 0.2s ease, background 0.3s ease, color 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    outline: none;
+}
+
+.calendar-header button:hover {
+    background: linear-gradient(145deg, #e6f0ff, #ffffff);
+    transform: scale(1.1);
+    color: #1565c0;
+}
+
+.calendar-header button:active {
+    box-shadow: inset 4px 4px 8px rgba(0,0,0,0.1),
+                inset -4px -4px 8px rgba(255,255,255,0.7);
+    transform: scale(0.95);
+}
+
+.calendar-header button:focus {
+    outline: 2px solid #90caf9;
+}
