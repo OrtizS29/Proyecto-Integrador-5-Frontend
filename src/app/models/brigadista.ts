@@ -6,9 +6,9 @@ export interface Brigadista {
   tipoDocumento: number;
   paisExpedicionDocumento: string;
   municipioExpedicionDocumento: string;
-  fechaExpedicionDocumento: string;
+  Fecha_Expedicion_Documento: string;
   paisNacimiento: string;
-  fechaNacimiento: string;
+  Fecha_Nacimiento: string;
   grupoSanguineo: string;
   rh: string;
   sexo: string;

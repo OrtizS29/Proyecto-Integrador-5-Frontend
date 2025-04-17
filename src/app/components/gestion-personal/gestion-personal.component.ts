@@ -66,9 +66,9 @@ export class GestionPersonalComponent implements AfterViewInit {
     this.brigadistaService.obtenerTodos().subscribe({
       next: (brigadistas: Brigadista[]) => {
         brigadistas.forEach(brigadista => {
-          brigadista.fechaNacimiento = this.datePipe.transform(brigadista.fechaNacimiento, 'dd/MM/yyyy')!;
-          brigadista.fechaExpedicionDocumento = this.datePipe.transform(brigadista.fechaExpedicionDocumento, 'dd/MM/yyyy')!;
-        });
+          brigadista.Fecha_Nacimiento = this.datePipe.transform(brigadista.Fecha_Nacimiento, 'dd/MM/yyyy') ?? '';
+          brigadista.Fecha_Expedicion_Documento = this.datePipe.transform(brigadista.Fecha_Expedicion_Documento, 'dd/MM/yyyy') ?? '';
+        });   
         this.dataSource.data = brigadistas;
         this.dataSource.paginator = this.paginator;
       },
