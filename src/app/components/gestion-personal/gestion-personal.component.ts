@@ -6,8 +6,9 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-
-import * as XLSX from 'xlsx';  // Importa la librería xlsx
+import { Router } from '@angular/router';
+import * as XLSX from 'xlsx';
+import { BrigadistaDataService } from '../../services/brigadista-data.service';
 
 @Component({
   selector: 'app-gestion-personal',
@@ -45,20 +46,41 @@ export class GestionPersonalComponent implements AfterViewInit {
   ];
 
   dataSource = new MatTableDataSource<Brigadista>(BRIGADISTAS_DATA);
+  filaSeleccionada: Brigadista | null = null;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
+
+  constructor(
+    private router: Router,
+    private brigadistaService: BrigadistaDataService // ✅ inyectamos el servicio
+  ) {}
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
   }
+
+  seleccionarFila(fila: Brigadista): void {
+    this.filaSeleccionada = fila;
+    console.log('Seleccionado:', fila);
+  }
+
+  irAActualizar(): void {
+    if (this.filaSeleccionada) {
+      this.brigadistaService.setBrigadista(this.filaSeleccionada);
+      localStorage.setItem('brigadistaTemporal', JSON.stringify(this.filaSeleccionada));
+      this.router.navigate(['/admin/personal/actualizar']);
+    } else {
+      alert('Selecciona una fila primero');
+    }
+  }
   
+
   onFileChange(event: any): void {
     const file = event.target.files[0];
     if (file) {
       this.readExcel(file);
     }
   }
-
 
   readExcel(file: File): void {
     const reader = new FileReader();
@@ -68,25 +90,11 @@ export class GestionPersonalComponent implements AfterViewInit {
       const sheetName = workbook.SheetNames[0];
       const worksheet = workbook.Sheets[sheetName];
       const jsonData = XLSX.utils.sheet_to_json<Brigadista>(worksheet);
-  
-      // Actualizar el dataSource
       this.dataSource = new MatTableDataSource<Brigadista>(jsonData);
-  
-      // 🔥 Reasignar el paginador
-      this.dataSource.paginator = this.paginator;
+      this.dataSource.paginator = this.paginator; // ✅ para que funcione el paginador después de importar
     };
     reader.readAsBinaryString(file);
   }
-  
-
-  filaSeleccionada: any = null;
-
-  seleccionarFila(fila: any): void {
-    this.filaSeleccionada = fila;
-    console.log("Fila seleccionada:", fila);
-  }
-
-
 }
 
 export interface Brigadista {
@@ -142,32 +150,5 @@ const BRIGADISTAS_DATA: Brigadista[] = [
     disponibilidad: 'Disponible',
     estado: 'Activo',
     idBrigada: '1'
-  },
-  {
-    numeroDocumento: '1233',
-    nombre: 'Juan',
-    apellido: 'Perez',
-    tipoDocumento: 'cc',
-    paisExpedicionDocumento: 'Colombia',
-    municipioExpedicionDocumento: 'Bogotá',
-    fechaExpedicionDocumento: '12-11-2003',
-    paisNacimiento: 'Colombia',
-    fechaNacimiento: '12-11-2003',
-    grupoSanguineo: 'A',
-    rh: '+',
-    sexo: 'Masculino',
-    estadoCivil: 'Soltero',
-    telefonoMovil: '3121234567',
-    correoElectronico: 'juan.perez@email.com',
-    tallaZapato: '42',
-    peso: '75',
-    altura: '1.75',
-    ciudadResidencia: 'Bogotá',
-    direccion: 'Carrera 15 # 22-30',
-    profesion: 'Ingeniero',
-    disponibilidad: 'Disponible',
-    estado: 'Activo',
-    idBrigada: '1'
   }
-
 ];
