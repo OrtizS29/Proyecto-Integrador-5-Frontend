@@ -7,6 +7,9 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
+import { Brigada } from '../../models/brigada';
+import { BrigadaService } from '../../services/brigadaService';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-gestion-brigadas',
@@ -19,18 +22,40 @@ import { RouterModule } from '@angular/router';
     MatButtonModule,
     RouterModule  // 👈 Agregado aquí
   ],
+  providers: [DatePipe],
   templateUrl: './gestion-brigadas.component.html',
   styleUrls: ['./gestion-brigadas.component.css']
 })
 
 export class GestionBrigadasComponent implements AfterViewInit {
-  displayedColumns: string[] = ['nombreBrigada', 'municipio', 'fechaInicio', 'personal'];
-  dataSource = new MatTableDataSource<Brigada>(BRIGADAS_DATA);
+  displayedColumns: string[] = ['id', 'Nombre', 'Municipio', 'Fecha_Inicio'];
+  dataSource = new MatTableDataSource<Brigada>();
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
+  constructor(private brigadaService: BrigadaService, private datePipe: DatePipe) {}
+
+  ngOnInit(): void {
+    this.cargarBrigadas();
+  }
+
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
+  }
+
+  cargarBrigadas(): void{
+    this.brigadaService.obtenerTodos().subscribe({
+      next:(brigadas: Brigada[]) => {
+        brigadas.forEach(brigada => {
+        brigada.Fecha_Inicio = this.datePipe.transform(brigada.Fecha_Inicio, 'dd/MM/yyyy')!;
+        });
+        this.dataSource.data = brigadas;
+        this.dataSource.paginator = this.paginator;
+      },
+      error: (error) => {
+        console.error("Error al cargar las brigadas", error)
+      }
+    })
   }
 
   filaSeleccionada: any = null;
@@ -46,24 +71,4 @@ export class GestionBrigadasComponent implements AfterViewInit {
   }
 }
 
-export interface Brigada {
-  nombreBrigada: string;
-  municipio: string;
-  fechaInicio: string;
-  personal: string[];
-}
 
-const BRIGADAS_DATA: Brigada[] = [
-  {
-    nombreBrigada: 'Brigada Norte',
-    municipio: 'Cúcuta',
-    fechaInicio: '2024-05-01',
-    personal: ['Ana Ruiz', 'Carlos Torres', 'Laura Méndez']
-  },
-  {
-    nombreBrigada: 'Brigada Sur',
-    municipio: 'Neiva',
-    fechaInicio: '2024-04-15',
-    personal: ['Andrés Muñoz', 'Claudia Ríos']
-  }
-];
