@@ -2,7 +2,7 @@
 <div class="contenedor" *ngIf="brigadista">
     <h2>Editar Brigadista</h2>
     <hr />
-  
+
     <div class="contenido">
       <!-- Fila: Nombre + Identificación -->
       <div class="fila">
@@ -11,19 +11,19 @@
           <div class="campo">
             <label>Nombre:
               <input type="text"
-                     name="nombre"
-                     [(ngModel)]="brigadista.nombre" />
+                     name="Nombre"
+                     [(ngModel)]="brigadista.Nombre" />
             </label>
           </div>
           <div class="campo">
             <label>Apellido:
               <input type="text"
                      name="apellido"
-                     [(ngModel)]="brigadista.apellido" />
+                     [(ngModel)]="brigadista.Apellido" />
             </label>
           </div>
         </section>
-  
+
         <section class="columna">
           <h3>Identificación</h3>
           <div class="campo">
@@ -37,7 +37,7 @@
             <label>N° identificación:
               <input type="text"
                      name="numeroDocumento"
-                     [(ngModel)]="brigadista.numeroDocumento" />
+                     [(ngModel)]="brigadista.Numero_Documento" />
             </label>
           </div>
           <div class="campo">
@@ -58,12 +58,12 @@
             <label>Fecha expedición:
               <input type="date"
                      name="fechaExpedicionDocumento"
-                     [(ngModel)]="brigadista.fechaExpedicionDocumento" />
+                     [(ngModel)]="brigadista.Fecha_Expedicion_Documento" />
             </label>
           </div>
         </section>
       </div>
-  
+
       <!-- Fila: Datos personales + Contacto -->
       <div class="fila">
         <section class="columna">
@@ -128,7 +128,7 @@
             <label>Fecha nacimiento:
               <input type="date"
                      name="fechaNacimiento"
-                     [(ngModel)]="brigadista.fechaNacimiento" />
+                     [(ngModel)]="brigadista.Fecha_Nacimiento" />
             </label>
           </div>
           <div class="campo">
@@ -139,7 +139,7 @@
             </label>
           </div>
         </section>
-  
+
         <section class="columna">
           <h3>Contacto</h3>
           <div class="campo">
@@ -172,7 +172,7 @@
           </div>
         </section>
       </div>
-  
+
       <!-- Botones de acción -->
       <div class="fila" style="justify-content: flex-end; gap: 10px;">
         <button class="btn-cancel" (click)="router.navigate(['/admin/personal'])">
@@ -184,4 +184,3 @@
       </div>
     </div>
   </div>
-  

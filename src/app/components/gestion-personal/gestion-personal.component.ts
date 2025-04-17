@@ -134,7 +134,13 @@ export class GestionPersonalComponent implements AfterViewInit {
 
   irAActualizarSeleccionado(): void {
     if (this.filaSeleccionada) {
+      console.log('Fila seleccionada:', this.filaSeleccionada); //
+
       localStorage.setItem('brigadistaSeleccionado', JSON.stringify(this.filaSeleccionada));
+
+      const brigadistaGuardado = localStorage.getItem('brigadistaSeleccionado');
+      console.log('Guardado en localStorage:', brigadistaGuardado); // <-- verifica si se guardó bien
+
       this.router.navigate(['/admin/personal/actualizar']);
     } else {
       console.warn('No hay fila seleccionada');

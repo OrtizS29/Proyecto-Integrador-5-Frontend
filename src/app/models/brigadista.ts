@@ -1,8 +1,8 @@
 
 export interface Brigadista {
   Numero_Documento: number;
-  nombre: string;
-  apellido: string;
+  Nombre: string;
+  Apellido: string;
   tipoDocumento: number;
   paisExpedicionDocumento: string;
   municipioExpedicionDocumento: string;
