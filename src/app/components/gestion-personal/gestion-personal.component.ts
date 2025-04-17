@@ -78,6 +78,20 @@ export class GestionPersonalComponent implements AfterViewInit {
     })
   }
 
+  eliminar(brigadista: Brigadista): void {
+    if (confirm(`¿Estás seguro de eliminar al brigadista ${brigadista.nombre} ${brigadista.apellido}?`)) {
+      this.brigadistaService.eliminarBrigadista(brigadista.Numero_Documento).subscribe({
+        next: () => {
+          this.filaSeleccionada = null;
+          this.cargarBrigadistas(); // Recarga los brigadistas luego de eliminar
+        },
+        error: (error) => {
+          console.error('Error al eliminar brigadista:', error);
+        }
+      });
+    }
+  }
+
   onFileChange(event: any): void {
     const file = event.target.files[0];
     if (file) {
