@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BrigadistaDataService } from '../../services/brigadista-data.service';
-import { Brigadista } from '../gestion-personal/gestion-personal.component';
+import { Brigadista } from './../../models/brigadista';
 import { Router } from '@angular/router';
 
 
@@ -35,6 +35,6 @@ export class ActualizarBrigadistaComponent implements OnInit {
       }
     });
   }
-  
+
 
 }
