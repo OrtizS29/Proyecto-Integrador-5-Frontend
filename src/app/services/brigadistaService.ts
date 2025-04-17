@@ -33,4 +33,16 @@ export class BrigadistaService {
   obtenerTodos(): Observable<any> {
     return this.http.get(this.apiUrl);
   }
+
+  eliminarBrigadista(id:number): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/${id}`);
+  }
+
+  buscarBrigadistaPorId(id:number): Observable<any> {
+    return this.http.get(`${this.apiUrl}/${id}`);
+  }
+
+  actualizarBrigadista(id: number, datosActualizados: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}/${id}`, datosActualizados);
+  }
 }

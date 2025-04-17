@@ -1,9 +1,9 @@
 <!-- Encabezado de acciones dentro de la tabla -->
 <div class="tabla-acciones">
-  <!-- <button mat-icon-button color="primary" aria-label="Actualizar" (click)="irAActualizar()">
+  <button mat-icon-button color="primary" aria-label="Actualizar" (click)="actualizarBrigada(filaSeleccionada)"[disabled]="!filaSeleccionada">
     <mat-icon>refresh</mat-icon>
-  </button>   -->
-  <button mat-icon-button color="warn" aria-label="Eliminar">
+  </button>
+  <button mat-icon-button color="warn" aria-label="Eliminar" (click)="eliminar(filaSeleccionada)"[disabled]="!filaSeleccionada">
     <mat-icon>delete</mat-icon>
   </button>
 </div>
