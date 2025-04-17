@@ -34,15 +34,6 @@ export class BrigadistaService {
     return this.http.get(this.apiUrl);
   }
 
-<<<<<<< HEAD
-  buscarBrigadistaPorId(id: number): Observable<any> {
-    return this.http.get(`${this.apiUrl}/${id}`);
-  }
-
-
-
-
-=======
   eliminarBrigadista(id:number): Observable<any> {
     return this.http.delete(`${this.apiUrl}/${id}`);
   }
@@ -54,5 +45,4 @@ export class BrigadistaService {
   actualizarBrigadista(id: number, datosActualizados: any): Observable<any> {
     return this.http.put(`${this.apiUrl}/${id}`, datosActualizados);
   }
->>>>>>> 432204ed66edecc8f2ddaf42432c11e862e689a7
 }
