@@ -14,3 +14,64 @@
   white-space: nowrap; /* Asegura que el contenido no se envuelva */
   padding: 10px 160px;   /* Ajuste de espaciado */
 }
+
+.import-container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin: 20px;
+}
+
+.tabla-acciones {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-bottom: 8px;
+  gap: 8px; /* espacio entre los botones */
+}
+
+
+.import-btn {
+  background-color: #1976D2;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.import-btn mat-icon {
+  margin-right: 10px;
+}
+
+.import-btn:hover {
+  background-color: #1565C0;
+}
+
+tr.mat-row.seleccionada {
+  background-color: #e0f7fa !important;
+  font-weight: bold;
+}
+
+tr.mat-row:hover {
+  background-color: #f1f1f1;
+  cursor: pointer;
+}
+
+/* Aplica un color de fondo cuando la fila está seleccionada */
+.seleccionada {
+  background-color: #2f4aa1 !important; /* Color verde */
+  font-weight: bold;
+  color: white;  /* Texto blanco para contraste */
+}
+
+/* Aplica un efecto visual al pasar el ratón por encima */
+mat-row:hover {
+  background-color: #c8e6c9 !important;
+  cursor: pointer;
+}
+
+
+
