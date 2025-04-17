@@ -1,0 +1,56 @@
+<div class="contenedor">
+    <h1>Crear Brigada</h1>
+    
+    <mat-form-field appearance="outline">
+      <mat-label>Nombre de la brigada</mat-label>
+      <input matInput [(ngModel)]="nombreBrigada">
+    </mat-form-field>
+  
+    <mat-form-field appearance="outline">
+      <mat-label>Municipio</mat-label>
+      <input matInput [(ngModel)]="municipio">
+    </mat-form-field>
+  
+    <mat-form-field appearance="outline">
+      <mat-label>Fecha de inicio</mat-label>
+      <input matInput [matDatepicker]="picker" [(ngModel)]="fechaInicio">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+  </div>
+
+  <mat-divider></mat-divider>
+<h2 style="text-align: center;">Personal asignado</h2>
+
+<mat-form-field appearance="outline">
+    <mat-label>¿Cuántos integrantes tendrá la brigada?</mat-label>
+    <input
+      matInput
+      type="number"
+      [(ngModel)]="cantidadIntegrantes"
+      (ngModelChange)="actualizarIntegrantes()"
+      min="6"
+      max="10"
+    />
+  </mat-form-field>
+  
+  <div *ngIf="mensajeError" style="color: red; margin-top: -15px; margin-bottom: 15px;">
+    {{ mensajeError }}
+  </div>
+  
+
+<div *ngFor="let integrante of integrantes; let i = index" class="fila-integrante">
+  <div class="numero">{{ i + 1 }}.</div>
+
+  <mat-form-field appearance="outline" class="campo-nombre">
+    <mat-label>Ingrese el nombre del personal</mat-label>
+    <input matInput [(ngModel)]="integrante.nombre">
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="campo-rol">
+    <mat-label>Escoja el rol del integrante</mat-label>
+    <mat-select [(ngModel)]="integrante.rol">
+      <mat-option *ngFor="let rol of rolesDisponibles" [value]="rol">{{ rol }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
