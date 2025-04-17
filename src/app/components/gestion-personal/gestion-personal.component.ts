@@ -9,13 +9,20 @@ import { MatButtonModule } from '@angular/material/button';
 import { BrigadistaService } from './../../services/brigadistaService';
 import { Brigadista } from './../../models/brigadista';
 import { DatePipe } from '@angular/common';
+import { Router } from '@angular/router';
 
 import * as XLSX from 'xlsx';  // Importa la librería xlsx
 
 @Component({
   selector: 'app-gestion-personal',
   standalone: true,
-  imports: [CommonModule, MatTableModule, MatPaginatorModule, MatIconModule, MatButtonModule],
+  imports: [
+    CommonModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatIconModule,
+    MatButtonModule
+  ],
   providers: [DatePipe],
   templateUrl: './gestion-personal.component.html',
   styleUrls: ['./gestion-personal.component.css']
@@ -49,10 +56,15 @@ export class GestionPersonalComponent implements AfterViewInit {
   ];
 
   dataSource = new MatTableDataSource<Brigadista>();
+  filaSeleccionada: Brigadista | null = null;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  constructor(private brigadistaService: BrigadistaService, private datePipe: DatePipe) {}
+  constructor(
+    private brigadistaService: BrigadistaService,
+    private datePipe: DatePipe,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.cargarBrigadistas();
@@ -62,110 +74,57 @@ export class GestionPersonalComponent implements AfterViewInit {
     this.dataSource.paginator = this.paginator;
   }
 
-  cargarBrigadistas(): void{
+  cargarBrigadistas(): void {
     this.brigadistaService.obtenerTodos().subscribe({
       next: (brigadistas: Brigadista[]) => {
-        brigadistas.forEach(brigadista => {
-          brigadista.fechaNacimiento = this.datePipe.transform(brigadista.fechaNacimiento, 'dd/MM/yyyy')!;
-          brigadista.fechaExpedicionDocumento = this.datePipe.transform(brigadista.fechaExpedicionDocumento, 'dd/MM/yyyy')!;
+        brigadistas.forEach(b => {
+          // Aquí se transforma la fecha al formato yyyy-MM-dd
+          b.fechaNacimiento = this.datePipe.transform(b.fechaNacimiento, 'yyyy-MM-dd')!;
+          b.fechaExpedicionDocumento = this.datePipe.transform(b.fechaExpedicionDocumento, 'yyyy-MM-dd')!;
         });
         this.dataSource.data = brigadistas;
         this.dataSource.paginator = this.paginator;
       },
-      error: (error) => {
-        console.error("Error al cargar los brigadistas", error)
-      }
-    })
+      error: (error) => console.error("Error al cargar los brigadistas", error)
+    });
   }
 
   onFileChange(event: any): void {
     const file = event.target.files[0];
-    if (file) {
-      this.readExcel(file);
-    }
+    if (file) this.readExcel(file);
   }
 
   readExcel(file: File): void {
     const reader = new FileReader();
-    reader.onload = (e) => {
+    reader.onload = e => {
       const data = e.target?.result;
       const workbook = XLSX.read(data, { type: 'binary' });
-      const sheetName = workbook.SheetNames[0];
-      const worksheet = workbook.Sheets[sheetName];
-      const jsonData = XLSX.utils.sheet_to_json<Brigadista>(worksheet);
+      const sheet = workbook.Sheets[workbook.SheetNames[0]];
+      const jsonData = XLSX.utils.sheet_to_json<Brigadista>(sheet);
 
-      // Actualizar el dataSource
+      // Convierte las fechas del Excel al formato necesario
+      jsonData.forEach((brigadista: Brigadista) => {
+        brigadista.fechaNacimiento = this.datePipe.transform(brigadista.fechaNacimiento, 'yyyy-MM-dd')!;
+        brigadista.fechaExpedicionDocumento = this.datePipe.transform(brigadista.fechaExpedicionDocumento, 'yyyy-MM-dd')!;
+      });
+
       this.dataSource = new MatTableDataSource<Brigadista>(jsonData);
-
-      // 🔥 Reasignar el paginador
       this.dataSource.paginator = this.paginator;
     };
     reader.readAsBinaryString(file);
   }
 
-
-  filaSeleccionada: any = null;
-
-  seleccionarFila(fila: any): void {
+  seleccionarFila(fila: Brigadista): void {
     this.filaSeleccionada = fila;
     console.log("Fila seleccionada:", fila);
   }
 
-
+  irAActualizarSeleccionado(): void {
+    if (this.filaSeleccionada) {
+      localStorage.setItem('brigadistaSeleccionado', JSON.stringify(this.filaSeleccionada));
+      this.router.navigate(['/admin/personal/actualizar']);
+    } else {
+      console.warn('No hay fila seleccionada');
+    }
+  }
 }
-
-// const BRIGADISTAS_DATA: Brigadista[] = [
-//   {
-//     numeroDocumento: '1233',
-//     nombre: 'Juan',
-//     apellido: 'Perez',
-//     tipoDocumento: 'cc',
-//     paisExpedicionDocumento: 'Colombia',
-//     municipioExpedicionDocumento: 'Bogotá',
-//     fechaExpedicionDocumento: '12-11-2003',
-//     paisNacimiento: 'Colombia',
-//     fechaNacimiento: '12-11-2003',
-//     grupoSanguineo: 'A',
-//     rh: '+',
-//     sexo: 'Masculino',
-//     estadoCivil: 'Soltero',
-//     telefonoMovil: '3121234567',
-//     correoElectronico: 'juan.perez@email.com',
-//     tallaZapato: '42',
-//     peso: '75',
-//     altura: '1.75',
-//     ciudadResidencia: 'Bogotá',
-//     direccion: 'Carrera 15 # 22-30',
-//     profesion: 'Ingeniero',
-//     disponibilidad: 'Disponible',
-//     estado: 'Activo',
-//     idBrigada: '1'
-//   },
-//   {
-//     numeroDocumento: '1233',
-//     nombre: 'Juan',
-//     apellido: 'Perez',
-//     tipoDocumento: 'cc',
-//     paisExpedicionDocumento: 'Colombia',
-//     municipioExpedicionDocumento: 'Bogotá',
-//     fechaExpedicionDocumento: '12-11-2003',
-//     paisNacimiento: 'Colombia',
-//     fechaNacimiento: '12-11-2003',
-//     grupoSanguineo: 'A',
-//     rh: '+',
-//     sexo: 'Masculino',
-//     estadoCivil: 'Soltero',
-//     telefonoMovil: '3121234567',
-//     correoElectronico: 'juan.perez@email.com',
-//     tallaZapato: '42',
-//     peso: '75',
-//     altura: '1.75',
-//     ciudadResidencia: 'Bogotá',
-//     direccion: 'Carrera 15 # 22-30',
-//     profesion: 'Ingeniero',
-//     disponibilidad: 'Disponible',
-//     estado: 'Activo',
-//     idBrigada: '1'
-//   }
-
-// ];

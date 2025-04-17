@@ -28,9 +28,17 @@ export class BrigadistaService {
    * Inyeccion e instancia del cliente de HTTP para poder usarlo
    * @param http
    */
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   obtenerTodos(): Observable<any> {
     return this.http.get(this.apiUrl);
   }
+
+  buscarBrigadistaPorId(id: number): Observable<any> {
+    return this.http.get(`${this.apiUrl}/${id}`);
+  }
+
+
+
+
 }
