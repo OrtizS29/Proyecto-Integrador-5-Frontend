@@ -1,5 +1,6 @@
 <!-- gestion-personal.component.html -->
 <div class="tabla-acciones">
+<<<<<<< HEAD
   <button
     mat-icon-button
     color="primary"
@@ -9,6 +10,12 @@
     <mat-icon>refresh</mat-icon>
   </button>
   <button mat-icon-button color="warn" aria-label="Eliminar">
+=======
+  <button mat-icon-button color="primary" aria-label="Actualizar" (click)="actualizarBrigada(filaSeleccionada)"[disabled]="!filaSeleccionada">
+    <mat-icon>refresh</mat-icon>
+  </button>
+  <button mat-icon-button color="warn" aria-label="Eliminar" (click)="eliminar(filaSeleccionada)"[disabled]="!filaSeleccionada">
+>>>>>>> 432204ed66edecc8f2ddaf42432c11e862e689a7
     <mat-icon>delete</mat-icon>
   </button>
 </div>

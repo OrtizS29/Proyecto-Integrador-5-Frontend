@@ -1,19 +1,19 @@
 
 export interface Brigadista {
-  numeroDocumento: string;
+  Numero_Documento: number;
   nombre: string;
   apellido: string;
-  tipoDocumento: string;
+  tipoDocumento: number;
   paisExpedicionDocumento: string;
   municipioExpedicionDocumento: string;
-  fechaExpedicionDocumento: string;
+  Fecha_Expedicion_Documento: string;
   paisNacimiento: string;
-  fechaNacimiento: string;
+  Fecha_Nacimiento: string;
   grupoSanguineo: string;
   rh: string;
   sexo: string;
   estadoCivil: string;
-  telefonoMovil: string;
+  telefonoMovil: number;
   correoElectronico: string;
   tallaZapato: string;
   peso: string;

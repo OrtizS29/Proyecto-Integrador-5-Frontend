@@ -1,1 +1,63 @@
-<p>gestion-brigadas works!</p>
+<div class="tabla-scroll-wrapper">
+    <!-- Encabezado de acciones dentro de la tabla -->
+    <div class="tabla-acciones">
+      <button mat-icon-button color="primary" aria-label="Actualizar">
+        <mat-icon>refresh</mat-icon>
+      </button>
+      <button mat-icon-button color="warn" aria-label="Eliminar">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+  
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 tabla-horizontal">
+      
+
+      <!-- Id Brigada -->
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef> Id Brigada </th>
+        <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+      </ng-container>
+
+      <!-- Nombre Brigada -->
+      <ng-container matColumnDef="Nombre">
+        <th mat-header-cell *matHeaderCellDef> Nombre Brigada </th>
+        <td mat-cell *matCellDef="let element"> {{element.Nombre}} </td>
+      </ng-container>
+  
+      <!-- Municipio -->
+      <ng-container matColumnDef="Municipio">
+        <th mat-header-cell *matHeaderCellDef> Municipio </th>
+        <td mat-cell *matCellDef="let element"> {{element.Municipio}} </td>
+      </ng-container>
+  
+      <!-- Fecha de Inicio -->
+      <ng-container matColumnDef="Fecha_Inicio">
+        <th mat-header-cell *matHeaderCellDef> Fecha Inicio </th>
+        <td mat-cell *matCellDef="let element"> {{element.Fecha_Inicio}} </td>
+      </ng-container>
+  
+      <!-- Personal (solo nombres)
+      <ng-container matColumnDef="personal">
+        <th mat-header-cell *matHeaderCellDef> Personal </th>
+        <td mat-cell *matCellDef="let element"> {{element.personal.join(', ')}} </td>
+      </ng-container> -->
+  
+      <!-- Filas de la tabla -->
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row
+          *matRowDef="let row; columns: displayedColumns"
+          (click)="seleccionarFila(row)"
+          [class.seleccionada]="filaSeleccionada === row">
+      </tr>
+    </table>
+  </div>
+  
+  <mat-paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 20]"></mat-paginator>
+  
+  <button mat-raised-button color="primary" [routerLink]="'/admin/crear-brigada'">
+    Crear
+  </button>
+  
+  
+  
+  

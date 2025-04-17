@@ -1,0 +1,70 @@
+.novedades-container {
+    background: white;
+    border: 2px solid #000;
+    padding: 20px;
+    width: 90%;
+    max-width: 850px;
+    text-align: center;
+  }
+  
+  .tabla-novedades {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    font-family: Arial, sans-serif;
+  }
+  
+  .tabla-novedades th,
+  .tabla-novedades td {
+    border: 1px solid black;
+    padding: 12px;
+  }
+  
+  .titulo {
+    font-size: 24px;
+    font-weight: bold;
+    background-color: white;
+    color: black;
+    text-align: center;
+  }
+  
+  .acciones {
+    text-align: right;
+    background-color: white;
+  }
+  
+  .icon-btn {
+    font-size: 18px;
+    background: none;
+    border: none;
+    margin-left: 8px;
+    cursor: pointer;
+  }
+  
+  .icon-btn:hover {
+    transform: scale(1.1);
+  }
+  
+  .paginacion {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+  }
+  
+  .nav-btn {
+    background: none;
+    border: 2px solid black;
+    border-radius: 50%;
+    font-size: 20px;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    font-weight: bold;
+  }
+  
+  .pagina {
+    font-size: 16px;
+    font-weight: bold;
+  }
+  

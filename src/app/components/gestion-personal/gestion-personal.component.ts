@@ -77,16 +77,41 @@ export class GestionPersonalComponent implements AfterViewInit {
   cargarBrigadistas(): void {
     this.brigadistaService.obtenerTodos().subscribe({
       next: (brigadistas: Brigadista[]) => {
+<<<<<<< HEAD
         brigadistas.forEach(b => {
           // Aquí se transforma la fecha al formato yyyy-MM-dd
           b.fechaNacimiento = this.datePipe.transform(b.fechaNacimiento, 'yyyy-MM-dd')!;
           b.fechaExpedicionDocumento = this.datePipe.transform(b.fechaExpedicionDocumento, 'yyyy-MM-dd')!;
         });
+=======
+        brigadistas.forEach(brigadista => {
+          brigadista.Fecha_Nacimiento = this.datePipe.transform(brigadista.Fecha_Nacimiento, 'dd/MM/yyyy') ?? '';
+          brigadista.Fecha_Expedicion_Documento = this.datePipe.transform(brigadista.Fecha_Expedicion_Documento, 'dd/MM/yyyy') ?? '';
+        });   
+>>>>>>> 432204ed66edecc8f2ddaf42432c11e862e689a7
         this.dataSource.data = brigadistas;
         this.dataSource.paginator = this.paginator;
       },
       error: (error) => console.error("Error al cargar los brigadistas", error)
     });
+  }
+
+  eliminar(brigadista: Brigadista): void {
+    if (confirm(`¿Estás seguro de eliminar al brigadista ${brigadista.nombre} ${brigadista.apellido}?`)) {
+      this.brigadistaService.eliminarBrigadista(brigadista.Numero_Documento).subscribe({
+        next: () => {
+          this.filaSeleccionada = null;
+          this.cargarBrigadistas(); // Recarga los brigadistas luego de eliminar
+        },
+        error: (error) => {
+          console.error('Error al eliminar brigadista:', error);
+        }
+      });
+    }
+  }
+
+  actualizarBrigada(arg0: any) {
+    throw new Error('Method not implemented.');
   }
 
   onFileChange(event: any): void {
