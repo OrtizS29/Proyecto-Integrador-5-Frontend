@@ -1,22 +1,26 @@
+// actualizar-brigadista.component.ts
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 import { BrigadistaDataService } from '../../services/brigadista-data.service';
 import { Brigadista } from '../gestion-personal/gestion-personal.component';
-import { Router } from '@angular/router';
-
 
 @Component({
   selector: 'app-actualizar-brigadista',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './actualizar-brigadista.component.html',
   styleUrls: ['./actualizar-brigadista.component.css']
 })
 export class ActualizarBrigadistaComponent implements OnInit {
-  brigadista: Brigadista | null = null;
+  // Inicializo como objeto vacío; luego viene la data del servicio o localStorage
+  brigadista: Brigadista = {} as Brigadista;
 
-  constructor(private brigadistaService: BrigadistaDataService,   private router: Router // ✅ ¡Agregado!
-  ) { }
+  constructor(
+    private brigadistaService: BrigadistaDataService,
+    public router: Router
+  ) {}
 
   ngOnInit(): void {
     this.brigadistaService.brigadista$.subscribe(data => {
@@ -25,9 +29,8 @@ export class ActualizarBrigadistaComponent implements OnInit {
       } else {
         const local = localStorage.getItem('brigadistaTemporal');
         if (local) {
-          const brigadista: Brigadista = JSON.parse(local);
-          this.brigadista = brigadista;
-          this.brigadistaService.setBrigadista(brigadista);
+          this.brigadista = JSON.parse(local);
+          this.brigadistaService.setBrigadista(this.brigadista);
         } else {
           alert('No se ha seleccionado ningún brigadista.');
           this.router.navigate(['/admin/personal']);
@@ -35,6 +38,11 @@ export class ActualizarBrigadistaComponent implements OnInit {
       }
     });
   }
-  
 
+  guardarCambios() {
+    // Aquí iría la llamada PUT/servicio para persistir cambios.
+    console.log('Brigadista actualizado:', this.brigadista);
+    // luego navegas de vuelta:
+    this.router.navigate(['/admin/personal']);
+  }
 }

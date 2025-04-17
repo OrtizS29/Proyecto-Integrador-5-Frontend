@@ -1,1 +1,35 @@
-<p>calendario works!</p>
+<div class="calendar-container">
+    <div class="calendar-header">
+        <button (click)="prevMonth()">&#10094;</button>
+        <h2>{{ monthNames[currentMonth] }} {{ currentYear }}</h2>
+        <button (click)="nextMonth()">&#10095;</button>
+      </div>
+      
+
+  
+    <!-- Nombres de los días -->
+    <div class="calendar-grid">
+      <div class="calendar-day-name">Dom</div>
+      <div class="calendar-day-name">Lun</div>
+      <div class="calendar-day-name">Mar</div>
+      <div class="calendar-day-name">Mié</div>
+      <div class="calendar-day-name">Jue</div>
+      <div class="calendar-day-name">Vie</div>
+      <div class="calendar-day-name">Sáb</div>
+  
+      <!-- Días del mes con espacios vacíos -->
+      <ng-container *ngFor="let semana of weeks">
+        <ng-container *ngFor="let dia of semana">
+          <div
+            class="calendar-day"
+            [class.empty]="!isDateValid(dia.date)"
+            [class.today]="isToday(dia.date)">
+            <ng-container *ngIf="isDateValid(dia.date)">
+              {{ dia.date?.getDate() }}
+            </ng-container>
+          </div>
+        </ng-container>
+      </ng-container>
+    </div>
+  </div>
+  

@@ -1,4 +1,5 @@
-<div class="contenedor">
+<!-- actualizar-brigadista.component.html -->
+<div class="contenedor" *ngIf="brigadista">
     <h2>Editar Brigadista</h2>
     <hr />
   
@@ -7,17 +8,59 @@
       <div class="fila">
         <section class="columna">
           <h3>Nombre</h3>
-          <div class="campo"><label>Nombre: <input type="text" value="Oscar David" /></label></div>
-          <div class="campo"><label>Apellido: <input type="text" value="Macias Palomino" /></label></div>
+          <div class="campo">
+            <label>Nombre:
+              <input type="text"
+                     name="nombre"
+                     [(ngModel)]="brigadista.nombre" />
+            </label>
+          </div>
+          <div class="campo">
+            <label>Apellido:
+              <input type="text"
+                     name="apellido"
+                     [(ngModel)]="brigadista.apellido" />
+            </label>
+          </div>
         </section>
   
         <section class="columna">
           <h3>Identificación</h3>
-          <div class="campo"><label>Tipo identificación: <input type="text" value="Cedula" /></label></div>
-          <div class="campo"><label>N° identificación: <input type="text" value="1119158452" /></label></div>
-          <div class="campo"><label>País de expedición: <input type="text" value="Colombia" /></label></div>
-          <div class="campo"><label>Municipio de expedición: <input type="text" value="Bucaramanga" /></label></div>
-          <div class="campo"><label>Fecha expedición: <input type="date" value="1985-01-10" /></label></div>
+          <div class="campo">
+            <label>Tipo identificación:
+              <input type="text"
+                     name="tipoDocumento"
+                     [(ngModel)]="brigadista.tipoDocumento" />
+            </label>
+          </div>
+          <div class="campo">
+            <label>N° identificación:
+              <input type="text"
+                     name="numeroDocumento"
+                     [(ngModel)]="brigadista.numeroDocumento" />
+            </label>
+          </div>
+          <div class="campo">
+            <label>País de expedición:
+              <input type="text"
+                     name="paisExpedicionDocumento"
+                     [(ngModel)]="brigadista.paisExpedicionDocumento" />
+            </label>
+          </div>
+          <div class="campo">
+            <label>Municipio de expedición:
+              <input type="text"
+                     name="municipioExpedicionDocumento"
+                     [(ngModel)]="brigadista.municipioExpedicionDocumento" />
+            </label>
+          </div>
+          <div class="campo">
+            <label>Fecha expedición:
+              <input type="date"
+                     name="fechaExpedicionDocumento"
+                     [(ngModel)]="brigadista.fechaExpedicionDocumento" />
+            </label>
+          </div>
         </section>
       </div>
   
@@ -25,25 +68,119 @@
       <div class="fila">
         <section class="columna">
           <h3>Datos personales</h3>
-          <div class="campo"><label>Sexo: <input type="text" value="Masculino" /></label></div>
-          <div class="campo"><label>País de nacimiento: <input type="text" value="Colombia" /></label></div>
-          <div class="campo"><label>Grupo sanguíneo: <input type="text" value="A" /></label></div>
-          <div class="campo"><label>RH: <input type="text" value="+" /></label></div>
-          <div class="campo"><label>Talla zapato: <input type="text" value="42 cm" /></label></div>
-          <div class="campo"><label>Estatura: <input type="text" value="174 cm" /></label></div>
-          <div class="campo"><label>Peso: <input type="text" value="75 kg" /></label></div>
-          <div class="campo"><label>Estado civil: <input type="text" value="Soltero" /></label></div>
-          <div class="campo"><label>Fecha nacimiento: <input type="date" value="1967-01-01" /></label></div>
-          <div class="campo"><label>Profesión: <input type="text" value="Ingeniero ambiental" /></label></div>
+          <div class="campo">
+            <label>Sexo:
+              <input type="text"
+                     name="sexo"
+                     [(ngModel)]="brigadista.sexo" />
+            </label>
+          </div>
+          <div class="campo">
+            <label>País de nacimiento:
+              <input type="text"
+                     name="paisNacimiento"
+                     [(ngModel)]="brigadista.paisNacimiento" />
+            </label>
+          </div>
+          <div class="campo">
+            <label>Grupo sanguíneo:
+              <input type="text"
+                     name="grupoSanguineo"
+                     [(ngModel)]="brigadista.grupoSanguineo" />
+            </label>
+          </div>
+          <div class="campo">
+            <label>RH:
+              <input type="text"
+                     name="rh"
+                     [(ngModel)]="brigadista.rh" />
+            </label>
+          </div>
+          <div class="campo">
+            <label>Talla zapato:
+              <input type="text"
+                     name="tallaZapato"
+                     [(ngModel)]="brigadista.tallaZapato" />
+            </label>
+          </div>
+          <div class="campo">
+            <label>Estatura:
+              <input type="text"
+                     name="altura"
+                     [(ngModel)]="brigadista.altura" />
+            </label>
+          </div>
+          <div class="campo">
+            <label>Peso:
+              <input type="text"
+                     name="peso"
+                     [(ngModel)]="brigadista.peso" />
+            </label>
+          </div>
+          <div class="campo">
+            <label>Estado civil:
+              <input type="text"
+                     name="estadoCivil"
+                     [(ngModel)]="brigadista.estadoCivil" />
+            </label>
+          </div>
+          <div class="campo">
+            <label>Fecha nacimiento:
+              <input type="date"
+                     name="fechaNacimiento"
+                     [(ngModel)]="brigadista.fechaNacimiento" />
+            </label>
+          </div>
+          <div class="campo">
+            <label>Profesión:
+              <input type="text"
+                     name="profesion"
+                     [(ngModel)]="brigadista.profesion" />
+            </label>
+          </div>
         </section>
   
         <section class="columna">
           <h3>Contacto</h3>
-          <div class="campo"><label>Teléfono móvil: <input type="text" value="31725478965" /></label></div>
-          <div class="campo"><label>Correo electrónico: <input type="email" value="omacias1@gmail.com" /></label></div>
-          <div class="campo"><label>Dirección: <input type="text" value="Calle 19 #27-17" /></label></div>
-          <div class="campo"><label>Ciudad de residencia: <input type="text" value="Bucaramanga" /></label></div>
+          <div class="campo">
+            <label>Teléfono móvil:
+              <input type="text"
+                     name="telefonoMovil"
+                     [(ngModel)]="brigadista.telefonoMovil" />
+            </label>
+          </div>
+          <div class="campo">
+            <label>Correo electrónico:
+              <input type="email"
+                     name="correoElectronico"
+                     [(ngModel)]="brigadista.correoElectronico" />
+            </label>
+          </div>
+          <div class="campo">
+            <label>Dirección:
+              <input type="text"
+                     name="direccion"
+                     [(ngModel)]="brigadista.direccion" />
+            </label>
+          </div>
+          <div class="campo">
+            <label>Ciudad de residencia:
+              <input type="text"
+                     name="ciudadResidencia"
+                     [(ngModel)]="brigadista.ciudadResidencia" />
+            </label>
+          </div>
         </section>
+      </div>
+  
+      <!-- Botones de acción -->
+      <div class="fila" style="justify-content: flex-end; gap: 10px;">
+        <button class="btn-cancel" (click)="router.navigate(['/admin/personal'])">
+          Cancelar
+        </button>
+        <button class="btn-guardar" (click)="guardarCambios()">
+          Guardar
+        </button>
       </div>
     </div>
   </div>
