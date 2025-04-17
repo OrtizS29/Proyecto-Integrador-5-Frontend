@@ -1,6 +1,6 @@
+import { Brigadista } from './../models/brigadista';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { Brigadista } from '../components/gestion-personal/gestion-personal.component';
 
 @Injectable({
   providedIn: 'root'

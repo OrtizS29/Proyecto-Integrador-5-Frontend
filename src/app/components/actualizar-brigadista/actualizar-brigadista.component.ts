@@ -2,9 +2,10 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
 import { BrigadistaDataService } from '../../services/brigadista-data.service';
-import { Brigadista } from '../gestion-personal/gestion-personal.component';
+import { Brigadista } from './../../models/brigadista';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-actualizar-brigadista',
