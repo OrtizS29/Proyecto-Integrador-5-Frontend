@@ -3,7 +3,7 @@
   <!-- <button mat-icon-button color="primary" aria-label="Actualizar" (click)="irAActualizar()">
     <mat-icon>refresh</mat-icon>
   </button>   -->
-  <button mat-icon-button color="warn" aria-label="Eliminar">
+  <button mat-icon-button color="warn" aria-label="Eliminar" (click)="eliminar(filaSeleccionada)"[disabled]="!filaSeleccionada">
     <mat-icon>delete</mat-icon>
   </button>
 </div>
