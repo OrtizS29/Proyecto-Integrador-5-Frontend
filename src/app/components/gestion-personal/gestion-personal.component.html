@@ -1,6 +1,6 @@
 <!-- gestion-personal.component.html -->
 <div class="tabla-acciones">
-  <button mat-icon-button color="primary" aria-label="Actualizar" (click)="actualizarBrigada(filaSeleccionada)"[disabled]="!filaSeleccionada">
+  <button mat-icon-button color="primary" aria-label="Actualizar" (click)="irAActualizarSeleccionado()">
     <mat-icon>refresh</mat-icon>
   </button>
   <button mat-icon-button color="warn" aria-label="Eliminar" (click)="eliminar(filaSeleccionada)"[disabled]="!filaSeleccionada">
@@ -51,11 +51,7 @@
     <ng-container matColumnDef="Fecha_Expedicion_Documento">
       <th mat-header-cell *matHeaderCellDef> Fecha Expedición </th>
       <td mat-cell *matCellDef="let element">
-        <input
-          type="date"
-          [value]="element.Fecha_Expedicion_Documento"
-          disabled
-        />
+          {{element.Fecha_Expedicion_Documento}}
       </td>
     </ng-container>
 
@@ -69,11 +65,7 @@
     <ng-container matColumnDef="Fecha_Nacimiento">
       <th mat-header-cell *matHeaderCellDef> Fecha Nacimiento </th>
       <td mat-cell *matCellDef="let element">
-        <input
-          type="date"
-          [value]="element.Fecha_Nacimiento"
-          disabled
-        />
+        {{element.Fecha_Nacimiento}}
       </td>
     </ng-container>
 
