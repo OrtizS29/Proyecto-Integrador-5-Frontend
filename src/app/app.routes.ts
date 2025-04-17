@@ -14,22 +14,15 @@ export const routes: Routes = [
     path: 'admin',
     component: AdminInicioComponent,
     children: [
-      { path: '', redirectTo: 'login', pathMatch: 'full' },
+      { path: '', redirectTo: 'admin', pathMatch: 'full' }, // ✅ redirección correcta al iniciar admin
       { path: 'brigadas', component: GestionBrigadasComponent },
-      { path: 'crear-brigada', component: CrearBrigadaComponent }, // Redireccion a la creacion de brigadas
-      { path: '', redirectTo: 'brigadas', pathMatch: 'full' },
+      { path: 'crear-brigada', component: CrearBrigadaComponent },
       { path: 'personal', component: GestionPersonalComponent },
-      {
-        path: 'personal',
-        component: GestionPersonalComponent
-      },
-      {
-        path: 'personal/actualizar',
-        component: ActualizarBrigadistaComponent
-      },
+      { path: 'personal/actualizar', component: ActualizarBrigadistaComponent },
       { path: 'novedades', component: NovedadesComponent },
       { path: 'calendario', component: CalendarioComponent }
     ]
   },
   { path: '**', redirectTo: '', pathMatch: 'full' }
 ];
+
