@@ -48,11 +48,10 @@ export class GestionPersonalComponent implements AfterViewInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  // Función que se ejecuta cuando la vista se carga
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
   }
-
+  
   onFileChange(event: any): void {
     const file = event.target.files[0];
     if (file) {
@@ -69,10 +68,16 @@ export class GestionPersonalComponent implements AfterViewInit {
       const sheetName = workbook.SheetNames[0];
       const worksheet = workbook.Sheets[sheetName];
       const jsonData = XLSX.utils.sheet_to_json<Brigadista>(worksheet);
-      this.dataSource.data = jsonData;
+  
+      // Actualizar el dataSource
+      this.dataSource = new MatTableDataSource<Brigadista>(jsonData);
+  
+      // 🔥 Reasignar el paginador
+      this.dataSource.paginator = this.paginator;
     };
     reader.readAsBinaryString(file);
   }
+  
 
   filaSeleccionada: any = null;
 
@@ -164,5 +169,5 @@ const BRIGADISTAS_DATA: Brigadista[] = [
     estado: 'Activo',
     idBrigada: '1'
   }
-  
+
 ];

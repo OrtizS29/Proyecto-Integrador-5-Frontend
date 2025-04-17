@@ -1,18 +1,24 @@
 .tabla-scroll-wrapper {
   display: block;
-  overflow: auto;    /* Esto permite el scroll horizontal solo cuando la tabla sea más ancha que el contenedor */
+  overflow-x: auto;
+  /* Esto permite el scroll horizontal solo cuando la tabla sea más ancha que el contenedor */
   width: 160vh;
-  
+  height: 150hv;
+
 }
 
 .tabla-horizontal {
   width: max-content;
-  min-width: 800px;   /* Establece un mínimo para que la tabla sea más ancha que el contenedor */
+  min-width: 100vh;
+  /* Establece un mínimo para que la tabla sea más ancha que el contenedor */
 }
 
-.mat-header-cell, .mat-cell {
-  white-space: nowrap; /* Asegura que el contenido no se envuelva */
-  padding: 10px 160px;   /* Ajuste de espaciado */
+.mat-header-cell,
+.mat-cell {
+  white-space: nowrap;
+  /* Asegura que el contenido no se envuelva */
+  padding: 1vh 16vh;
+  /* Ajuste de espaciado */
 }
 
 .import-container {
@@ -27,7 +33,8 @@
   justify-content: flex-end;
   align-items: center;
   margin-bottom: 8px;
-  gap: 8px; /* espacio entre los botones */
+  gap: 8px;
+  /* espacio entre los botones */
 }
 
 
@@ -62,9 +69,11 @@ tr.mat-row:hover {
 
 /* Aplica un color de fondo cuando la fila está seleccionada */
 .seleccionada {
-  background-color: #2f4aa1 !important; /* Color verde */
+  background-color: #2f4aa1 !important;
+  /* Color verde */
   font-weight: bold;
-  color: white;  /* Texto blanco para contraste */
+  color: white;
+  /* Texto blanco para contraste */
 }
 
 /* Aplica un efecto visual al pasar el ratón por encima */
@@ -72,6 +81,3 @@ mat-row:hover {
   background-color: #c8e6c9 !important;
   cursor: pointer;
 }
-
-
-

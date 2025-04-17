@@ -1,14 +1,13 @@
+<!-- Encabezado de acciones dentro de la tabla -->
+<div class="tabla-acciones">
+  <button mat-icon-button color="primary" aria-label="Actualizar">
+    <mat-icon>refresh</mat-icon>
+  </button>
+  <button mat-icon-button color="warn" aria-label="Eliminar">
+    <mat-icon>delete</mat-icon>
+  </button>
+</div>
 <div class="tabla-scroll-wrapper">
-  <!-- Encabezado de acciones dentro de la tabla -->
-  <div class="tabla-acciones">
-    <button mat-icon-button color="primary" aria-label="Actualizar">
-      <mat-icon>refresh</mat-icon>
-    </button>
-    <button mat-icon-button color="warn" aria-label="Eliminar">
-      <mat-icon>delete</mat-icon>
-    </button>
-  </div>
-
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 tabla-horizontal">
 
     <!-- Define tus columnas aquí -->
@@ -134,16 +133,16 @@
 
     <!-- Filas de la tabla -->
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row
-        *matRowDef="let row; columns: displayedColumns"
-        (click)="seleccionarFila(row)"
-        [class.seleccionada]="filaSeleccionada === row">
+    <tr mat-row *matRowDef="let row; columns: displayedColumns" (click)="seleccionarFila(row)"
+      [class.seleccionada]="filaSeleccionada === row">
     </tr>
 
   </table>
 </div>
 
-<mat-paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 20]"></mat-paginator>
+<mat-paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons>
+</mat-paginator>
+
 
 
 <div class="import-container">
