@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { BrigadistaDataService } from '../../services/brigadista-data.service';
 import { Brigadista } from './../../models/brigadista';
 import { Router } from '@angular/router';
+import { BrigadistaService } from '../../services/brigadistaService';
 
 
 @Component({
@@ -20,8 +21,9 @@ export class ActualizarBrigadistaComponent implements OnInit {
 
   constructor(
     private brigadistaService: BrigadistaDataService,
-    public router: Router
-  ) {}
+    private apiService: BrigadistaService, // <-- Agregado aquí
+    public router: Router
+  ) {}
 
   ngOnInit(): void {
     this.brigadistaService.brigadista$.subscribe(data => {
@@ -53,9 +55,35 @@ export class ActualizarBrigadistaComponent implements OnInit {
   }
 
   guardarCambios() {
-    // Aquí iría la llamada PUT/servicio para persistir cambios.
-    console.log('Brigadista actualizado:', this.brigadista);
-    // luego navegas de vuelta:
-    this.router.navigate(['/admin/personal']);
+    if (this.brigadista && this.brigadista.Numero_Documento) {
+      const brigadistaActualizado = { ...this.brigadista }; // Clonamos el objeto para no afectar el original
+  
+      // Convertimos las fechas solo si existen
+      if (brigadistaActualizado.Fecha_Nacimiento) {
+        brigadistaActualizado.Fecha_Nacimiento = new Date(brigadistaActualizado.Fecha_Nacimiento).toISOString();
+      }
+      if (brigadistaActualizado.Fecha_Expedicion_Documento) {
+        brigadistaActualizado.Fecha_Expedicion_Documento = new Date(brigadistaActualizado.Fecha_Expedicion_Documento).toISOString();
+      }
+  
+      this.apiService.actualizarBrigadista(
+        brigadistaActualizado.Numero_Documento,
+        brigadistaActualizado
+      ).subscribe({
+        next: (respuesta) => {
+          console.log('Actualizado correctamente:', respuesta);
+          alert('Brigadista actualizado exitosamente.');
+          this.router.navigate(['/admin/personal']);
+        },
+        error: (error) => {
+          console.error('Error al actualizar el brigadista:', error);
+          alert('Ocurrió un error al guardar los cambios.');
+        }
+      });
+    } else {
+      alert('Datos incompletos del brigadista.');
+    }
   }
+  
+  
 }
