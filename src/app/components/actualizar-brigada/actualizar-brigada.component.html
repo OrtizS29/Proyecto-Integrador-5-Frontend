@@ -1,1 +1,48 @@
-<p>actualizar-brigada works!</p>
+<div class="form-container">
+    <h2>Editar brigada</h2>
+  
+    <!-- Datos generales -->
+    <div class="brigada-section">
+      <label for="nombre">Nombre:</label>
+      <input type="text" id="nombre" [(ngModel)]="brigada.nombre">
+  
+      <label for="municipio">Municipio:</label>
+      <input type="text" id="municipio" [(ngModel)]="brigada.municipio">
+  
+      <label for="fecha">Fecha de inicio:</label>
+      <input type="date" id="fecha" [(ngModel)]="brigada.fechaInicio">
+    </div>
+  
+    <!-- Personal asignado -->
+    <div class="personal-section">
+      <h3>Editar personal asignado</h3>
+      <label for="cantidad">¿Cuántos integrantes tendrá la brigada?</label>
+      <input
+        type="number"
+        id="cantidad"
+        [(ngModel)]="cantidadPersonal"
+        min="6"
+        max="10"
+        (change)="ajustarCantidadPersonal()"
+      />
+  
+      <div class="personal-list" *ngFor="let persona of personal; index as i">
+        <label>{{ i + 1 }}.</label>
+        <input
+          type="text"
+          placeholder="Nombre del personal"
+          [(ngModel)]="persona.nombre"
+        />
+        <select [(ngModel)]="persona.rol">
+          <option value="" disabled>Escoja el rol del integrante</option>
+          <option *ngFor="let rol of roles" [value]="rol">{{ rol }}</option>
+        </select>
+      </div>
+    </div>
+  
+    <div class="botones">
+      <button (click)="cancelar()">Cancelar</button>
+      <button (click)="guardar()">Guardar</button>
+    </div>
+  </div>
+  

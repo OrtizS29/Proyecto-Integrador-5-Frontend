@@ -7,6 +7,7 @@ import { GestionPersonalComponent } from './components/gestion-personal/gestion-
 import { ActualizarBrigadistaComponent } from './components/actualizar-brigadista/actualizar-brigadista.component';
 import { NovedadesComponent } from './components/novedades/novedades.component';
 import { CalendarioComponent } from './components/calendario/calendario.component';
+import { ActualizarBrigadaComponent } from './components/actualizar-brigada/actualizar-brigada.component'; // 👈 Agregar esta línea
 
 export const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -14,9 +15,10 @@ export const routes: Routes = [
     path: 'admin',
     component: AdminInicioComponent,
     children: [
-      { path: '', redirectTo: 'admin', pathMatch: 'full' }, // ✅ redirección correcta al iniciar admin
+      { path: '', redirectTo: 'admin', pathMatch: 'full' },
       { path: 'brigadas', component: GestionBrigadasComponent },
       { path: 'crear-brigada', component: CrearBrigadaComponent },
+      { path: 'actualizar-brigada/:id', component: ActualizarBrigadaComponent }, // 👈 Ruta agregada
       { path: 'personal', component: GestionPersonalComponent },
       { path: 'personal/actualizar', component: ActualizarBrigadistaComponent },
       { path: 'novedades', component: NovedadesComponent },
@@ -25,4 +27,3 @@ export const routes: Routes = [
   },
   { path: '**', redirectTo: '', pathMatch: 'full' }
 ];
-
