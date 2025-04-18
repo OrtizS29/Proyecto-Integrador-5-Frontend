@@ -1,5 +1,5 @@
 export interface Brigada{
-    id  :string; 
+    id  :number; 
     Nombre: string;
     Municipio: string;
     Fecha_Inicio: string;
