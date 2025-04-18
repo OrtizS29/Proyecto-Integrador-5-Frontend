@@ -89,7 +89,7 @@ export class GestionPersonalComponent implements AfterViewInit {
   }
 
   eliminar(brigadista: Brigadista): void {
-    if (confirm(`¿Estás seguro de eliminar al brigadista ${brigadista.nombre} ${brigadista.apellido}?`)) {
+    if (confirm(`¿Estás seguro de eliminar al brigadista ${brigadista.Nombre} ${brigadista.Apellido}?`)) {
       this.brigadistaService.eliminarBrigadista(brigadista.Numero_Documento).subscribe({
         next: () => {
           this.filaSeleccionada = null;
