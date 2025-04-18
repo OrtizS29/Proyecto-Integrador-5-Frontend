@@ -58,6 +58,21 @@ export class GestionBrigadasComponent implements AfterViewInit {
     })
   }
 
+
+  eliminar(brigada: Brigada): void{
+    if (confirm(`¿Estás seguro de eliminar la brigada ${brigada.Nombre} ?`)){
+      this.brigadaService.eliminarBrigada(brigada.id).subscribe({
+        next: () => {
+          this.filaSeleccionada = null;
+          this.cargarBrigadas(); // Recarga las brigadas luego de eliminar
+        },
+        error: (error) => {
+          console.error('Error al eliminar brigadista:', error);
+        }
+      })
+    }
+  }
+
   filaSeleccionada: any = null;
 
   seleccionarFila(fila: any): void {

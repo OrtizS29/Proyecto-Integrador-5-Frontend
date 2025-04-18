@@ -33,4 +33,8 @@ export class BrigadaService {
    obtenerTodos(): Observable<any> {
       return this.http.get(this.apiUrl);
    }
+
+   eliminarBrigada(id:number): Observable<any> {
+      return this.http.delete(`${this.apiUrl}/${id}`);
+   }
 }
