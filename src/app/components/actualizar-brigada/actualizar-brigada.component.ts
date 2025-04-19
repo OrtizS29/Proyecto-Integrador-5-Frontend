@@ -17,7 +17,15 @@ export class ActualizarBrigadaComponent implements OnInit {
   brigada: Brigada = {} as Brigada;
   cantidadPersonal: number = 0;
   personal: any[] = [];  // Lista de personal
-  roles: string[] = ['Coordinador Sénior', 'Coordinador Júnior', 'Ingeniero Forestal', 'Biologo o profecional botánico', 'Coordinador Logístico', 'Responsoble Frente de Trabajo', 'Auxiliar Forestal'];  // Lista de roles predeterminados
+  roles: string[] = [    
+    'Coordinador Senior',
+    'Coordinador Junior',
+    'Ingeniero forestal',
+    'Biólogo o profesional botánico',
+    'Coordinador logistico',
+    'Responsable frente de trabajo',
+    'Auxiliar forestal',
+    'Dendrólogo'];  // Lista de roles predeterminados
 
   constructor(
     private brigadaService: BrigadaDataService,
@@ -53,14 +61,18 @@ export class ActualizarBrigadaComponent implements OnInit {
   }
 
   ajustarCantidadPersonal(): void {
-    // Forzar que esté entre 6 y 10
-    if (this.cantidadPersonal < 6) {
-      this.cantidadPersonal = 6;
-    } else if (this.cantidadPersonal > 10) {
-      this.cantidadPersonal = 10;
-    }
-  
     this.personal = Array.from({ length: this.cantidadPersonal }, () => ({ nombre: '', rol: '' }));
+  }
+  
+
+  cancelar(): void {
+    // Lógica para cancelar la operación, por ejemplo redirigir a la página de brigadas
+    this.router.navigate(['/admin/brigadas']);
+  }
+
+  guardar(): void {
+    // Lógica para guardar la brigada, similar a guardar cambios
+    this.guardarCambios();
   }
 
   
