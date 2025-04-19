@@ -1,45 +1,69 @@
+/* Margen general para separar del menú lateral y de los bordes de la pantalla */
 .tabla-scroll-wrapper {
-  display: block;
+  width: 100%;
+  padding: 24px; /* Espaciado interno */
+  box-sizing: border-box;
   overflow-x: auto;
-  /* Esto permite el scroll horizontal solo cuando la tabla sea más ancha que el contenedor */
-  width: 160vh;
-  height: 150hv;
-
+  background-color: white;
+  border-radius: 8px;
+  margin: 16px auto; /* Espacio arriba/abajo y centrado */
+  max-width: calc(100vw - 64px); /* Deja espacio entre el borde de la pantalla y el menú lateral */
 }
 
+/* Estilo de la tabla */
 .tabla-horizontal {
   width: max-content;
-  min-width: 100vh;
-  /* Establece un mínimo para que la tabla sea más ancha que el contenedor */
+  min-width: 1200px;
+  border-collapse: collapse;
+  background-color: #f9f9f9;
+  border-radius: 6px;
 }
 
+/* Celdas: sin wrap, con ellipsis */
 .mat-header-cell,
 .mat-cell {
   white-space: nowrap;
-  /* Asegura que el contenido no se envuelva */
-  padding: 1vh 16vh;
-  /* Ajuste de espaciado */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 1vh 2vh;
 }
 
-.import-container {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  margin: 20px;
-}
-
+/* Botones de acción (actualizar, eliminar) */
 .tabla-acciones {
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  margin-bottom: 8px;
+  padding: 0 24px;
+  margin-top: 24px;
   gap: 8px;
-  /* espacio entre los botones */
 }
 
+/* Fila seleccionada */
+tr.mat-row.seleccionada {
+  background-color: #3949ab !important;
+  color: white;
+  font-weight: bold;
+}
 
+/* Hover sobre fila */
+tr.mat-row:hover {
+  background-color: #c8e6c9 !important;
+  cursor: pointer;
+}
+
+/* Contenedor del botón de importar */
+.import-container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 0 24px;
+  margin-top: 16px;
+  margin-bottom: 32px;
+}
+
+/* Estilos del botón de importar */
 .import-btn {
-  background-color: #1976D2;
+  background-color: #1976d2;
   color: white;
   padding: 10px 20px;
   border-radius: 5px;
@@ -54,30 +78,33 @@
 }
 
 .import-btn:hover {
-  background-color: #1565C0;
+  background-color: #1565c0;
 }
 
-tr.mat-row.seleccionada {
-  background-color: #e0f7fa !important;
-  font-weight: bold;
+/* Paginador */
+mat-paginator {
+  margin: 16px 24px 0 24px;
 }
 
-tr.mat-row:hover {
-  background-color: #f1f1f1;
-  cursor: pointer;
-}
+/* Responsive para pantallas pequeñas */
+@media (max-width: 768px) {
+  .tabla-scroll-wrapper {
+    padding: 12px;
+    max-width: 100%;
+  }
 
-/* Aplica un color de fondo cuando la fila está seleccionada */
-.seleccionada {
-  background-color: #2f4aa1 !important;
-  /* Color verde */
-  font-weight: bold;
-  color: white;
-  /* Texto blanco para contraste */
-}
+  .tabla-horizontal {
+    font-size: 11px;
+  }
 
-/* Aplica un efecto visual al pasar el ratón por encima */
-mat-row:hover {
-  background-color: #c8e6c9 !important;
-  cursor: pointer;
+  .mat-header-cell,
+  .mat-cell {
+    padding: 8px;
+    font-size: 12px;
+  }
+
+  .import-btn {
+    padding: 8px 12px;
+    font-size: 14px;
+  }
 }

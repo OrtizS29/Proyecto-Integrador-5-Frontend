@@ -1,17 +1,29 @@
-<!-- gestion-personal.component.html -->
+<!-- src/app/components/gestion-personal/gestion-personal.component.html -->
 <div class="tabla-acciones">
-  <button mat-icon-button color="primary" aria-label="Actualizar" (click)="irAActualizarSeleccionado()"[disabled]="!filaSeleccionada">
+  <button
+    mat-icon-button
+    color="primary"
+    aria-label="Actualizar"
+    title="Actualizar seleccionado"
+    (click)="irAActualizarSeleccionado()"
+    [disabled]="!filaSeleccionada"
+  >
     <mat-icon>refresh</mat-icon>
   </button>
-    <button mat-icon-button color="warn" aria-label="Eliminar" (click)="eliminar(filaSeleccionada)"
-      [disabled]="!filaSeleccionada">
-      <mat-icon>delete</mat-icon>
-    </button>
-
+  <button
+    mat-icon-button
+    color="warn"
+    aria-label="Eliminar"
+    title="Eliminar seleccionado"
+    (click)="eliminar(filaSeleccionada)"
+    [disabled]="!filaSeleccionada"
+  >
+    <mat-icon>delete</mat-icon>
+  </button>
+</div>
 
 <div class="tabla-scroll-wrapper">
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 tabla-horizontal">
-
     <!-- Documento -->
     <ng-container matColumnDef="Numero_Documento">
       <th mat-header-cell *matHeaderCellDef> Documento </th>
@@ -30,6 +42,8 @@
       <td mat-cell *matCellDef="let element"> {{ element.Apellido }} </td>
     </ng-container>
 
+    <!-- (Resto de columnas idéntico al original) -->
+     
     <!-- Tipo Documento -->
     <ng-container matColumnDef="Tipo_Documento">
       <th mat-header-cell *matHeaderCellDef> Tipo Documento </th>
@@ -162,14 +176,20 @@
 
     <!-- Filas -->
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns" (click)="seleccionarFila(row)"
-      [class.seleccionada]="filaSeleccionada === row">
-    </tr>
-
+    <tr
+      mat-row
+      *matRowDef="let row; columns: displayedColumns"
+      (click)="seleccionarFila(row)"
+      [class.seleccionada]="filaSeleccionada === row"
+    ></tr>
   </table>
 </div>
 
-<mat-paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons>
+<mat-paginator
+  [pageSize]="5"
+  [pageSizeOptions]="[5, 10, 20]"
+  showFirstLastButtons
+>
 </mat-paginator>
 
 <div class="import-container">

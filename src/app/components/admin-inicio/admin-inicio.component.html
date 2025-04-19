@@ -23,9 +23,11 @@
       <!-- Menú lateral -->
       <nav class="sidebar" [class.collapsed]="isSidebarCollapsed">
         <ul>
-          <li>
-            <a (click)="togglePersonalSubmenu()" class="has-submenu">
-              Gestión de personal
+          <!-- Gestión de personal con submenú -->
+          <li class="has-submenu">
+            <a (click)="togglePersonalSubmenu()" class="submenu-toggle">
+              <i class="fas fa-users"></i> Gestión de personal
+              <span class="submenu-icon">{{ showPersonalSubmenu ? '▲' : '▼' }}</span>
             </a>
             <ul *ngIf="showPersonalSubmenu" class="submenu">
               <li><a routerLink="/admin/personal" routerLinkActive="active">Listado</a></li>
@@ -33,11 +35,26 @@
               <li><a routerLink="/admin/brigadista-titulo" routerLinkActive="active">Títulos</a></li>
             </ul>
           </li>
-          <li><a routerLink="/admin/brigadas" routerLinkActive="active">Gestión de brigadas</a></li>
-          <li><a routerLink="/admin/novedades" routerLinkActive="active">Novedades</a></li>
-          <li><a routerLink="/admin/calendario" routerLinkActive="active">Calendario</a></li>
+      
+          <!-- Otros botones -->
+          <li>
+            <a routerLink="/admin/brigadas" routerLinkActive="active">
+              <i class="fas fa-people-group"></i> Gestión de brigadas
+            </a>
+          </li>
+          <li>
+            <a routerLink="/admin/novedades" routerLinkActive="active">
+              <i class="fas fa-newspaper"></i> Novedades
+            </a>
+          </li>
+          <li>
+            <a routerLink="/admin/calendario" routerLinkActive="active">
+              <i class="fas fa-calendar-alt"></i> Calendario
+            </a>
+          </li>
         </ul>
       </nav>
+      
       
   
       <!-- Zona central -->
