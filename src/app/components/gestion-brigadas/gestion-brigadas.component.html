@@ -1,10 +1,8 @@
 <div class="tabla-scroll-wrapper">
     <!-- Encabezado de acciones dentro de la tabla -->
     <div class="tabla-acciones">
-      <button mat-icon-button color="primary" aria-label="Actualizar"
-      [routerLink]="['/admin/actualizar-brigada', filaSeleccionada?.id]"
-      [disabled]="!filaSeleccionada">
-      <mat-icon>refresh</mat-icon>
+      <button mat-icon-button color="primary" aria-label="Actualizar" (click)="irAActualizarSeleccionado()"[disabled]="!filaSeleccionada">
+        <mat-icon>refresh</mat-icon>
       </button>
 
       <button mat-icon-button color="warn" aria-label="Eliminar" (click)="eliminar(filaSeleccionada)"[disabled]="!filaSeleccionada">
