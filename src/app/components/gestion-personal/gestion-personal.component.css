@@ -38,16 +38,21 @@
   gap: 8px;
 }
 
-/* Fila seleccionada */
-tr.mat-row.seleccionada {
+tr.fila-seleccionada,
+tr.fila-seleccionada td {
   background-color: #3949ab !important;
-  color: white;
+  color: white !important;
   font-weight: bold;
 }
 
+tr.mat-row:hover:not(.fila-seleccionada) {
+  background-color: #3949ab !important;
+}
+
+
 /* Hover sobre fila */
 tr.mat-row:hover {
-  background-color: #c8e6c9 !important;
+  background-color: #3949ab !important;
   cursor: pointer;
 }
 
