@@ -15,6 +15,9 @@ import { BrigadaService } from '../../services/brigadaService';
 })
 export class ActualizarBrigadaComponent implements OnInit {
   brigada: Brigada = {} as Brigada;
+  cantidadPersonal: number = 0;
+  personal: any[] = [];  // Lista de personal
+  roles: string[] = ['Líder', 'Miembro', 'Auxiliar'];  // Lista de roles predeterminados
 
   constructor(
     private brigadaService: BrigadaDataService,
@@ -47,6 +50,21 @@ export class ActualizarBrigadaComponent implements OnInit {
       return `${partes[2]}-${partes[1].padStart(2, '0')}-${partes[0].padStart(2, '0')}`;
     }
     return fecha;
+  }
+
+  ajustarCantidadPersonal(): void {
+    // Ajusta la cantidad de personal según la propiedad cantidadPersonal
+    this.personal = new Array(this.cantidadPersonal).fill({ nombre: '', rol: '' });
+  }
+
+  cancelar(): void {
+    // Lógica para cancelar la operación, por ejemplo redirigir a la página de brigadas
+    this.router.navigate(['/admin/brigadas']);
+  }
+
+  guardar(): void {
+    // Lógica para guardar la brigada, similar a guardar cambios
+    this.guardarCambios();
   }
 
   guardarCambios() {
