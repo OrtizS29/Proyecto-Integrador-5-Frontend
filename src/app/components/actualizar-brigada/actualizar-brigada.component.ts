@@ -1,10 +1,13 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-actualizar-brigada',
-  imports: [],
+  standalone: true,
+  imports: [CommonModule, FormsModule],
   templateUrl: './actualizar-brigada.component.html',
-  styleUrl: './actualizar-brigada.component.css'
+  styleUrls: ['./actualizar-brigada.component.css']
 })
 export class ActualizarBrigadaComponent {
   brigada = {
@@ -33,11 +36,10 @@ export class ActualizarBrigadaComponent {
   }
 
   cancelar() {
-    // lógica para regresar o limpiar el formulario
+    // lógica para cancelar
   }
 
   guardar() {
-    // lógica para guardar los cambios
+    // lógica para guardar
   }
 }
-
