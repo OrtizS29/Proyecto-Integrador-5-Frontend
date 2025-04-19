@@ -106,7 +106,7 @@ export class GestionPersonalComponent implements AfterViewInit {
     const file = event.target.files[0];
     if (file) this.readExcel(file);
   }
-
+  //lee el excel
   readExcel(file: File): void {
     const reader = new FileReader();
     reader.onload = e => {
