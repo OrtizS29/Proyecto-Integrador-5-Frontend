@@ -40,9 +40,14 @@
       </div>
     </div>
   
-    <div class="botones">
-      <button (click)="cancelar()">Cancelar</button>
-      <button (click)="guardar()">Guardar</button>
+    <!-- Botones de acción -->
+    <div class="fila" style="justify-content: flex-end; gap: 10px;">
+      <button class="btn-cancel" (click)="router.navigate(['/admin/brigadas'])">
+        Cancelar
+      </button>
+      <button class="btn-guardar" (click)="guardarCambios()">
+        Guardar
+      </button>
     </div>
   </div>
   
