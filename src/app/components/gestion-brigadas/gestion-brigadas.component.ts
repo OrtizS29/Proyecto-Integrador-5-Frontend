@@ -10,6 +10,7 @@ import { RouterModule } from '@angular/router';
 import { Brigada } from '../../models/brigada';
 import { BrigadaService } from '../../services/brigadaService';
 import { DatePipe } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-gestion-brigadas',
@@ -33,7 +34,7 @@ export class GestionBrigadasComponent implements AfterViewInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  constructor(private brigadaService: BrigadaService, private datePipe: DatePipe) {}
+  constructor(private brigadaService: BrigadaService, private datePipe: DatePipe, private router: Router) {}
 
   ngOnInit(): void {
     this.cargarBrigadas();
@@ -78,6 +79,21 @@ export class GestionBrigadasComponent implements AfterViewInit {
   seleccionarFila(fila: any): void {
     this.filaSeleccionada = fila;
     console.log("Fila seleccionada:", fila);
+  }
+
+  irAActualizarSeleccionado(): void {
+    if (this.filaSeleccionada) {
+      console.log('Fila seleccionada:', this.filaSeleccionada); //
+
+      localStorage.setItem('brigadaSeleccionada', JSON.stringify(this.filaSeleccionada));
+
+      const brigadaGuardada = localStorage.getItem('brigadaSeleccionada');
+      console.log('Guardado en localStorage:', brigadaGuardada); // <-- verifica si se guardó bien
+
+      this.router.navigate(['/admin/actualizar-brigada']);
+    } else {
+      console.warn('No hay fila seleccionada');
+    }
   }
 
   crearBrigada(): void {

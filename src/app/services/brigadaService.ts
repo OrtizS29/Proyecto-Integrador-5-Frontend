@@ -37,4 +37,12 @@ export class BrigadaService {
    eliminarBrigada(id:number): Observable<any> {
       return this.http.delete(`${this.apiUrl}/${id}`);
    }
+
+   buscarBrigadaPorId(id:number): Observable<any> {
+      return this.http.get(`${this.apiUrl}/${id}`);
+   }
+
+   actualizarBrigada(id: number, datosActualizados: any): Observable<any> {
+      return this.http.put(`${this.apiUrl}/${id}`, datosActualizados);
+   }
 }

@@ -18,7 +18,7 @@ export const routes: Routes = [
       { path: '', redirectTo: 'admin', pathMatch: 'full' },
       { path: 'brigadas', component: GestionBrigadasComponent },
       { path: 'crear-brigada', component: CrearBrigadaComponent },
-      { path: 'actualizar-brigada/:id', component: ActualizarBrigadaComponent }, // 👈 Ruta agregada
+      { path: 'actualizar-brigada', component: ActualizarBrigadaComponent }, // 👈 Ruta agregada
       { path: 'personal', component: GestionPersonalComponent },
       { path: 'personal/actualizar', component: ActualizarBrigadistaComponent },
       { path: 'novedades', component: NovedadesComponent },
