@@ -1,17 +1,23 @@
 import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router'; // ← Importación necesaria para routerLink y router-outlet
+import { RouterModule } from '@angular/router';
+import { NgIf } from '@angular/common'; // 👈 Importa NgIf desde @angular/common
 
 @Component({
   selector: 'app-admin-inicio',
   standalone: true,
-  imports: [RouterModule], // ← Este va aquí y solo una vez
+  imports: [RouterModule, NgIf], // 👈 Agrégalo aquí
   templateUrl: './admin-inicio.component.html',
-  styleUrls: ['./admin-inicio.component.css'] // ← Debe ser 'styleUrls' y array
+  styleUrls: ['./admin-inicio.component.css']
 })
 export class AdminInicioComponent {
   isSidebarCollapsed = false;
+  showPersonalSubmenu = false;
 
   toggleSidebar() {
     this.isSidebarCollapsed = !this.isSidebarCollapsed;
+  }
+
+  togglePersonalSubmenu() {
+    this.showPersonalSubmenu = !this.showPersonalSubmenu;
   }
 }

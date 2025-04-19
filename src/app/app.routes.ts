@@ -1,6 +1,8 @@
 import { Routes } from '@angular/router';
 import { LoginComponent } from './components/login/login.component';
 import { AdminInicioComponent } from './components/admin-inicio/admin-inicio.component';
+import { BrigadistaContactoComponent } from './components/brigadista-contacto/brigadista-contacto.component';
+import { BrigadistaTituloComponent } from './components/brigadista-titulo/brigadista-titulo.component';
 import { GestionBrigadasComponent } from './components/gestion-brigadas/gestion-brigadas.component';
 import { CrearBrigadaComponent } from './components/crear-brigada/crear-brigada.component';
 import { GestionPersonalComponent } from './components/gestion-personal/gestion-personal.component';
@@ -16,6 +18,8 @@ export const routes: Routes = [
     component: AdminInicioComponent,
     children: [
       { path: '', redirectTo: 'admin', pathMatch: 'full' },
+      { path: 'brigadista-contacto', component: BrigadistaContactoComponent },
+      { path: 'brigadista-titulo', component: BrigadistaTituloComponent },
       { path: 'brigadas', component: GestionBrigadasComponent },
       { path: 'crear-brigada', component: CrearBrigadaComponent },
       { path: 'actualizar-brigada', component: ActualizarBrigadaComponent }, // 👈 Ruta agregada

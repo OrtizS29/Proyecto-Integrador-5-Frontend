@@ -23,15 +23,22 @@
       <!-- Menú lateral -->
       <nav class="sidebar" [class.collapsed]="isSidebarCollapsed">
         <ul>
-          <ul>
-            <li><a routerLink="/admin/personal" routerLinkActive="active">Gestión de personal</a></li>
-            <li><a routerLink="/admin/brigadas" routerLinkActive="active">Gestión de brigadas</a></li>
-            <li><a routerLink="/admin/novedades" routerLinkActive="active">Novedades</a></li>
-            <li><a routerLink="/admin/calendario" routerLinkActive="active">Calendario</a></li>
-          </ul>
-          
+          <li>
+            <a (click)="togglePersonalSubmenu()" class="has-submenu">
+              Gestión de personal
+            </a>
+            <ul *ngIf="showPersonalSubmenu" class="submenu">
+              <li><a routerLink="/admin/personal" routerLinkActive="active">Listado</a></li>
+              <li><a routerLink="/admin/brigadista-contacto" routerLinkActive="active">Contacto de emergencia</a></li>
+              <li><a routerLink="/admin/brigadista-titulo" routerLinkActive="active">Títulos</a></li>
+            </ul>
+          </li>
+          <li><a routerLink="/admin/brigadas" routerLinkActive="active">Gestión de brigadas</a></li>
+          <li><a routerLink="/admin/novedades" routerLinkActive="active">Novedades</a></li>
+          <li><a routerLink="/admin/calendario" routerLinkActive="active">Calendario</a></li>
         </ul>
       </nav>
+      
   
       <!-- Zona central -->
       <section class="content">
