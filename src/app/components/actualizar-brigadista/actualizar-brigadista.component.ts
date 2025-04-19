@@ -6,6 +6,8 @@ import { BrigadistaDataService } from '../../services/brigadista-data.service';
 import { Brigadista } from './../../models/brigadista';
 import { Router } from '@angular/router';
 import { BrigadistaService } from '../../services/brigadistaService';
+import { Contacto_Emergencia } from './../../models/contacto-emergencia';
+import { Titulos } from './../../models/titulos';
 
 
 @Component({
@@ -15,9 +17,28 @@ import { BrigadistaService } from '../../services/brigadistaService';
   templateUrl: './actualizar-brigadista.component.html',
   styleUrls: ['./actualizar-brigadista.component.css']
 })
+
+
 export class ActualizarBrigadistaComponent implements OnInit {
   // Inicializo como objeto vacío; luego viene la data del servicio o localStorage
   brigadista: Brigadista = {} as Brigadista;
+
+    // ✅ Nuevas propiedades para contacto de emergencia y títulos
+    contactoEmergencia: Contacto_Emergencia = {
+      id: 0,
+      Nombre_Completo: '',
+      Parentesco: '',
+      Telefono_Movil: '',
+      Correo_Electronico: '',
+      Doc_Brigadista: 0
+    };
+  
+    titulo: Titulos = {
+      id: 0,
+      Titulo: '',
+      Nivel_Escolaridad: '',
+      Doc_Brigadista: 0
+    };
 
   constructor(
     private brigadistaService: BrigadistaDataService,

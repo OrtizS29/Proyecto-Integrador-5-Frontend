@@ -10,6 +10,8 @@ import { BrigadistaService } from './../../services/brigadistaService';
 import { Brigadista } from './../../models/brigadista';
 import { DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+
 
 import * as XLSX from 'xlsx';  // Importa la librería xlsx
 
@@ -63,7 +65,8 @@ export class GestionPersonalComponent implements AfterViewInit {
   constructor(
     private brigadistaService: BrigadistaService,
     private datePipe: DatePipe,
-    private router: Router
+    private router: Router,
+    private http: HttpClient
   ) {}
 
   ngOnInit(): void {
@@ -104,28 +107,25 @@ export class GestionPersonalComponent implements AfterViewInit {
 
   onFileChange(event: any): void {
     const file = event.target.files[0];
-    if (file) this.readExcel(file);
+    if (file) this.enviarArchivoAlBackend(file);
   }
 
-  readExcel(file: File): void {
-    const reader = new FileReader();
-    reader.onload = e => {
-      const data = e.target?.result;
-      const workbook = XLSX.read(data, { type: 'binary' });
-      const sheet = workbook.Sheets[workbook.SheetNames[0]];
-      const jsonData = XLSX.utils.sheet_to_json<Brigadista>(sheet);
-
-      // Convierte las fechas del Excel al formato necesario
-      jsonData.forEach((brigadista: Brigadista) => {
-        brigadista.Fecha_Nacimiento = this.datePipe.transform(brigadista.Fecha_Nacimiento, 'yyyy-MM-dd')!;
-        brigadista.Fecha_Expedicion_Documento = this.datePipe.transform(brigadista.Fecha_Expedicion_Documento, 'yyyy-MM-dd')!;
-      });
-
-      this.dataSource = new MatTableDataSource<Brigadista>(jsonData);
-      this.dataSource.paginator = this.paginator;
-    };
-    reader.readAsBinaryString(file);
+  enviarArchivoAlBackend(file: File): void {
+    const formData = new FormData();
+    formData.append('file', file); // debe coincidir con el nombre en el backend
+  
+    this.http.post('http://localhost:3000/api/importar', formData).subscribe({
+      next: (res) => {
+        alert('Archivo importado correctamente');
+        this.cargarBrigadistas(); // recarga desde la BD
+      },
+      error: (err) => {
+        alert('Error al importar el archivo');
+        console.error(err);
+      }
+    });
   }
+  
 
   seleccionarFila(fila: Brigadista): void {
     this.filaSeleccionada = fila;

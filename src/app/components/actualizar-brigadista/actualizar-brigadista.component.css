@@ -52,4 +52,11 @@
     border: 1px solid #ccc;
     border-radius: 5px;
   }
+
+  section h3 {
+    font-weight: bold;
+    text-decoration: underline;
+    margin-bottom: 15px; /* opcional: más espacio debajo del título */
+  }
+  
   
