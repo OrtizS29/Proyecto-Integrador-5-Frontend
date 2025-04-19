@@ -43,7 +43,7 @@ export class CrearBrigadaComponent {
   ];
 
   cantidadIntegrantes: number = 6;
-  integrantes: { nombre: string; rol: string }[] = Array(6).fill({ nombre: '', rol: '' });
+  integrantes: { nombre: string; rol: string }[] = Array.from({ length: 6 }, () => ({ nombre: '', rol: '' }));
   mensajeError: string = '';
   
   actualizarIntegrantes() {
@@ -54,14 +54,14 @@ export class CrearBrigadaComponent {
       return;
     }
   
-    this.mensajeError = ''; // limpiar mensaje si es válido
+    this.mensajeError = '';
   
     if (cantidad > this.integrantes.length) {
       for (let i = this.integrantes.length; i < cantidad; i++) {
         this.integrantes.push({ nombre: '', rol: '' });
       }
     } else {
-      this.integrantes.splice(cantidad);
+      this.integrantes = this.integrantes.slice(0, cantidad);
     }
-  }
+  }  
 }
