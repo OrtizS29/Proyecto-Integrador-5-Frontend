@@ -34,48 +34,89 @@ export class CrearBrigadaComponent {
   municipio: string = '';
   fechaInicio: Date | null = null;
 
+  cantidadIntegrantes: number = 6;
+
+  integrantes: { persona: Brigadista | null; rol: string }[] = Array.from({ length: 6 }, () => ({
+    persona: null,
+    rol: ''
+  }));
+
+  mensajeError: string = '';
+
+  // Ejemplo de brigadistas disponibles
+  brigadistasDisponibles: Brigadista[] = [
+    { id: 1, nombre: 'Carlos', apellido: 'López' },
+    { id: 2, nombre: 'María', apellido: 'Gómez' },
+    { id: 3, nombre: 'Luis', apellido: 'Martínez' },
+    { id: 4, nombre: 'Ana', apellido: 'Rodríguez' },
+    { id: 5, nombre: 'Pedro', apellido: 'Pérez' },
+  ];
+
   rolesDisponibles: string[] = [
     'Coordinador Senior',
     'Coordinador Junior',
     'Ingeniero forestal',
     'Biólogo o profesional botánico',
-    'Coordinador logistico',
+    'Coordinador logístico',
     'Responsable frente de trabajo',
     'Auxiliar forestal',
     'Dendrólogo'
   ];
 
-  cantidadIntegrantes: number = 6;
-  integrantes: { nombre: string; rol: string }[] = Array.from({ length: 6 }, () => ({ nombre: '', rol: '' }));
-  mensajeError: string = '';
-  
-  actualizarIntegrantes() {
+  actualizarIntegrantes(): void {
     const cantidad = this.cantidadIntegrantes;
+
     if (cantidad < 6 || cantidad > 10) {
       this.mensajeError = 'El número de integrantes debe estar entre 6 y 10.';
       return;
     }
 
     this.mensajeError = '';
+
     if (cantidad > this.integrantes.length) {
       for (let i = this.integrantes.length; i < cantidad; i++) {
-        this.integrantes.push({ nombre: '', rol: '' });
+        this.integrantes.push({ persona: null, rol: '' });
       }
-    } else {
+    } else if (cantidad < this.integrantes.length) {
       this.integrantes = this.integrantes.slice(0, cantidad);
     }
   }
 
-  guardarBrigada() {
-    console.log('Guardando brigada...');
-    console.log('Nombre:', this.nombreBrigada);
-    console.log('Municipio:', this.municipio);
-    console.log('Fecha de inicio:', this.fechaInicio);
-    console.log('Integrantes:', this.integrantes);
-    // Aquí iría tu lógica para enviar los datos
+  guardarBrigada(): void {
+    if (!this.nombreBrigada || !this.municipio || !this.fechaInicio) {
+      this.mensajeError = 'Por favor, completa todos los campos principales.';
+      return;
+    }
+
+    const camposIncompletos = this.integrantes.some(integ => !integ.persona || !integ.rol);
+    if (camposIncompletos) {
+      this.mensajeError = 'Todos los integrantes deben tener persona y rol asignado.';
+      return;
+    }
+
+    this.mensajeError = '';
+
+    const brigada = {
+      nombre: this.nombreBrigada,
+      municipio: this.municipio,
+      fechaInicio: this.fechaInicio,
+      integrantes: this.integrantes
+    };
+
+    console.log('✅ Brigada guardada:', brigada);
+
+    this.router.navigate(['/admin/brigadas']);
   }
 
-  cancelar() {
+  cancelar(): void {
     this.router.navigate(['/admin/brigadas']);
   }
 }
+
+// Interfaz sugerida
+interface Brigadista {
+  id: number;
+  nombre: string;
+  apellido: string;
+}
+
