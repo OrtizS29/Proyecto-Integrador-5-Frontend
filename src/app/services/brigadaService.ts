@@ -45,4 +45,10 @@ export class BrigadaService {
    actualizarBrigada(id: number, datosActualizados: any): Observable<any> {
       return this.http.put(`${this.apiUrl}/${id}`, datosActualizados);
    }
+
+   crearBrigada(nuevaBrigada: any): Observable<any> {
+      return this.http.post(this.apiUrl, nuevaBrigada);
+    }
+    
+
 }

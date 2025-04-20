@@ -47,7 +47,7 @@
     <mat-label>Seleccione el personal</mat-label>
     <mat-select [(ngModel)]="integrante.persona">
       <mat-option *ngFor="let brigadista of brigadistasDisponibles" [value]="brigadista">
-        {{ brigadista.nombre }} {{ brigadista.apellido }}
+        {{ brigadista.Nombre }} {{ brigadista.Apellido }}
       </mat-option>
     </mat-select>
   </mat-form-field>

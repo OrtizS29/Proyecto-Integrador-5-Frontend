@@ -9,6 +9,10 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { MatOptionModule } from '@angular/material/core';
 import { MatDividerModule } from '@angular/material/divider';
+import { BrigadistaService } from './../../services/brigadistaService';
+import { Brigadista } from '../../models/brigadista';
+import { BrigadaService } from '../../services/brigadaService';
+
 
 @Component({
   selector: 'app-crear-brigada',
@@ -28,7 +32,7 @@ import { MatDividerModule } from '@angular/material/divider';
   styleUrls: ['./crear-brigada.component.css']
 })
 export class CrearBrigadaComponent {
-  constructor(private router: Router) {}
+  constructor(private router: Router,private brigadistaService: BrigadistaService, private brigadaService:BrigadaService) {}
 
   nombreBrigada: string = '';
   municipio: string = '';
@@ -44,13 +48,7 @@ export class CrearBrigadaComponent {
   mensajeError: string = '';
 
   // Ejemplo de brigadistas disponibles
-  brigadistasDisponibles: Brigadista[] = [
-    { id: 1, nombre: 'Carlos', apellido: 'López' },
-    { id: 2, nombre: 'María', apellido: 'Gómez' },
-    { id: 3, nombre: 'Luis', apellido: 'Martínez' },
-    { id: 4, nombre: 'Ana', apellido: 'Rodríguez' },
-    { id: 5, nombre: 'Pedro', apellido: 'Pérez' },
-  ];
+  brigadistasDisponibles: Brigadista[] = [];
 
   rolesDisponibles: string[] = [
     'Coordinador Senior',
@@ -62,6 +60,22 @@ export class CrearBrigadaComponent {
     'Auxiliar forestal',
     'Dendrólogo'
   ];
+
+  ngOnInit(): void {
+    this.cargarBrigadistasDisponibles();
+  }
+
+  cargarBrigadistasDisponibles(): void {
+    this.brigadistaService.obtenerBrigadistasPorBrigada(null).subscribe({
+      next: (data) => {
+        this.brigadistasDisponibles = data;
+      },
+      error: (error) => {
+        console.error('Error al cargar brigadistas disponibles', error);
+      }
+    });
+  }
+
 
   actualizarIntegrantes(): void {
     const cantidad = this.cantidadIntegrantes;
@@ -87,36 +101,59 @@ export class CrearBrigadaComponent {
       this.mensajeError = 'Por favor, completa todos los campos principales.';
       return;
     }
-
+  
     const camposIncompletos = this.integrantes.some(integ => !integ.persona || !integ.rol);
     if (camposIncompletos) {
       this.mensajeError = 'Todos los integrantes deben tener persona y rol asignado.';
       return;
     }
-
+  
     this.mensajeError = '';
-
-    const brigada = {
-      nombre: this.nombreBrigada,
-      municipio: this.municipio,
-      fechaInicio: this.fechaInicio,
-      integrantes: this.integrantes
+  
+    // 1. Crear el objeto brigada sin los integrantes
+    const nuevaBrigada = {
+      Nombre: this.nombreBrigada,
+      Municipio: this.municipio,
+      Fecha_Inicio: this.fechaInicio
     };
-
-    console.log('✅ Brigada guardada:', brigada);
-
-    this.router.navigate(['/admin/brigadas']);
+  
+    // 2. Llamar al servicio para crear la brigada
+    this.brigadaService.crearBrigada(nuevaBrigada).subscribe({
+      next: (brigadaCreada) => {
+        const idBrigada = brigadaCreada.id;
+  
+        // 3. Actualizar cada brigadista con el id de la brigada y el rol (cargo)
+        this.integrantes.forEach(integrante => {
+          if (integrante.persona) {
+            const datosActualizados = {
+              Id_Brigada: idBrigada,
+              Cargo: integrante.rol
+            };
+            console.log(datosActualizados.Id_Brigada)
+            this.brigadistaService.asignarBrigadista(integrante.persona.Numero_Documento, datosActualizados)
+              .subscribe({
+                next: () => console.log(`✅ Brigadista ${integrante.persona?.Nombre} actualizado.`),
+                error: err => console.error(`❌ Error actualizando brigadista ${integrante.persona?.Nombre}`, err)
+              });
+          }
+        });
+  
+        // 4. Redirigir o mostrar mensaje
+        console.log('✅ Brigada guardada con éxito');
+        this.router.navigate(['/admin/brigadas']);
+      },
+      error: (err) => {
+        console.error('❌ Error al guardar brigada:', err);
+        this.mensajeError = 'Ocurrió un error al guardar la brigada.';
+      }
+    });
   }
+  
 
   cancelar(): void {
     this.router.navigate(['/admin/brigadas']);
   }
 }
 
-// Interfaz sugerida
-interface Brigadista {
-  id: number;
-  nombre: string;
-  apellido: string;
-}
+
 

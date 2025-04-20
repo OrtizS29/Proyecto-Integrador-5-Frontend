@@ -47,8 +47,12 @@ export class BrigadistaService  {
   }
 
 
-  obtenerBrigadistasPorBrigada(idBrigada: number): Observable<any> {
+  obtenerBrigadistasPorBrigada(idBrigada: number | null): Observable<any> {
     return this.http.get(`${this.apiUrl}/brigada/${idBrigada}`);
+  }
+  
+  asignarBrigadista(numeroDocumento: number, data: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}/asignar/${numeroDocumento}`, data);
   }
   
 
