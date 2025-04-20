@@ -98,10 +98,18 @@ export class GestionBrigadasComponent implements AfterViewInit {
   }
 
   irAVistaPersonal(id: number): void {
+    const brigada = this.dataSource.data.find(b => b.id === id);
+    if (!brigada) return;
+  
     this.dialog.open(PersonalDialogComponent, {
       width: '800px',
-      panelClass: 'custom-dialog-container', // opcional si quieres personalizar aún más con CSS
-      data: { /* tus datos */ }
+      panelClass: 'custom-dialog-container',
+      data: {
+        id: brigada.id,
+        nombre: brigada.Nombre,
+        municipio: brigada.Municipio
+      }
     });
   }
+  
 }
