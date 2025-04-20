@@ -1,0 +1,58 @@
+.titulo {
+    text-align: center;
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-decoration: underline;
+  }
+  
+  .brigada-info {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-bottom: 30px;
+    font-size: 16px;
+  }
+  
+  .input-display {
+    border: 1px solid #aaa;
+    border-radius: 10px;
+    padding: 6px 10px;
+    background-color: #f8f8f8;
+    display: inline-block;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  
+  .tabla-personal {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 90%;
+    padding: 10px;
+    max-width: 700px;
+    margin: auto;
+  }
+  
+  .fila {
+    display: grid;
+    grid-template-columns: 30px 1fr 1fr;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .encabezado {
+    font-weight: bold;
+    text-align: left;
+  }
+
+  .dialog-container {
+    width: 800px;
+    max-width: 90vw;
+    margin: auto;
+    background: white;
+    border-radius: 25px;
+    padding: 30px;
+  }
+  
+  

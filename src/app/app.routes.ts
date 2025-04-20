@@ -22,12 +22,14 @@ export const routes: Routes = [
       { path: 'brigadista-titulo', component: BrigadistaTituloComponent },
       { path: 'brigadas', component: GestionBrigadasComponent },
       { path: 'crear-brigada', component: CrearBrigadaComponent },
-      { path: 'actualizar-brigada', component: ActualizarBrigadaComponent }, // 👈 Ruta agregada
+      { path: 'actualizar-brigada', component: ActualizarBrigadaComponent },
       { path: 'personal', component: GestionPersonalComponent },
       { path: 'personal/actualizar', component: ActualizarBrigadistaComponent },
+      { path: 'personal-dialog/:id', loadComponent: () => import('./components/personal-dialog/personal-dialog.component').then(m => m.PersonalDialogComponent) }, // 👈 esta es la nueva
       { path: 'novedades', component: NovedadesComponent },
       { path: 'calendario', component: CalendarioComponent }
     ]
   },
   { path: '**', redirectTo: '', pathMatch: 'full' }
 ];
+
