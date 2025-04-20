@@ -1,8 +1,8 @@
 <h2 class="titulo">Personal asignado</h2>
 
 <div class="brigada-info">
-  <div><strong>Nombre:</strong> <span class="input-display"></span></div>
-  <div><strong>Municipio:</strong> <span class="input-display"></span></div>
+  <div><strong>Nombre:</strong> <span class="input-display">{{ nombreBrigada }}</span></div>
+  <div><strong>Municipio:</strong> <span class="input-display">{{ municipioBrigada }}</span></div>
 </div>
 
 <div class="tabla-personal">
@@ -14,7 +14,7 @@
 
   <div class="fila" *ngFor="let persona of personalAsignado; let i = index">
     <div>{{ i + 1 }}.</div>
-    <div><span class="input-display">{{ persona.nombre }}</span></div>
+    <div><span class="input-display">{{ persona.nombreCompleto }}</span></div>
     <div><span class="input-display">{{ persona.rol }}</span></div>
   </div>
 </div>
