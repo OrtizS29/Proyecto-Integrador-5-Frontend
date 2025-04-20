@@ -1,5 +1,5 @@
 export interface Contacto_Emergencia{
-    id:Number,
+    id:number,
     Nombre_Completo:String,
     Parentesco:String,
     Telefono_Movil:String,
