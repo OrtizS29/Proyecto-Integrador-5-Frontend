@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -27,6 +28,8 @@ import { MatDividerModule } from '@angular/material/divider';
   styleUrls: ['./crear-brigada.component.css']
 })
 export class CrearBrigadaComponent {
+  constructor(private router: Router) {}
+
   nombreBrigada: string = '';
   municipio: string = '';
   fechaInicio: Date | null = null;
@@ -48,14 +51,12 @@ export class CrearBrigadaComponent {
   
   actualizarIntegrantes() {
     const cantidad = this.cantidadIntegrantes;
-  
     if (cantidad < 6 || cantidad > 10) {
       this.mensajeError = 'El número de integrantes debe estar entre 6 y 10.';
       return;
     }
-  
+
     this.mensajeError = '';
-  
     if (cantidad > this.integrantes.length) {
       for (let i = this.integrantes.length; i < cantidad; i++) {
         this.integrantes.push({ nombre: '', rol: '' });
@@ -63,5 +64,18 @@ export class CrearBrigadaComponent {
     } else {
       this.integrantes = this.integrantes.slice(0, cantidad);
     }
-  }  
+  }
+
+  guardarBrigada() {
+    console.log('Guardando brigada...');
+    console.log('Nombre:', this.nombreBrigada);
+    console.log('Municipio:', this.municipio);
+    console.log('Fecha de inicio:', this.fechaInicio);
+    console.log('Integrantes:', this.integrantes);
+    // Aquí iría tu lógica para enviar los datos
+  }
+
+  cancelar() {
+    this.router.navigate(['/admin/brigadas']);
+  }
 }

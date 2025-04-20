@@ -35,4 +35,17 @@
   .campo-rol {
     flex: 1;
   }
+
+  .botones {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 30px;
+    margin-bottom: 50px;
+  }
+  
+  button {
+    min-width: 120px;
+  }
+  
   
