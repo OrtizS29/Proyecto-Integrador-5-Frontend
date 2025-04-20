@@ -19,7 +19,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 
-export class BrigadistaService {
+export class BrigadistaService  {
   /*
    * Es la URL del backend con express
    */
@@ -45,4 +45,11 @@ export class BrigadistaService {
   actualizarBrigadista(id: number, datosActualizados: any): Observable<any> {
     return this.http.put(`${this.apiUrl}/${id}`, datosActualizados);
   }
+
+
+  obtenerBrigadistasPorBrigada(idBrigada: number): Observable<any> {
+    return this.http.get(`${this.apiUrl}/brigada/${idBrigada}`);
+  }
+  
+
 }

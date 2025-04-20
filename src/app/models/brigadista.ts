@@ -24,4 +24,5 @@ export interface Brigadista {
   Disponibilidad: string;
   Estado: string;
   Id_Brigada: string;
+  Cargo:String;
 }
