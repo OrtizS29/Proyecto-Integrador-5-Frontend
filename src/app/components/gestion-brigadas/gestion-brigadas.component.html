@@ -4,7 +4,8 @@
       <mat-icon>refresh</mat-icon>
     </button>
 
-    <button mat-icon-button color="warn" aria-label="Eliminar" (click)="eliminar(filaSeleccionada)" [disabled]="!filaSeleccionada">
+    <button mat-icon-button color="warn" (click)="eliminar(filaSeleccionada)" [disabled]="!filaSeleccionada"
+      title="Eliminar seleccionado">
       <mat-icon>delete</mat-icon>
     </button>
   </div>
