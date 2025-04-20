@@ -5,6 +5,10 @@ import { Router } from '@angular/router';
 import { BrigadaDataService } from '../../services/brigada-data.service'; // Similar a BrigadistaDataService
 import { Brigada } from './../../models/brigada';
 import { BrigadaService } from '../../services/brigadaService';
+import { BrigadistaService } from '../../services/brigadistaService'; // Asegúrate de tener este servicio
+import { ChangeDetectorRef } from '@angular/core';
+
+
 
 @Component({
   selector: 'app-actualizar-brigada',
@@ -17,24 +21,26 @@ export class ActualizarBrigadaComponent implements OnInit {
   brigada: Brigada = {} as Brigada;
   cantidadPersonal: number = 0;
   personal: any[] = [];  // Lista de personal
-  roles: string[] = [    
-    'Coordinador Senior',
-    'Coordinador Junior',
-    'Ingeniero forestal',
+  cargos: string[] = [    
+    'Coordinador Sénior',
+    'Coordinador Júnior',
+    'Ingeniero Forestal',
     'Biólogo o profesional botánico',
     'Coordinador logistico',
     'Responsable frente de trabajo',
-    'Auxiliar forestal',
+    'Auxiliar Forestal',
     'Dendrólogo'];  // Lista de roles predeterminados
 
   constructor(
     private brigadaService: BrigadaDataService,
     private apiService: BrigadaService,
-    public router: Router
+    private brigadistaService: BrigadistaService,
+    public router: Router,
+    private cdRef: ChangeDetectorRef  // Inyectamos el ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
-    this.brigadaService.currentBrigada.subscribe(data => { // CAMBIADO brigada$ → currentBrigada
+    this.brigadaService.currentBrigada.subscribe(data => {
       if (data) {
         this.brigada = data;
       } else {
@@ -42,16 +48,35 @@ export class ActualizarBrigadaComponent implements OnInit {
         if (local) {
           this.brigada = JSON.parse(local);
           this.brigada.Fecha_Inicio = this.formatearFecha(this.brigada.Fecha_Inicio);
-  
-          this.brigadaService.cambiarBrigada(this.brigada); // CAMBIADO setBrigada → cambiarBrigada
+          this.brigadaService.cambiarBrigada(this.brigada);
         } else {
           alert('No se ha seleccionado ninguna brigada.');
           this.router.navigate(['/admin/brigadas']);
+          return; // Salimos si no hay brigada
         }
+      }
+    
+      // Solo si la brigada está bien definida con ID, traemos el personal
+      if (this.brigada && this.brigada.id) {
+        this.brigadistaService.obtenerBrigadistasPorBrigada(this.brigada.id).subscribe({
+          next: (brigadistas) => {
+            this.personal = brigadistas.map((b: any) => ({
+              nombre: b.Nombre,
+              Cargo:String(b.Cargo)
+            }));
+            this.cantidadPersonal = this.personal.length;
+            console.log("Personal cargado:", this.personal);  // Ver si los valores son correctos
+            this.cdRef.detectChanges();  // Forzamos que Angular detecte los cambios
+          },
+          error: (error) => {
+            console.error('Error al cargar personal de brigada:', error);
+          }
+        });
       }
     });
   }
 
+  
   formatearFecha(fecha: string): string {
     const partes = fecha.split('/');
     if (partes.length === 3) {
@@ -59,6 +84,7 @@ export class ActualizarBrigadaComponent implements OnInit {
     }
     return fecha;
   }
+  
 
   ajustarCantidadPersonal(): void {
     this.personal = Array.from({ length: this.cantidadPersonal }, () => ({ nombre: '', rol: '' }));
@@ -79,12 +105,14 @@ export class ActualizarBrigadaComponent implements OnInit {
   guardarCambios() {
     if (this.brigada && this.brigada.id) {
       const brigadaActualizada = { ...this.brigada };
-
+  
       // Convertir fecha a ISO si está presente
       if (brigadaActualizada.Fecha_Inicio) {
         brigadaActualizada.Fecha_Inicio = new Date(brigadaActualizada.Fecha_Inicio).toISOString();
       }
-
+  
+      console.log('Enviando brigada actualizada:', brigadaActualizada); // Verificar que los datos son correctos
+  
       this.apiService.actualizarBrigada(brigadaActualizada.id, brigadaActualizada).subscribe({
         next: (respuesta) => {
           console.log('Brigada actualizada correctamente:', respuesta);
@@ -100,4 +128,6 @@ export class ActualizarBrigadaComponent implements OnInit {
       alert('Datos incompletos de la brigada.');
     }
   }
+  
+  
 }
