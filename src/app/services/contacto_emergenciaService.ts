@@ -19,7 +19,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 
-export class BrigadistaService {
+export class ContactoEmergenciaService   {
   /*
    * Es la URL del backend con express
    */

@@ -1,5 +1,5 @@
 export interface Titulos{
-    id:Number,
+    id:number,
     Titulo:String,
     Nivel_Escolaridad:String,
     Doc_Brigadista:Number

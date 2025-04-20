@@ -11,9 +11,9 @@ import { Brigadista } from './../../models/brigadista';
 import { DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { BrigadistaDataService } from './../../services/brigadista-data.service';
 
 
-import * as XLSX from 'xlsx';  // Importa la librería xlsx
 
 @Component({
   selector: 'app-gestion-personal',
@@ -64,13 +64,16 @@ export class GestionPersonalComponent implements AfterViewInit {
 
   constructor(
     private brigadistaService: BrigadistaService,
+    private brigadistaDataService: BrigadistaDataService,
     private datePipe: DatePipe,
     private router: Router,
     private http: HttpClient
   ) {}
 
   ngOnInit(): void {
+    localStorage.clear();
     this.cargarBrigadistas();
+
   }
 
   ngAfterViewInit() {
@@ -134,16 +137,14 @@ export class GestionPersonalComponent implements AfterViewInit {
 
   irAActualizarSeleccionado(): void {
     if (this.filaSeleccionada) {
-      console.log('Fila seleccionada:', this.filaSeleccionada); //
-
+      this.brigadistaDataService.setBrigadista(this.filaSeleccionada);
+      localStorage.removeItem('brigadistaSeleccionado');
       localStorage.setItem('brigadistaSeleccionado', JSON.stringify(this.filaSeleccionada));
-
-      const brigadistaGuardado = localStorage.getItem('brigadistaSeleccionado');
-      console.log('Guardado en localStorage:', brigadistaGuardado); // <-- verifica si se guardó bien
-
       this.router.navigate(['/admin/personal/actualizar']);
     } else {
       console.warn('No hay fila seleccionada');
     }
   }
+  
+  
 }
