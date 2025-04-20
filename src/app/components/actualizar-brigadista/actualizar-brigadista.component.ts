@@ -92,27 +92,30 @@ export class ActualizarBrigadistaComponent implements OnInit {
 
   cargarContactoYTitulos() {
     const doc = this.brigadista.Numero_Documento;
-
-    this.http.get<any>(`http://localhost:3000/api/contactEmer/brigadista/${doc}`).subscribe(
-      (data) => {
-        this.contactoEmergencia = data[0];
-      },
-      (error) => {
-        console.error('Error al obtener contacto de emergencia', error);
-      }
-    );
-
-    this.http.get<any[]>(`http://localhost:3000/api/titulos/brigadista/${doc}`).subscribe(
-      (data) => {
-        if (data.length > 0) {
-          this.titulo = data[0]; // si solo trabajas con uno
+  
+    this.contactoEmergenciaService.buscarContactoPorDocumento(doc).subscribe({
+      next: (data) => {
+        if (data && data.length > 0) {
+          this.contactoEmergencia = data[0];
         }
       },
-      (error) => {
+      error: (error) => {
+        console.error('Error al obtener contacto de emergencia', error);
+      }
+    });
+  
+    this.tituloService.buscarContactoPorDocumento(doc).subscribe({
+      next: (data) => {
+        if (data && data.length > 0) {
+          this.titulo = data[0];
+        }
+      },
+      error: (error) => {
         console.error('Error al obtener títulos', error);
       }
-    );
+    });
   }
+  
 
   guardarCambios() {
     if (this.brigadista && this.brigadista.Numero_Documento) {
