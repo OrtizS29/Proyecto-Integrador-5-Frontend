@@ -12,6 +12,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { BrigadistaService } from './../../services/brigadistaService';
 import { Brigadista } from '../../models/brigadista';
 import { BrigadaService } from '../../services/brigadaService';
+import { CorreoService } from '../../services/correoService';
 
 
 @Component({
@@ -32,7 +33,7 @@ import { BrigadaService } from '../../services/brigadaService';
   styleUrls: ['./crear-brigada.component.css']
 })
 export class CrearBrigadaComponent {
-  constructor(private router: Router,private brigadistaService: BrigadistaService, private brigadaService:BrigadaService) {}
+  constructor(private router: Router,private brigadistaService: BrigadistaService, private brigadaService:BrigadaService,private correoService: CorreoService) {}
 
   nombreBrigada: string = '';
   municipio: string = '';
@@ -110,37 +111,48 @@ export class CrearBrigadaComponent {
   
     this.mensajeError = '';
   
-    // 1. Crear el objeto brigada sin los integrantes
     const nuevaBrigada = {
       Nombre: this.nombreBrigada,
       Municipio: this.municipio,
       Fecha_Inicio: this.fechaInicio
     };
   
-    // 2. Llamar al servicio para crear la brigada
     this.brigadaService.crearBrigada(nuevaBrigada).subscribe({
       next: (brigadaCreada) => {
         const idBrigada = brigadaCreada.id;
+        let actualizacionesPendientes = this.integrantes.length;
   
-        // 3. Actualizar cada brigadista con el id de la brigada y el rol (cargo)
         this.integrantes.forEach(integrante => {
           if (integrante.persona) {
             const datosActualizados = {
               Id_Brigada: idBrigada,
               Cargo: integrante.rol
             };
-            console.log(datosActualizados.Id_Brigada)
             this.brigadistaService.asignarBrigadista(integrante.persona.Numero_Documento, datosActualizados)
               .subscribe({
-                next: () => console.log(`✅ Brigadista ${integrante.persona?.Nombre} actualizado.`),
-                error: err => console.error(`❌ Error actualizando brigadista ${integrante.persona?.Nombre}`, err)
+                next: () => {
+                  actualizacionesPendientes--;
+  
+                  if (actualizacionesPendientes === 0) {
+                    // ✅ Todos los brigadistas actualizados. Solo enviamos el ID para el correo.
+                    this.correoService.enviarCorreo(idBrigada).subscribe({
+                      next: () => {
+                        console.log(`📩 Correo enviado para brigada ID: ${idBrigada}`);
+                        this.router.navigate(['/admin/brigadas']);
+                      },
+                      error: (error) => {
+                        console.error('❌ Error al enviar correo:', error);
+                        this.router.navigate(['/admin/brigadas']);
+                      }
+                    });
+                  }
+                },
+                error: err => {
+                  console.error(`❌ Error actualizando brigadista ${integrante.persona?.Nombre}`, err);
+                }
               });
           }
         });
-  
-        // 4. Redirigir o mostrar mensaje
-        console.log('✅ Brigada guardada con éxito');
-        this.router.navigate(['/admin/brigadas']);
       },
       error: (err) => {
         console.error('❌ Error al guardar brigada:', err);
@@ -148,6 +160,7 @@ export class CrearBrigadaComponent {
       }
     });
   }
+  
   
 
   cancelar(): void {
