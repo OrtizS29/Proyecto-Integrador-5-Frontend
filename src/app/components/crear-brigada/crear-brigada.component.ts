@@ -120,38 +120,39 @@ export class CrearBrigadaComponent {
     this.brigadaService.crearBrigada(nuevaBrigada).subscribe({
       next: (brigadaCreada) => {
         const idBrigada = brigadaCreada.id;
-        let actualizacionesPendientes = this.integrantes.length;
+        const integrantesValidos = this.integrantes.filter(i => i.persona);
   
-        this.integrantes.forEach(integrante => {
-          if (integrante.persona) {
-            const datosActualizados = {
-              Id_Brigada: idBrigada,
-              Cargo: integrante.rol
-            };
-            this.brigadistaService.asignarBrigadista(integrante.persona.Numero_Documento, datosActualizados)
-              .subscribe({
-                next: () => {
-                  actualizacionesPendientes--;
+        if (integrantesValidos.length === 0) {
+          // 📩 Si no hay integrantes, igual enviamos el correo
+          this.enviarCorreoYRedirigir(idBrigada);
+          return;
+        }
   
-                  if (actualizacionesPendientes === 0) {
-                    // ✅ Todos los brigadistas actualizados. Solo enviamos el ID para el correo.
-                    this.correoService.enviarCorreo(idBrigada).subscribe({
-                      next: () => {
-                        console.log(`📩 Correo enviado para brigada ID: ${idBrigada}`);
-                        this.router.navigate(['/admin/brigadas']);
-                      },
-                      error: (error) => {
-                        console.error('❌ Error al enviar correo:', error);
-                        this.router.navigate(['/admin/brigadas']);
-                      }
-                    });
-                  }
-                },
-                error: err => {
-                  console.error(`❌ Error actualizando brigadista ${integrante.persona?.Nombre}`, err);
+        let actualizacionesPendientes = integrantesValidos.length;
+  
+        integrantesValidos.forEach(integrante => {
+          const datosActualizados = {
+            Id_Brigada: idBrigada,
+            Cargo: integrante.rol
+          };
+  
+          this.brigadistaService.asignarBrigadista(integrante.persona!.Numero_Documento, datosActualizados)
+            .subscribe({
+              next: () => {
+                actualizacionesPendientes--;
+                if (actualizacionesPendientes === 0) {
+                  this.enviarCorreoYRedirigir(idBrigada);
                 }
-              });
-          }
+              },
+              error: err => {
+                console.error(`❌ Error actualizando brigadista ${integrante.persona?.Nombre}`, err);
+                // Seguimos el flujo aunque falle un brigadista
+                actualizacionesPendientes--;
+                if (actualizacionesPendientes === 0) {
+                  this.enviarCorreoYRedirigir(idBrigada);
+                }
+              }
+            });
         });
       },
       error: (err) => {
@@ -160,6 +161,19 @@ export class CrearBrigadaComponent {
       }
     });
   }
+  
+  private enviarCorreoYRedirigir(idBrigada: number): void {
+    this.correoService.enviarCorreo(idBrigada)
+      .then(() => {
+        console.log(`📩 Correo enviado para brigada ID: ${idBrigada}`);
+        this.router.navigate(['/admin/brigadas']);
+      })
+      .catch((error) => {
+        console.error('❌ Error al enviar correo:', error);
+        this.router.navigate(['/admin/brigadas']);
+      });
+  }
+  
   
   
 
