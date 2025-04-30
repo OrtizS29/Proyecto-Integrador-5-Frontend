@@ -12,7 +12,7 @@ export class CorreoService {
 
   enviarCorreo(idBrigada: number) {
     return new Promise((resolve, reject) => {
-      this.http.get<any[]>(`http://localhost:3000/api/brigadistas/brigada/${idBrigada}`)
+      this.http.get<any[]>(`https://proyecto-integrador-5-backend.onrender.com/api/brigadistas/brigada/${idBrigada}`)
         .subscribe({
           next: (brigadistas) => {
             const correos = brigadistas.map(b => b.Correo_Electronico);

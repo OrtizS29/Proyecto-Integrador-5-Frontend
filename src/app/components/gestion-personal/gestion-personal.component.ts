@@ -116,8 +116,8 @@ export class GestionPersonalComponent implements AfterViewInit {
   enviarArchivoAlBackend(file: File): void {
     const formData = new FormData();
     formData.append('file', file); // debe coincidir con el nombre en el backend
-  
-    this.http.post('http://localhost:3000/api/importar', formData).subscribe({
+
+    this.http.post('https://proyecto-integrador-5-backend.onrender.com/api/importar', formData).subscribe({
       next: (res) => {
         alert('Archivo importado correctamente');
         this.cargarBrigadistas(); // recarga desde la BD
@@ -128,7 +128,7 @@ export class GestionPersonalComponent implements AfterViewInit {
       }
     });
   }
-  
+
 
   seleccionarFila(fila: Brigadista): void {
     this.filaSeleccionada = fila;
@@ -145,6 +145,6 @@ export class GestionPersonalComponent implements AfterViewInit {
       console.warn('No hay fila seleccionada');
     }
   }
-  
-  
+
+
 }
