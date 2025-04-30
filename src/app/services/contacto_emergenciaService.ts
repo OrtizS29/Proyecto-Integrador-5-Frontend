@@ -23,7 +23,7 @@ export class ContactoEmergenciaService   {
   /*
    * Es la URL del backend con express
    */
-  private apiUrl = 'http://localhost:3000/api/contactEmer';
+  private apiUrl = 'https://proyecto-integrador-5-backend.onrender.com/api/contactEmer';
   /**
    * Inyeccion e instancia del cliente de HTTP para poder usarlo
    * @param http
@@ -33,7 +33,7 @@ export class ContactoEmergenciaService   {
   buscarContactoPorDocumento(doc: number): Observable<any> {
     return this.http.get(`${this.apiUrl}/brigadista/${doc}`);
   }
-  
+
 
   actualizarContacto(id: number, datosActualizados: any): Observable<any> {
     return this.http.put(`${this.apiUrl}/${id}`, datosActualizados);

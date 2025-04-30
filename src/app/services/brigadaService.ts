@@ -23,7 +23,7 @@ export class BrigadaService {
    /*
       * Es la URL del backend con express
       */
-   private apiUrl = 'http://localhost:3000/api/brigadas';
+   private apiUrl = 'https://proyecto-integrador-5-backend.onrender.com/api/brigadas';
    /**
       * Inyeccion e instancia del cliente de HTTP para poder usarlo
       * @param http
@@ -49,6 +49,6 @@ export class BrigadaService {
    crearBrigada(nuevaBrigada: any): Observable<any> {
       return this.http.post(this.apiUrl, nuevaBrigada);
     }
-    
+
 
 }
