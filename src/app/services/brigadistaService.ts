@@ -23,7 +23,7 @@ export class BrigadistaService  {
   /*
    * Es la URL del backend con express
    */
-  private apiUrl = 'http://localhost:3000/api/brigadistas';
+  private apiUrl = 'https://proyecto-integrador-5-backend.onrender.com/api/brigadistas';
   /**
    * Inyeccion e instancia del cliente de HTTP para poder usarlo
    * @param http
@@ -50,10 +50,10 @@ export class BrigadistaService  {
   obtenerBrigadistasPorBrigada(idBrigada: number | null): Observable<any> {
     return this.http.get(`${this.apiUrl}/brigada/${idBrigada}`);
   }
-  
+
   asignarBrigadista(numeroDocumento: number, data: any): Observable<any> {
     return this.http.put(`${this.apiUrl}/asignar/${numeroDocumento}`, data);
   }
-  
+
 
 }
