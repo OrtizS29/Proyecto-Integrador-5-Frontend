@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 import { LoginComponent } from './components/login/login.component';
-import { AdminInicioComponent } from './components/admin-inicio/admin-inicio.component';
+import { AdminInicioComponent } from './layouts/admin-inicio/admin-inicio.component';
 import { BrigadistaContactoComponent } from './components/brigadista-contacto/brigadista-contacto.component';
 import { BrigadistaTituloComponent } from './components/brigadista-titulo/brigadista-titulo.component';
 import { GestionBrigadasComponent } from './components/gestion-brigadas/gestion-brigadas.component';
@@ -10,9 +10,11 @@ import { ActualizarBrigadistaComponent } from './components/actualizar-brigadist
 import { NovedadesComponent } from './components/novedades/novedades.component';
 import { CalendarioComponent } from './components/calendario/calendario.component';
 import { ActualizarBrigadaComponent } from './components/actualizar-brigada/actualizar-brigada.component'; // 👈 Agregar esta línea
+import { RegistroComponent } from './registro/registro.component';
 
 export const routes: Routes = [
   { path: '', component: LoginComponent },
+  { path: 'registro', component: RegistroComponent },
   {
     path: 'admin',
     component: AdminInicioComponent,
