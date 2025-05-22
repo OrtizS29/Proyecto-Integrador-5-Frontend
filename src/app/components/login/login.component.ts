@@ -60,7 +60,7 @@ export class LoginComponent {
       .then((result) => {
         const user = result.user;
         console.log('Usuario autenticado con Google:', user);
-        this.router.navigate(['/admin']); // ajusta según tu ruta
+        this.router.navigate(['/usuario']); // ajusta según tu ruta
       })
       .catch((error) => {
         console.error('Error al iniciar sesión con Google:', error);

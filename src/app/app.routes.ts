@@ -11,6 +11,10 @@ import { NovedadesComponent } from './components/novedades/novedades.component';
 import { CalendarioComponent } from './components/calendario/calendario.component';
 import { ActualizarBrigadaComponent } from './components/actualizar-brigada/actualizar-brigada.component'; // 👈 Agregar esta línea
 import { RegistroComponent } from './registro/registro.component';
+import { UsuarioLayoutComponent } from './layouts/usuario-layout/usuario-layout.component';
+import { ActualizarDatosComponent } from './components/actualizar-datos/actualizar-datos.component';
+import { PostularseComponent } from './components/postularse/postularse.component';
+import { PendientePostulacionComponent } from './components/pendiente-postulacion/pendiente-postulacion.component';
 
 export const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -32,6 +36,20 @@ export const routes: Routes = [
       { path: 'calendario', component: CalendarioComponent }
     ]
   },
+  {
+    path: 'usuario',
+    component: UsuarioLayoutComponent,
+    children:[
+
+      {path: '', redirectTo: 'usuario', pathMatch: 'full'},
+      {path: 'actualizar-datos', component: ActualizarDatosComponent},
+      {path: 'postularse', component: PostularseComponent},
+      {path: 'pendiente-postulacion', component: PendientePostulacionComponent}
+
+    ]
+
+  },
+
   { path: '**', redirectTo: '', pathMatch: 'full' }
 ];
 
