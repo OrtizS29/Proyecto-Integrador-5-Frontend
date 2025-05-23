@@ -1,0 +1,61 @@
+.contenedor-historial {
+  margin: 2rem;
+  padding: 1rem;
+  background-color: white;
+  border-radius: 8px;
+}
+
+.titulo {
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+}
+
+.tabla-historial {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 16px;
+  margin-bottom: 1rem;
+}
+
+.tabla-historial th,
+.tabla-historial td {
+  border: 1px solid #999;
+  padding: 0.75rem 1rem;
+  text-align: center;
+}
+
+.tabla-historial thead {
+  background-color: #f1f1f1;
+  font-weight: bold;
+}
+
+.tabla-historial tr.seleccionado {
+  background-color: #d0f0e0;
+  cursor: pointer;
+}
+
+.tabla-historial tr:hover {
+  background-color: #eef7f4;
+  cursor: pointer;
+}
+
+.acciones {
+  text-align: center;
+}
+
+.boton-cancelar {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.boton-cancelar:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}

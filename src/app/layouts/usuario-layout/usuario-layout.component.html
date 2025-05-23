@@ -4,15 +4,18 @@
     <div class="left-header">
       <button class="hamburger" (click)="toggleSidebar()">&#9776;</button>
       <div class="logo-container">
-        <img src="../../../assets/logo.png" class="logo" alt="IDEAM" />
+        <a routerLink="/usuario" routerLinkActive="active"><img src="../../../assets/logo.png" class="logo" alt="IDEAM" /></a>
         <div class="title">
           <h1>Panel de Usuario</h1>
           <h2>Bienvenido Brigadista</h2>
         </div>
       </div>
     </div>
-    <div class="user-icon">
-      <img src="../../../assets/user-icon.png" alt="Usuario" />
+    <div class="user-icon" (click)="toggleMenu()" style="position: relative;">
+      <img src="../../../assets/user-icon2.png" alt="Usuario" />
+      <div class="logout-menu" *ngIf="menuVisible">
+        <button (click)="logout()">Cerrar sesión</button>
+      </div>
     </div>
   </header>
 

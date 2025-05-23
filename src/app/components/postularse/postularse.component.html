@@ -1,1 +1,27 @@
-<p>postularse works!</p>
+<div class="contenedor-postulacion">
+  <h2 class="titulo">Postulación a brigadas</h2>
+
+  <div class="formulario">
+    <label class="pregunta">¿A qué brigada desea ingresar?</label>
+    <select [(ngModel)]="brigadaSeleccionada" class="select">
+      <option disabled selected value="">Seleccione la brigada deseada</option>
+      <option *ngFor="let brigada of brigadas">{{ brigada }}</option>
+    </select>
+
+    <label class="pregunta">¿Qué cargo tendrá dentro de la brigada?</label>
+    <select [(ngModel)]="cargoSeleccionado" class="select">
+      <option disabled selected value="">Seleccione el cargo a ejercer</option>
+      <option *ngFor="let cargo of cargos">{{ cargo }}</option>
+    </select>
+
+    <button class="boton-guardar" (click)="guardarPostulacion()">Guardar</button>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal-fondo" *ngIf="mostrarModal">
+    <div class="modal">
+      <p>✅ Se ha postulado exitosamente a la brigada <strong>{{ brigadaSeleccionada }}</strong> como <strong>{{ cargoSeleccionado }}</strong>.</p>
+      <button (click)="cerrarModal()">Cerrar</button>
+    </div>
+  </div>
+</div>

@@ -44,7 +44,10 @@ export const routes: Routes = [
       {path: '', redirectTo: 'usuario', pathMatch: 'full'},
       {path: 'actualizar-datos', component: ActualizarDatosComponent},
       {path: 'postularse', component: PostularseComponent},
-      {path: 'pendiente-postulacion', component: PendientePostulacionComponent}
+      {path: 'pendiente-postulacion', component: PendientePostulacionComponent},
+      { path: 'registrar-usuario', loadComponent: () => import('./components/registrar-usuario/registrar-usuario.component').then(m => m.RegistrarUsuarioComponent) },
+      { path: 'actualizar-usuario', loadComponent: () => import('./components/actualizar-usuario/actualizar-usuario.component').then(m => m.ActualizarUsuarioComponent) }
+
 
     ]
 

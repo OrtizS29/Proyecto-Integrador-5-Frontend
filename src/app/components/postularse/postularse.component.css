@@ -1,0 +1,92 @@
+.contenedor-postulacion {
+  background-color: #fff;
+  padding: 2rem;
+  margin: 2rem auto;
+  max-width: 700px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.titulo {
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+  border-bottom: 2px solid #000;
+  padding-bottom: 0.5rem;
+  margin-bottom: 2rem;
+}
+
+.formulario {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.pregunta {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.select {
+  font-size: 16px;
+  padding: 0.5rem;
+  border: 1px solid #999;
+  border-radius: 4px;
+  width: 100%;
+  max-width: 100%;
+}
+
+.boton-guardar {
+  padding: 0.7rem 1.5rem;
+  font-size: 16px;
+  background-color: #0b5b4b;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  align-self: flex-start;
+  position: relative;
+  left: 85%;
+}
+
+.boton-guardar:hover {
+  background-color: #09735c;
+}
+
+/* Modal styles */
+.modal-fondo {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0,0,0,0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal {
+  background: white;
+  padding: 2rem;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 400px;
+  text-align: center;
+  box-shadow: 0 0 15px rgba(0,0,0,0.3);
+}
+
+.modal button {
+  margin-top: 1.5rem;
+  padding: 0.5rem 1rem;
+  background-color: #0b5b4b;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.modal button:hover {
+  background-color: #09735c;
+}

@@ -1,1 +1,31 @@
-<p>pendiente-postulacion works!</p>
+<div class="contenedor-historial">
+  <h2 class="titulo">Historial de brigadas</h2>
+
+  <table class="tabla-historial">
+    <thead>
+      <tr>
+        <th>Nombre brigada</th>
+        <th>Municipio</th>
+        <th>Cargo ejercido</th>
+        <th>Fecha inicio</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        *ngFor="let item of historialBrigadas; let i = index"
+        [class.seleccionado]="i === filaSeleccionada"
+        (click)="seleccionarFila(i)">
+        <td>{{ item.nombre }}</td>
+        <td>{{ item.municipio }}</td>
+        <td>{{ item.cargo }}</td>
+        <td>{{ item.fecha }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="acciones">
+    <button class="boton-cancelar" (click)="cancelarPostulacion()" [disabled]="filaSeleccionada === null">
+      Cancelar postulación
+    </button>
+  </div>
+</div>

@@ -1,0 +1,180 @@
+<div class="contenedor">
+  <h2>Actualizar datos</h2>
+  <hr />
+
+  <div class="contenido">
+    <div class="fila">
+      <section class="columna">
+        <h3>Nombre</h3>
+        <div class="campo">
+          <label>Nombre:
+            <input type="text" name="Nombre" />
+          </label>
+        </div>
+        <div class="campo">
+          <label>Apellido:
+            <input type="text" name="apellido" />
+          </label>
+        </div>
+      </section>
+
+      <section class="columna">
+        <h3>Identificación</h3>
+        <div class="campo">
+          <label>Tipo identificación:
+            <input type="text" name="tipoDocumento" />
+          </label>
+        </div>
+        <div class="campo">
+          <label>N° identificación:
+            <input type="text" name="numeroDocumento" />
+          </label>
+        </div>
+        <div class="campo">
+          <label>País de expedición:
+            <input type="text" name="paisExpedicionDocumento" />
+          </label>
+        </div>
+        <div class="campo">
+          <label>Municipio de expedición:
+            <input type="text" name="municipioExpedicionDocumento" />
+          </label>
+        </div>
+        <div class="campo">
+          <label>Fecha expedición:
+            <input type="date" name="fechaExpedicionDocumento" />
+          </label>
+        </div>
+      </section>
+    </div>
+
+    <div class="fila">
+      <section class="columna">
+        <h3>Datos personales</h3>
+        <div class="campo">
+          <label>Sexo:
+            <input type="text" name="sexo" />
+          </label>
+        </div>
+        <div class="campo">
+          <label>País de nacimiento:
+            <input type="text" name="paisNacimiento" />
+          </label>
+        </div>
+        <div class="campo">
+          <label>Grupo sanguíneo:
+            <input type="text" name="grupoSanguineo" />
+          </label>
+        </div>
+        <div class="campo">
+          <label>RH:
+            <input type="text" name="rh" />
+          </label>
+        </div>
+        <div class="campo">
+          <label>Talla zapato:
+            <input type="text" name="tallaZapato" />
+          </label>
+        </div>
+        <div class="campo">
+          <label>Estatura:
+            <input type="text" name="altura" />
+          </label>
+        </div>
+        <div class="campo">
+          <label>Peso:
+            <input type="text" name="peso" />
+          </label>
+        </div>
+        <div class="campo">
+          <label>Estado civil:
+            <input type="text" name="estadoCivil" />
+          </label>
+        </div>
+        <div class="campo">
+          <label>Fecha nacimiento:
+            <input type="date" name="fechaNacimiento" />
+          </label>
+        </div>
+        <div class="campo">
+          <label>Profesión:
+            <input type="text" name="profesion" />
+          </label>
+        </div>
+      </section>
+
+      <section class="columna">
+        <h3>Contacto</h3>
+        <div class="campo">
+          <label>Teléfono móvil:
+            <input type="text" name="telefonoMovil" />
+          </label>
+        </div>
+        <div class="campo">
+          <label>Correo electrónico:
+            <input type="email" name="correoElectronico" />
+          </label>
+        </div>
+        <div class="campo">
+          <label>Dirección:
+            <input type="text" name="direccion" />
+          </label>
+        </div>
+        <div class="campo">
+          <label>Ciudad de residencia:
+            <input type="text" name="ciudadResidencia" />
+          </label>
+        </div>
+      </section>
+    </div>
+
+    <div class="fila">
+      <section class="columna">
+        <h3>Título académico</h3>
+        <div class="campo">
+          <label>Título:
+            <input type="text" name="titulo" />
+          </label>
+        </div>
+        <div class="campo">
+          <label>Nivel escolaridad:
+            <input type="text" name="nivelEscolaridad" />
+          </label>
+        </div>
+      </section>
+
+      <section class="columna">
+        <h3>Contacto de emergencia</h3>
+        <div class="campo">
+          <label>Nombre completo:
+            <input type="text" name="nombreContacto" />
+          </label>
+        </div>
+        <div class="campo">
+          <label>Parentesco:
+            <input type="text" name="parentesco" />
+          </label>
+        </div>
+        <div class="campo">
+          <label>Teléfono móvil:
+            <input type="text" name="telefonoContacto" />
+          </label>
+        </div>
+        <div class="campo">
+          <label>Correo electrónico:
+            <input type="email" name="correoContacto" />
+          </label>
+        </div>
+      </section>
+    </div>
+
+    <div class="fila" style="justify-content: flex-end; gap: 10px;">
+      <button class="btn-cancel" (click)="router.navigate(['/usuario/actualizar-datos'])">
+        Cancelar
+      </button>
+      <button class="btn-guardar">
+        Guardar
+      </button>
+    </div>
+  </div>
+</div>
