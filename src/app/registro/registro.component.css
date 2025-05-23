@@ -4,29 +4,29 @@ body, html {
     height: 100%;
     width: 100%;
     overflow: hidden; /* 🔥 Esto previene scroll oculto */
-}
+  }
 
 h2{
     position: relative;
     bottom: 110px;
     font-size: 22px;
 }
-
-.login-container {
+  
+  .login-container {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background: url('./../../../assets/fondo.jpg') no-repeat center center fixed;
-    background-size: cover;
+    background: url('/assets/fondo.jpg') no-repeat center center fixed;
+    background-size:cover;
     height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
-}
-
-.login-box {
+  }
+  
+  .login-box {
     background-color: rgba(0, 0, 0, 0.6);
     padding: 40px;
     padding-top: 120px;
@@ -35,16 +35,16 @@ h2{
     text-align: center;
     width: 300px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
-}
-
-.logo {
+  }
+  
+  .logo {
     position: relative;
     bottom: 100px;
     width: 100px;
     margin-bottom: 0;
-}
-
-.label1 {
+  }
+  
+  .label1 {
     position: relative;
     bottom: 100px;
     display: block;
@@ -53,9 +53,9 @@ h2{
     margin-top: 15px;
     margin-bottom: 5px;
     font-weight: bold;
-}
+  }
 
-.label2 {
+  .label2 {
     position: relative;
     bottom: 80px;
     display: block;
@@ -64,9 +64,9 @@ h2{
     margin-top: 15px;
     margin-bottom: 5px;
     font-weight: bold;
-}
-
-.input1 {
+  }
+  
+  .input1 {
     position: relative;
     bottom: 100px;
     width: 100%;
@@ -75,9 +75,9 @@ h2{
     border: none;
     border-radius: 6px;
     margin-bottom: 10px;
-}
+  }
 
-.input2 {
+  .input2 {
     position: relative;
     bottom: 80px;
     width: 100%;
@@ -86,34 +86,34 @@ h2{
     border: none;
     border-radius: 6px;
     margin-bottom: 10px;
-}
-
-.password-wrapper {
+  }
+  
+  .password-wrapper {
     position: relative;
-}
-
-.password-wrapper input {
+  }
+  
+  .password-wrapper input {
     width: 100%;
-}
-
-.toggle {
+  }
+  
+  .toggle {
     position: absolute;
     right: 0;
     top: 5px;
     transform: translateY(-370%);
     cursor: pointer;
-}
+  }
 
-.merriweather-font {
+  .merriweather-font {
     font-family: 'Merriweather', serif;
     font-size: 18px;
     font-weight: bold;
-}
-
-.login-button {
+  }
+  
+  button {
     position: relative;
     bottom: 40px;
-    margin-top: 5px; /* reducido para pegar con google-btn */
+    margin-top: 15px;
     padding: 12px;
     width: 105%;
     background-color: white;
@@ -122,72 +122,37 @@ h2{
     border-radius: 5px;
     cursor: pointer;
     transition: background 0.3s ease;
-}
-
-.login-button:hover {
+  }
+  
+  button:hover {
     background-color: #ccc;
-}
+  }
 
-.google-btn {
-    margin-top: 5px; /* reducido para pegar con login-button */
-    padding: 10px;
-    width: 105%;
-    background-color: white;
-    color: #444;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    font-size: 16px;
-    font-weight: 500;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    transition: background-color 0.3s ease;
+  .google-btn {
+  margin-top: 15px;
+  padding: 10px;
+  width: 105%;
+  background-color: white;
+  color: #444;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: background-color 0.3s ease;
 }
 
 .google-btn img {
-    width: 20px;
-    height: 20px;
+  width: 20px;
+  height: 20px;
 }
 
 .google-btn:hover {
-    background-color: #f5f5f5;
+  background-color: #f5f5f5;
 }
 
-.registro-link {
-    text-align: center;
-    margin-top: 50px; /* aumentado para separar del botón Google */
-    font-size: 14px;
-    position: relative;
-    bottom: 20px;
-}
-
-.registro-link a {
-    color: #007bff;
-    text-decoration: none;
-    font-weight: bold;
-    pointer-events: auto;
-}
-
-.registro-link a:hover {
-    text-decoration: none; /* elimina subrayado */
-}
-
-.link-button {
-    background: none;
-    border: none;
-    color: #007bff;
-    text-decoration: none;
-    cursor: pointer;
-    font-size: 14px;
-    padding: 0;
-    font-family: inherit;
-    font-weight: bold;
-    position: relative;
-    bottom: 0;
-}
-
-.link-button:hover {
-    text-decoration: none; /* sin efecto hover */
-}
+  
