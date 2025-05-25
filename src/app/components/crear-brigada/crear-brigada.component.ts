@@ -13,6 +13,11 @@ import { BrigadistaService } from './../../services/brigadistaService';
 import { Brigadista } from '../../models/brigadista';
 import { BrigadaService } from '../../services/brigadaService';
 import { CorreoService } from '../../services/correoService';
+import { MunicipioService } from '../../services/municipioService';
+import { Municipio as MunicipioModel } from '../../models/municipio';
+import { Conglomerado } from '../../models/conglomerado';
+import { ConglomeradoService } from '../../services/conglomeradoService';
+
 
 
 @Component({
@@ -32,8 +37,14 @@ import { CorreoService } from '../../services/correoService';
   templateUrl: './crear-brigada.component.html',
   styleUrls: ['./crear-brigada.component.css']
 })
+
 export class CrearBrigadaComponent {
-  constructor(private router: Router,private brigadistaService: BrigadistaService, private brigadaService:BrigadaService,private correoService: CorreoService) {}
+  municipios: MunicipioModel[] = [];
+  municipioSeleccionado: MunicipioModel | null = null;
+  conglomerados: Conglomerado[] = [];
+  conglomeradoSeleccionado: Conglomerado | null = null;
+
+  constructor(private router: Router,private brigadistaService: BrigadistaService, private brigadaService:BrigadaService,private correoService: CorreoService,private municipioService: MunicipioService,private conglomeradoService: ConglomeradoService) {}
 
   nombreBrigada: string = '';
   municipio: string = '';
@@ -64,6 +75,8 @@ export class CrearBrigadaComponent {
 
   ngOnInit(): void {
     this.cargarBrigadistasDisponibles();
+    this.cargarMunicipios();
+    this.cargarConglomerados();
   }
 
   cargarBrigadistasDisponibles(): void {
@@ -77,28 +90,53 @@ export class CrearBrigadaComponent {
     });
   }
 
-
-  actualizarIntegrantes(): void {
-    const cantidad = this.cantidadIntegrantes;
-
-    if (cantidad < 6 || cantidad > 10) {
-      this.mensajeError = 'El número de integrantes debe estar entre 6 y 10.';
-      return;
-    }
-
-    this.mensajeError = '';
-
-    if (cantidad > this.integrantes.length) {
-      for (let i = this.integrantes.length; i < cantidad; i++) {
-        this.integrantes.push({ persona: null, rol: '' });
+    cargarMunicipios(): void {
+    this.municipioService.obtenerMunicipios().subscribe({
+      next: (data) => {
+        console.log('Municipios recibidos desde la API:', data);
+        this.municipios = data;
+      },
+      error: (error) => {
+        console.error('Error al cargar municipios', error);
       }
-    } else if (cantidad < this.integrantes.length) {
-      this.integrantes = this.integrantes.slice(0, cantidad);
-    }
+    });
   }
 
+  cargarConglomerados(): void {
+    this.conglomeradoService.obtenerConglomerados().subscribe({
+      next: (data) => {
+        console.log('Conglomerados recibidos desde la API:', data);
+        this.conglomerados = data;
+      },
+      error: (error) => {
+        console.error('Error al cargar conglomerados', error);
+      }
+    });
+  }
+
+
+actualizarIntegrantes(): void {
+  const cantidad = this.cantidadIntegrantes;
+
+  if (cantidad < 0 || cantidad > 10) {
+    this.mensajeError = 'El número de integrantes debe estar entre 0 y 10.';
+    return;
+  }
+
+  this.mensajeError = '';
+
+  if (cantidad > this.integrantes.length) {
+    for (let i = this.integrantes.length; i < cantidad; i++) {
+      this.integrantes.push({ persona: null, rol: '' });
+    }
+  } else if (cantidad < this.integrantes.length) {
+    this.integrantes = this.integrantes.slice(0, cantidad);
+  }
+}
+
+
   guardarBrigada(): void {
-    if (!this.nombreBrigada || !this.municipio || !this.fechaInicio) {
+    if (!this.nombreBrigada || !this.municipioSeleccionado || !this.fechaInicio) {
       this.mensajeError = 'Por favor, completa todos los campos principales.';
       return;
     }
@@ -113,9 +151,11 @@ export class CrearBrigadaComponent {
   
     const nuevaBrigada = {
       Nombre: this.nombreBrigada,
-      Municipio: this.municipio,
+      Municipio: this.municipioSeleccionado.Nombre,
+      Conglomerado: this.conglomeradoSeleccionado?.Nombre || '',
       Fecha_Inicio: this.fechaInicio
     };
+
   
     this.brigadaService.crearBrigada(nuevaBrigada).subscribe({
       next: (brigadaCreada) => {

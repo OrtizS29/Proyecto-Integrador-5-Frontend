@@ -6,10 +6,24 @@
     <input matInput [(ngModel)]="nombreBrigada">
   </mat-form-field>
 
-  <mat-form-field appearance="outline">
+  <mat-form-field appearance="outline" class="w-full">
     <mat-label>Municipio</mat-label>
-    <input matInput [(ngModel)]="municipio">
+    <mat-select [(ngModel)]="municipioSeleccionado" name="municipio">
+      <mat-option *ngFor="let municipio of municipios" [value]="municipio">
+        {{ municipio.Nombre }}
+      </mat-option>
+    </mat-select>
   </mat-form-field>
+
+  <mat-form-field appearance="outline" class="w-full">
+    <mat-label>Conglomerado</mat-label>
+    <mat-select [(ngModel)]="conglomeradoSeleccionado" name="conglomerado">
+      <mat-option *ngFor="let conglomerado of conglomerados" [value]="conglomerado">
+        {{ conglomerado.Nombre }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
 
   <mat-form-field appearance="outline">
     <mat-label>Fecha de inicio</mat-label>
@@ -29,7 +43,7 @@
     type="number"
     [(ngModel)]="cantidadIntegrantes"
     (ngModelChange)="actualizarIntegrantes()"
-    min="6"
+    min="0"
     max="10"
   />
 </mat-form-field>
