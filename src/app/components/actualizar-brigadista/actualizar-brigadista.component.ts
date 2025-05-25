@@ -11,8 +11,7 @@ import { Titulos } from './../../models/titulos';
 import { HttpClient } from '@angular/common/http'; // Asegúrate de tener esta importación
 import { TituloService } from '../../services/tituloService';
 import { ContactoEmergenciaService } from '../../services/contacto_emergenciaService';
-
-
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -74,8 +73,13 @@ export class ActualizarBrigadistaComponent implements OnInit {
           this.brigadistaService.setBrigadista(this.brigadista);
           this.cargarContactoYTitulos(); // ← Y también aquí si los datos vienen del localStorage
         } else {
-          alert('No se ha seleccionado ningún brigadista.');
-          this.router.navigate(['/admin/personal']);
+          Swal.fire({
+            icon: 'warning',
+            title: 'Sin selección',
+            text: 'No se ha seleccionado ningún brigadista.',
+          }).then(() => {
+            this.router.navigate(['/admin/personal']);
+          });
         }
       }
     });
@@ -157,31 +161,52 @@ export class ActualizarBrigadistaComponent implements OnInit {
               }).subscribe({
                 next: (respuestaContacto) => {
                   console.log('Contacto actualizado:', respuestaContacto);
-                  alert('Brigadista, título y contacto actualizados correctamente.');
-                  this.router.navigate(['/admin/personal']);
+                  Swal.fire({
+                    icon: 'success',
+                    title: 'Actualización exitosa',
+                    text: 'Brigadista, título y contacto actualizados correctamente.',
+                    timer: 2500,
+                    showConfirmButton: false
+                  }).then(() => {
+                    this.router.navigate(['/admin/personal']);
+                  });
                 },
                 error: (errorContacto) => {
-                  console.error('Error al actualizar contacto de emergencia:', errorContacto);
-                  alert('Error al actualizar el contacto de emergencia.');
+                    Swal.fire({
+                      icon: 'error',
+                      title: 'Error',
+                      text: 'Error al actualizar el contacto de emergencia.'
+                    });
                 }
               });
 
             },
             error: (errorTitulo) => {
-              console.error('Error al actualizar el título:', errorTitulo);
-              alert('Error al actualizar el título.');
+              Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Error al actualizar el título.'
+              });
             }
           });
 
     },
     error: (error) => {
       console.error('Error al actualizar el brigadista:', error);
-      alert('Ocurrió un error al guardar los cambios del brigadista.');
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Ocurrió un error al guardar los cambios del brigadista.'
+      });
     }
   });
 
 } else {
-  alert('Datos incompletos del brigadista.');
+    Swal.fire({
+      icon: 'warning',
+      title: 'Datos incompletos',
+      text: 'Por favor, completa todos los datos del brigadista antes de guardar.'
+    });
 }
   }
   

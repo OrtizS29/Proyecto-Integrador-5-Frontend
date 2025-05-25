@@ -16,12 +16,4 @@
 
     <button class="boton-guardar" (click)="guardarPostulacion()">Guardar</button>
   </div>
-
-  <!-- Modal -->
-  <div class="modal-fondo" *ngIf="mostrarModal">
-    <div class="modal">
-      <p>✅ Se ha postulado exitosamente a la brigada <strong>{{ brigadaSeleccionada }}</strong> como <strong>{{ cargoSeleccionado }}</strong>.</p>
-      <button (click)="cerrarModal()">Cerrar</button>
-    </div>
-  </div>
 </div>

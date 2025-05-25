@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import Swal from 'sweetalert2';
+
 
 @Component({
   selector: 'app-postularse',
@@ -27,17 +29,20 @@ export class PostularseComponent {
   brigadaSeleccionada = '';
   cargoSeleccionado = '';
 
-  mostrarModal = false;
-
-  guardarPostulacion() {
-    if (this.brigadaSeleccionada && this.cargoSeleccionado) {
-      this.mostrarModal = true;
-    } else {
-      alert('Por favor seleccione una brigada y un cargo.');
-    }
+guardarPostulacion() {
+  if (this.brigadaSeleccionada && this.cargoSeleccionado) {
+    Swal.fire({
+      icon: 'success',
+      title: 'Postulación exitosa',
+      html: `✅ Te has postulado a la brigada <strong>${this.brigadaSeleccionada}</strong> como <strong>${this.cargoSeleccionado}</strong>.`,
+      confirmButtonText: 'Cerrar',
+    });
+  } else {
+    Swal.fire({
+      icon: 'warning',
+      title: 'Campos incompletos',
+      text: 'Por favor seleccione una brigada y un cargo.'
+    });
   }
-
-  cerrarModal() {
-    this.mostrarModal = false;
-  }
+}
 }

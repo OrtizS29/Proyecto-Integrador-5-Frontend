@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import Swal from 'sweetalert2';
+
 
 @Component({
   selector: 'app-pendiente-postulacion',
@@ -22,13 +24,32 @@ export class PendientePostulacionComponent {
     this.filaSeleccionada = index === this.filaSeleccionada ? null : index;
   }
 
-  cancelarPostulacion() {
-    if (this.filaSeleccionada !== null) {
-      const confirmacion = confirm(`¿Estás seguro de cancelar tu postulación a "${this.historialBrigadas[this.filaSeleccionada].nombre}"?`);
-      if (confirmacion) {
-        this.historialBrigadas.splice(this.filaSeleccionada, 1);
+cancelarPostulacion() {
+  if (this.filaSeleccionada !== null) {
+    const brigada = this.historialBrigadas[this.filaSeleccionada];
+
+    Swal.fire({
+      title: '¿Cancelar postulación?',
+      text: `¿Estás seguro de cancelar tu postulación a "${brigada.nombre}"?`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: 'Sí, cancelar',
+      cancelButtonText: 'No'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.historialBrigadas.splice(this.filaSeleccionada!, 1);
         this.filaSeleccionada = null;
+
+        Swal.fire({
+          icon: 'success',
+          title: 'Postulación cancelada',
+          text: `Tu postulación a "${brigada.nombre}" ha sido cancelada.`
+        });
       }
-    }
+    });
   }
+}
+
 }

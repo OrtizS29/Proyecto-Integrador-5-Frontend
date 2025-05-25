@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { Auth, signInWithEmailAndPassword } from '@angular/fire/auth';
 import { getIdToken } from 'firebase/auth';
 import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-login',
@@ -36,22 +37,33 @@ export class LoginComponent {
     this.router.navigate(['/registro']);
   }
 
-  onLogin() {
-    signInWithEmailAndPassword(this.auth, this.email, this.password)
-      .then(async (UserCredential) => {
-        const user = UserCredential.user;
-        const token = await getIdToken(user);
+onLogin() {
+  signInWithEmailAndPassword(this.auth, this.email, this.password)
+    .then(async (UserCredential) => {
+      const user = UserCredential.user;
+      const token = await getIdToken(user);
 
-        console.log('Login exitoso');
-        alert('Se inició sesión');
-
-        this.router.navigate(['/admin']); // ← Redirección
-      })
-      .catch((error) => {
-        console.error("Error al iniciar sesión", error);
-        alert('Correo o contraseña incorrecta');
+      console.log('Login exitoso');
+      Swal.fire({
+        icon: 'success',
+        title: 'Bienvenido',
+        text: 'Se inició sesión correctamente',
+        timer: 2000,
+        showConfirmButton: false
       });
-  }
+
+      this.router.navigate(['/admin']);
+    })
+    .catch((error) => {
+      console.error("Error al iniciar sesión", error);
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Correo o contraseña incorrecta'
+      });
+    });
+}
+
 
     iniciarConGoogle() {
     const provider = new GoogleAuthProvider();

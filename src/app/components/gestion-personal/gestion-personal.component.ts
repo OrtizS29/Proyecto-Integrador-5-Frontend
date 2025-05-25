@@ -12,8 +12,7 @@ import { DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { BrigadistaDataService } from './../../services/brigadista-data.service';
-
-
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-gestion-personal',
@@ -94,40 +93,75 @@ export class GestionPersonalComponent implements AfterViewInit {
     });
   }
 
-  eliminar(brigadista: Brigadista): void {
-    if (confirm(`¿Estás seguro de eliminar al brigadista ${brigadista.Nombre} ${brigadista.Apellido}?`)) {
+eliminar(brigadista: Brigadista): void {
+  Swal.fire({
+    title: `¿Eliminar a ${brigadista.Nombre} ${brigadista.Apellido}?`,
+    text: 'Esta acción no se puede deshacer.',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#d33',
+    cancelButtonColor: '#3085d6',
+    confirmButtonText: 'Sí, eliminar',
+    cancelButtonText: 'Cancelar'
+  }).then((result) => {
+    if (result.isConfirmed) {
       this.brigadistaService.eliminarBrigadista(brigadista.Numero_Documento).subscribe({
         next: () => {
           this.filaSeleccionada = null;
-          this.cargarBrigadistas(); // Recarga los brigadistas luego de eliminar
+          this.cargarBrigadistas();
+          Swal.fire({
+            icon: 'success',
+            title: 'Eliminado',
+            text: 'El brigadista ha sido eliminado correctamente',
+            timer: 2000,
+            showConfirmButton: false
+          });
         },
         error: (error) => {
           console.error('Error al eliminar brigadista:', error);
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'No se pudo eliminar el brigadista'
+          });
         }
       });
     }
-  }
+  });
+}
+
 
   onFileChange(event: any): void {
     const file = event.target.files[0];
     if (file) this.enviarArchivoAlBackend(file);
   }
 
-  enviarArchivoAlBackend(file: File): void {
-    const formData = new FormData();
-    formData.append('file', file); // debe coincidir con el nombre en el backend
+enviarArchivoAlBackend(file: File): void {
+  const formData = new FormData();
+  formData.append('file', file);
 
-    this.http.post('https://proyecto-integrador-5-backend.onrender.com/api/importar', formData).subscribe({
-      next: (res) => {
-        alert('Archivo importado correctamente');
-        this.cargarBrigadistas(); // recarga desde la BD
-      },
-      error: (err) => {
-        alert('Error al importar el archivo');
-        console.error(err);
-      }
-    });
-  }
+  this.http.post('https://proyecto-integrador-5-backend.onrender.com/api/importar', formData).subscribe({
+    next: (res) => {
+      Swal.fire({
+        icon: 'success',
+        title: 'Importado',
+        text: 'Archivo importado correctamente',
+        timer: 2000,
+        showConfirmButton: false
+      });
+      this.cargarBrigadistas();
+    },
+    error: (err) => {
+      console.error(err);
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Hubo un problema al importar el archivo'
+      });
+    }
+  });
+}
+
 
 
   seleccionarFila(fila: Brigadista): void {
