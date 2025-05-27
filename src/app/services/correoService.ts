@@ -40,4 +40,22 @@ export class CorreoService {
         });
     });
   }
+
+  enviarCorreoIngreso(correos: string[]){
+    return new Promise((resolve, reject) => {
+      const to_email = correos.join(",");
+      console.log("a")
+      const templateParams = { to_email };
+
+      emailjs.send(this.serviceId, this.templateId, templateParams, this.userId)
+              .then((response) => {
+                console.log('✉️ Correos enviados:', response.status, response.text);
+                resolve(true);
+              })
+              .catch((error) => {
+                console.error('❌ Error al enviar correos:', error);
+                reject(error);
+              });
+    });
+  }
 }

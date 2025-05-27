@@ -12,6 +12,7 @@ import { DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { BrigadistaDataService } from './../../services/brigadista-data.service';
+import { CorreoService } from '../../services/correoService';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -64,6 +65,7 @@ export class GestionPersonalComponent implements AfterViewInit {
   constructor(
     private brigadistaService: BrigadistaService,
     private brigadistaDataService: BrigadistaDataService,
+    private CorreoService: CorreoService,
     private datePipe: DatePipe,
     private router: Router,
     private http: HttpClient
@@ -140,7 +142,7 @@ enviarArchivoAlBackend(file: File): void {
   const formData = new FormData();
   formData.append('file', file);
 
-  this.http.post('https://proyecto-integrador-5-backend.onrender.com/api/importar', formData).subscribe({
+  this.http.post<{ message: string; correos: string[] }>('https://proyecto-integrador-5-backend.onrender.com/api/importar', formData,).subscribe({
     next: (res) => {
       Swal.fire({
         icon: 'success',
@@ -149,7 +151,23 @@ enviarArchivoAlBackend(file: File): void {
         timer: 2000,
         showConfirmButton: false
       });
+
       this.cargarBrigadistas();
+
+      console.log("se cargaron los brigadistas")
+      console.log("Respuesta completa:", res);
+      const correos = res.correos;
+      console.log("correos:" + correos)
+      if (correos && correos.length > 0) {
+        console.log("estoy antes de enviar correo")
+        this.CorreoService.enviarCorreoIngreso(correos)
+          .then(() => {
+            console.log('📧 Correos de ingreso enviados correctamente');
+          })
+          .catch((error:any) => {
+            console.error('❌ Error al enviar correos:', error);
+          });
+      }
     },
     error: (err) => {
       console.error(err);
