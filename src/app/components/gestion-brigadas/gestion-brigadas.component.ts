@@ -29,7 +29,7 @@ import { PersonalDialogComponent } from '../personal-dialog/personal-dialog.comp
   styleUrls: ['./gestion-brigadas.component.css']
 })
 export class GestionBrigadasComponent implements AfterViewInit {
-  displayedColumns: string[] = ['id', 'Nombre', 'Municipio', 'Fecha_Inicio', 'acciones'];
+  displayedColumns: string[] = ['id', 'Nombre', 'Municipio', 'Conglomerado', 'Fecha_Inicio', 'acciones'];
   dataSource = new MatTableDataSource<Brigada>();
   filaSeleccionada: any = null;
 
@@ -53,6 +53,7 @@ export class GestionBrigadasComponent implements AfterViewInit {
   cargarBrigadas(): void {
     this.brigadaService.obtenerTodos().subscribe({
       next: (brigadas: Brigada[]) => {
+        console.log("Brigadas recibidas:", brigadas);
         brigadas.forEach(brigada => {
           brigada.Fecha_Inicio = this.datePipe.transform(brigada.Fecha_Inicio, 'dd/MM/yyyy')!;
         });
@@ -100,7 +101,7 @@ export class GestionBrigadasComponent implements AfterViewInit {
   irAVistaPersonal(id: number): void {
     const brigada = this.dataSource.data.find(b => b.id === id);
     if (!brigada) return;
-  
+
     this.dialog.open(PersonalDialogComponent, {
       width: '800px',
       panelClass: 'custom-dialog-container',
@@ -111,5 +112,5 @@ export class GestionBrigadasComponent implements AfterViewInit {
       }
     });
   }
-  
+
 }

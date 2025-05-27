@@ -140,42 +140,42 @@ actualizarIntegrantes(): void {
       this.mensajeError = 'Por favor, completa todos los campos principales.';
       return;
     }
-  
+
     const camposIncompletos = this.integrantes.some(integ => !integ.persona || !integ.rol);
     if (camposIncompletos) {
       this.mensajeError = 'Todos los integrantes deben tener persona y rol asignado.';
       return;
     }
-  
+
     this.mensajeError = '';
-  
+
     const nuevaBrigada = {
       Nombre: this.nombreBrigada,
-      Municipio: this.municipioSeleccionado.Nombre,
-      Conglomerado: this.conglomeradoSeleccionado?.Nombre || '',
-      Fecha_Inicio: this.fechaInicio
+      ID_Municipio: this.municipioSeleccionado.id,
+      ID_Conglomerado: this.conglomeradoSeleccionado?.id || '',
+      Fecha_Inicio: this.fechaInicio,
+      Presupuesto: "0"
     };
 
-  
+    console.log("la nueva brigada", nuevaBrigada);
     this.brigadaService.crearBrigada(nuevaBrigada).subscribe({
       next: (brigadaCreada) => {
         const idBrigada = brigadaCreada.id;
         const integrantesValidos = this.integrantes.filter(i => i.persona);
-  
         if (integrantesValidos.length === 0) {
           // 📩 Si no hay integrantes, igual enviamos el correo
-          this.enviarCorreoYRedirigir(idBrigada);
+          this.router.navigate(['/admin/brigadas']);
           return;
         }
-  
+
         let actualizacionesPendientes = integrantesValidos.length;
-  
+
         integrantesValidos.forEach(integrante => {
           const datosActualizados = {
             Id_Brigada: idBrigada,
             Cargo: integrante.rol
           };
-  
+
           this.brigadistaService.asignarBrigadista(integrante.persona!.Numero_Documento, datosActualizados)
             .subscribe({
               next: () => {
@@ -201,7 +201,7 @@ actualizarIntegrantes(): void {
       }
     });
   }
-  
+
   private enviarCorreoYRedirigir(idBrigada: number): void {
     this.correoService.enviarCorreo(idBrigada)
       .then(() => {
@@ -213,9 +213,9 @@ actualizarIntegrantes(): void {
         this.router.navigate(['/admin/brigadas']);
       });
   }
-  
-  
-  
+
+
+
 
   cancelar(): void {
     this.router.navigate(['/admin/brigadas']);
