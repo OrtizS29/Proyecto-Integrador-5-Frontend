@@ -53,4 +53,8 @@ export class PostulacionService  {
   buscarPostulacionPorBrigada(idBrigada:number): Observable<any> {
     return this.http.get(`${this.apiUrl}/brigada/${idBrigada}`);
   }
+
+  actualizarPostulacion(id: number, datosActualizados: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}/${id}`, datosActualizados);
+  }
 }
