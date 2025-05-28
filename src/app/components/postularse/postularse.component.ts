@@ -1,7 +1,10 @@
-import { Component } from '@angular/core';
+import { Component,OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { BrigadaService } from '../../services/brigadaService';
+import { PostulacionService } from '../../services/postulacionService';
 import Swal from 'sweetalert2';
+
 
 
 @Component({
@@ -12,30 +15,69 @@ import Swal from 'sweetalert2';
   styleUrls: ['./postularse.component.css']
 })
 export class PostularseComponent {
-  brigadas: string[] = [
-    'Brigada Ambiental Norte',
-    'Brigada Forestal Sur',
-    'Brigada de Biodiversidad',
-    'Brigada Urbana Centro'
-  ];
+  brigadas: any[] = [];
 
   cargos: string[] = [
-    'Coordinador',
-    'Botánico',
-    'Zoologista',
-    'Voluntario General'
+    'Coordinador Senior',
+    'Coordinador Junior',
+    'Ingeniero forestal',
+    'Biólogo o profesional botánico',
+    'Coordinador logístico',
+    'Responsable frente de trabajo',
+    'Auxiliar forestal',
+    'Dendrólogo'
   ];
 
   brigadaSeleccionada = '';
   cargoSeleccionado = '';
 
+  constructor(private brigadaService: BrigadaService, private postulacionService: PostulacionService) {}
+
+  ngOnInit(): void {
+    this.brigadaService.obtenerTodos().subscribe({
+      next: (data) => {
+        this.brigadas = data;
+      },
+      error: (error) => {
+        console.error('Error al obtener brigadas', error);
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'No se pudieron cargar las brigadas desde el servidor.'
+        });
+      }
+    });
+  }
+
 guardarPostulacion() {
   if (this.brigadaSeleccionada && this.cargoSeleccionado) {
-    Swal.fire({
-      icon: 'success',
-      title: 'Postulación exitosa',
-      html: `✅ Te has postulado a la brigada <strong>${this.brigadaSeleccionada}</strong> como <strong>${this.cargoSeleccionado}</strong>.`,
-      confirmButtonText: 'Cerrar',
+
+    const nuevaPostulacion = {
+      cargo: this.cargoSeleccionado,
+      ID_Brigada: Number(this.brigadaSeleccionada),
+      ID_Brigadista: 900200003
+    };
+
+    this.postulacionService.crearPostulacion(nuevaPostulacion).subscribe({
+      next: () => {
+        Swal.fire({
+          icon: 'success',
+          title: 'Postulación exitosa',
+          html: `✅ Te has postulado a la brigada <strong>${this.brigadas.find(b => b.id === Number(this.brigadaSeleccionada)).Nombre}</strong> como <strong>${this.cargoSeleccionado}</strong>.`,
+          confirmButtonText: 'Cerrar',
+        });
+        // Puedes resetear el formulario si deseas
+        this.brigadaSeleccionada = '';
+        this.cargoSeleccionado = '';
+      },
+      error: (error:any) => {
+        console.error('Error al guardar postulación', error);
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'No se pudo registrar la postulación.'
+        });
+      }
     });
   } else {
     Swal.fire({

@@ -5,7 +5,7 @@
     <label class="pregunta">¿A qué brigada desea ingresar?</label>
     <select [(ngModel)]="brigadaSeleccionada" class="select">
       <option disabled selected value="">Seleccione la brigada deseada</option>
-      <option *ngFor="let brigada of brigadas">{{ brigada }}</option>
+      <option *ngFor="let b of brigadas" [value]="b.id">{{ b.Nombre }}</option>
     </select>
 
     <label class="pregunta">¿Qué cargo tendrá dentro de la brigada?</label>

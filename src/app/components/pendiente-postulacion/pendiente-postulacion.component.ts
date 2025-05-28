@@ -1,7 +1,14 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import Swal from 'sweetalert2';
+import { PostulacionService } from '../../services/postulacionService';
 
+interface HistorialBrigada {
+  nombre: string;
+  municipio: string;
+  cargo: string;
+  fecha: string;
+}
 
 @Component({
   selector: 'app-pendiente-postulacion',
@@ -11,14 +18,37 @@ import Swal from 'sweetalert2';
   styleUrls: ['./pendiente-postulacion.component.css']
 })
 export class PendientePostulacionComponent {
-  historialBrigadas = [
-    { nombre: 'Brigada Ambiental Norte', municipio: 'Medellín', cargo: 'Botánico', fecha: '2024-06-15' },
-    { nombre: 'Brigada Forestal Sur', municipio: 'Cali', cargo: 'Coordinador', fecha: '2023-09-01' },
-    { nombre: 'Brigada de Biodiversidad', municipio: 'Bogotá', cargo: 'Voluntario General', fecha: '2022-12-10' },
-    { nombre: 'Brigada Urbana Centro', municipio: 'Barranquilla', cargo: 'Zoologista', fecha: '2021-04-20' }
-  ];
-
+  historialBrigadas: HistorialBrigada[]= [];
   filaSeleccionada: number | null = null;
+
+  constructor(private postulacionService: PostulacionService) {}
+
+  ngOnInit(): void {
+    const idBrigadista = 900200003; // Puedes luego obtener esto desde un servicio de login
+    console.log("📦 Iniciando carga de postulaciones");
+
+    this.postulacionService.buscarPostulacionPorId(idBrigadista).subscribe({
+      next: (data) => {
+        console.log("✅ Respuesta de postulaciones:", data);
+        // Mapeamos la respuesta para adaptarla a lo que espera el HTML
+        this.historialBrigadas = data.map((item: any) => ({
+          nombre: item.Brigada.Nombre,
+          municipio: item.Brigada.Municipio?.Nombre ?? 'Desconocido',
+          cargo: item.cargo,
+          fecha: item.Brigada.Fecha_Inicio.split('T')[0]
+        }));
+      },
+      error: (err:any) => {
+        console.error('Error cargando postulaciones:', err);
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'No se pudieron cargar las postulaciones.'
+        });
+      }
+    });
+  }
+
 
   seleccionarFila(index: number) {
     this.filaSeleccionada = index === this.filaSeleccionada ? null : index;
@@ -30,7 +60,7 @@ cancelarPostulacion() {
 
     Swal.fire({
       title: '¿Cancelar postulación?',
-      text: `¿Estás seguro de cancelar tu postulación a "${brigada.nombre}"?`,
+      // text: `¿Estás seguro de cancelar tu postulación a "${brigada.nombre}"?`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#d33',
@@ -45,7 +75,7 @@ cancelarPostulacion() {
         Swal.fire({
           icon: 'success',
           title: 'Postulación cancelada',
-          text: `Tu postulación a "${brigada.nombre}" ha sido cancelada.`
+          // text: `Tu postulación a "${brigada.nombre}" ha sido cancelada.`
         });
       }
     });
