@@ -31,6 +31,7 @@ export class GestionPostulacionesComponent{
       this.postulacionService.buscarPostulacionPorBrigada(idBrigada).subscribe({
         next: (data) => {
           this.postulaciones = data.map((p: any) => ({
+            id: p.id,
             cargo: p.cargo,
             estado: p.estado,
             nombreBrigadista: `${p.Brigadista?.Nombre ?? 'N/A'} ${p.Brigadista?.Apellido ?? ''}`,
@@ -65,15 +66,26 @@ export class GestionPostulacionesComponent{
 
   rechazar(): void {
     if (this.seleccionada) {
-      Swal.fire({
-        icon: 'error',
-        title: 'Rechazado',
-        text: `${this.seleccionada.nombreBrigadista} fue rechazado/a`,
-        timer: 2000,
-        showConfirmButton: false
+      const id = this.seleccionada.id;
+      const datos = {estado: "Rechazado"};
+      console.log(id,datos);
+      this.postulacionService.actualizarPostulacion(id,datos).subscribe({
+        next: () => {
+          Swal.fire({
+          icon: 'error',
+          title: 'Rechazado',
+          text: `${this.seleccionada.nombreBrigadista} fue rechazado/a`,
+          timer: 2000,
+          showConfirmButton: false
+          });
+          this.seleccionada.estado = 'Rechazado';
+          this.seleccionada = null;
+        },
+        error: () => {
+          Swal.fire('Error', 'No se pudo rechazar la postulación', 'error');
+        }
       });
-      this.seleccionada.estado = 'Rechazado';
-      this.seleccionada = null;
+
     }
   }
 
