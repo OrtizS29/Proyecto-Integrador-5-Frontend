@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
+import { PostulacionService } from '../../services/postulacionService';
 import Swal from 'sweetalert2';
+
 
 @Component({
   selector: 'app-gestion-postulaciones',
@@ -9,16 +12,38 @@ import Swal from 'sweetalert2';
   templateUrl: './gestion-postulaciones.component.html',
   styleUrl: './gestion-postulaciones.component.css'
 })
-export class GestionPostulacionesComponent {
+export class GestionPostulacionesComponent{
 
-  postulaciones = [
-    { cargo: 'Líder', estado: 'Pendiente', nombreBrigadista: 'Juan Pérez', nombreBrigada: 'Brigada Alfa' },
-    { cargo: 'Miembro', estado: 'Pendiente', nombreBrigadista: 'Ana Torres', nombreBrigada: 'Brigada Beta' },
-    { cargo: 'Miembro', estado: 'Pendiente', nombreBrigadista: 'Carlos Gómez', nombreBrigada: 'Brigada Gamma' },
-    { cargo: 'Líder', estado: 'Pendiente', nombreBrigadista: 'María López', nombreBrigada: 'Brigada Delta' }
-  ];
+  postulaciones: {
+    cargo: string;
+    estado: string;
+    nombreBrigadista: string;
+    nombreBrigada: string;
+  }[] = [];
 
   seleccionada: any = null;
+
+  constructor(private route: ActivatedRoute, private postulacionService: PostulacionService) {}
+
+  ngOnInit(): void {
+    const idBrigada = Number(this.route.snapshot.paramMap.get("idBrigada"));
+    if(idBrigada){
+      this.postulacionService.buscarPostulacionPorBrigada(idBrigada).subscribe({
+        next: (data) => {
+          this.postulaciones = data.map((p: any) => ({
+            cargo: p.cargo,
+            estado: p.estado,
+            nombreBrigadista: `${p.Brigadista?.Nombre ?? 'N/A'} ${p.Brigadista?.Apellido ?? ''}`,
+            nombreBrigada: p.Brigada?.Nombre ?? 'N/A'
+          }));
+        },
+         error: (err) => {
+          console.error("Error al obtener postulaciones", err);
+          Swal.fire("Error", "No se pudieron cargar las postulaciones", "error");
+        }
+      });
+    }
+  }
 
   seleccionar(postulacion: any): void {
     this.seleccionada = postulacion;

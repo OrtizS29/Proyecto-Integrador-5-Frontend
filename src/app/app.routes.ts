@@ -35,7 +35,7 @@ export const routes: Routes = [
       { path: 'personal-dialog/:id', loadComponent: () => import('./components/personal-dialog/personal-dialog.component').then(m => m.PersonalDialogComponent) }, // 👈 esta es la nueva
       { path: 'novedades', component: NovedadesComponent },
       { path: 'calendario', component: CalendarioComponent },
-      { path: 'gestion-postulaciones', component: GestionPostulacionesComponent }
+      { path: 'gestion-postulaciones/:idBrigada', component: GestionPostulacionesComponent }
     ]
   },
   {
