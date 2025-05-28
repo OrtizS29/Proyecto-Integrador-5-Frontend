@@ -23,7 +23,7 @@ export class PostulacionService  {
   /*
    * Es la URL del backend con express
    */
-  private apiUrl = 'https://proyecto-integrador-5-backend.onrender.com/api/postulacion';
+  private apiUrl = 'http://localhost:3000/api/postulacion';
   /**
    * Inyeccion e instancia del cliente de HTTP para poder usarlo
    * @param http
@@ -47,6 +47,10 @@ export class PostulacionService  {
   }
 
   buscarPostulacionPorBrigadista(idBrigadista:number): Observable<any> {
-    return this.http.get(`${this.apiUrl}/${idBrigadista}`);
+    return this.http.get(`${this.apiUrl}/brigadista/${idBrigadista}`);
+  }
+
+  buscarPostulacionPorBrigada(idBrigada:number): Observable<any> {
+    return this.http.get(`${this.apiUrl}/brigada/${idBrigada}`);
   }
 }

@@ -28,7 +28,7 @@ export class PendientePostulacionComponent {
     const idBrigadista = 900200003; // Puedes luego obtener esto desde un servicio de login
     console.log("📦 Iniciando carga de postulaciones");
 
-    this.postulacionService.buscarPostulacionPorId(idBrigadista).subscribe({
+    this.postulacionService.buscarPostulacionPorBrigadista(idBrigadista).subscribe({
       next: (data) => {
         console.log("✅ Respuesta de postulaciones:", data);
         // Mapeamos la respuesta para adaptarla a lo que espera el HTML

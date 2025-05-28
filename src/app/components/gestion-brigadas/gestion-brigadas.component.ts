@@ -151,4 +151,10 @@ export class GestionBrigadasComponent implements AfterViewInit {
     this.sueldosCalculadora.sort((a, b) => b.sueldo - a.sueldo);
   }
 
+  verPostulaciones(): void{
+    if(this.filaSeleccionada){
+      const idBrigada= this.filaSeleccionada.id;
+      this.router.navigate(["/admin/gestion-postulaciones", idBrigada]);
+    }else {alert("Seleccione una brigada primero")}
+  }
 }
