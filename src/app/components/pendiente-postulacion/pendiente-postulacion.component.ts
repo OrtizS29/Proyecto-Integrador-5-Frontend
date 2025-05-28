@@ -4,6 +4,7 @@ import Swal from 'sweetalert2';
 import { PostulacionService } from '../../services/postulacionService';
 
 interface HistorialBrigada {
+  id: number;
   nombre: string;
   municipio: string;
   cargo: string;
@@ -32,6 +33,7 @@ export class PendientePostulacionComponent {
         console.log("✅ Respuesta de postulaciones:", data);
         // Mapeamos la respuesta para adaptarla a lo que espera el HTML
         this.historialBrigadas = data.map((item: any) => ({
+          id: item.id,
           nombre: item.Brigada.Nombre,
           municipio: item.Brigada.Municipio?.Nombre ?? 'Desconocido',
           cargo: item.cargo,
@@ -57,10 +59,11 @@ export class PendientePostulacionComponent {
 cancelarPostulacion() {
   if (this.filaSeleccionada !== null) {
     const brigada = this.historialBrigadas[this.filaSeleccionada];
+    const id = brigada.id;
 
     Swal.fire({
       title: '¿Cancelar postulación?',
-      // text: `¿Estás seguro de cancelar tu postulación a "${brigada.nombre}"?`,
+      text: `¿Estás seguro de cancelar tu postulación a "${brigada.nombre}"?`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#d33',
@@ -69,17 +72,32 @@ cancelarPostulacion() {
       cancelButtonText: 'No'
     }).then((result) => {
       if (result.isConfirmed) {
-        this.historialBrigadas.splice(this.filaSeleccionada!, 1);
-        this.filaSeleccionada = null;
+        // Llamar al servicio solo si el usuario confirma
+        this.postulacionService.eliminarPostulacion(id).subscribe({
+          next: () => {
+            // Eliminar de la vista
+            this.historialBrigadas.splice(this.filaSeleccionada!, 1);
+            this.filaSeleccionada = null;
 
-        Swal.fire({
-          icon: 'success',
-          title: 'Postulación cancelada',
-          // text: `Tu postulación a "${brigada.nombre}" ha sido cancelada.`
+            Swal.fire({
+              icon: 'success',
+              title: 'Postulación cancelada',
+              text: `Tu postulación a "${brigada.nombre}" ha sido cancelada.`
+            });
+          },
+          error: (err) => {
+            console.error('Error al eliminar postulación:', err);
+            Swal.fire({
+              icon: 'error',
+              title: 'Error',
+              text: 'No se pudo cancelar la postulación.'
+            });
+          }
         });
       }
     });
   }
 }
+
 
 }
