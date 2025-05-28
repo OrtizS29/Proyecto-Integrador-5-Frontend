@@ -15,6 +15,7 @@ import { UsuarioLayoutComponent } from './layouts/usuario-layout/usuario-layout.
 import { ActualizarDatosComponent } from './components/actualizar-datos/actualizar-datos.component';
 import { PostularseComponent } from './components/postularse/postularse.component';
 import { PendientePostulacionComponent } from './components/pendiente-postulacion/pendiente-postulacion.component';
+import { GestionPostulacionesComponent } from './components/gestion-postulaciones/gestion-postulaciones.component';
 
 export const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -33,7 +34,8 @@ export const routes: Routes = [
       { path: 'personal/actualizar', component: ActualizarBrigadistaComponent },
       { path: 'personal-dialog/:id', loadComponent: () => import('./components/personal-dialog/personal-dialog.component').then(m => m.PersonalDialogComponent) }, // 👈 esta es la nueva
       { path: 'novedades', component: NovedadesComponent },
-      { path: 'calendario', component: CalendarioComponent }
+      { path: 'calendario', component: CalendarioComponent },
+      { path: 'gestion-postulaciones', component: GestionPostulacionesComponent }
     ]
   },
   {

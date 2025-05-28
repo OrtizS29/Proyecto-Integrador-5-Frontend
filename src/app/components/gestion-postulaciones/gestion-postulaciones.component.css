@@ -1,0 +1,68 @@
+/* gestion-postulaciones.component.css */
+
+.postulaciones-container {
+  width: 80%;
+  margin: 20px auto;
+  font-family: Arial, sans-serif;
+  text-align: center;
+}
+
+h2 {
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+table, th, td {
+  border: 1px solid #333;
+}
+
+th, td {
+  padding: 10px;
+  text-align: center;
+}
+
+th {
+  background-color: #eee;
+  font-weight: bold;
+}
+
+tr.selected {
+  background-color: #cdeaff;
+}
+
+.botones {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+button {
+  padding: 10px 20px;
+  font-weight: bold;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.rechazar {
+  background-color: #ff4c4c;
+  color: white;
+}
+
+.aprobar {
+  background-color: #4caf50;
+  color: white;
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

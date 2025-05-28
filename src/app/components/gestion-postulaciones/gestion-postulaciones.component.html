@@ -1,0 +1,27 @@
+<!-- gestion-postulaciones.component.html -->
+<div class="postulaciones-container">
+  <h2>Datos postulaciones</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Cargo</th>
+        <th>Estado</th>
+        <th>Nombre brigadista</th>
+        <th>Nombre brigada</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let postulacion of postulaciones" [class.selected]="postulacion === seleccionada" (click)="seleccionar(postulacion)">
+        <td>{{ postulacion.cargo }}</td>
+        <td>{{ postulacion.estado }}</td>
+        <td>{{ postulacion.nombreBrigadista }}</td>
+        <td>{{ postulacion.nombreBrigada }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="botones">
+    <button [disabled]="!seleccionada" class="rechazar" (click)="rechazar()">Rechazar</button>
+    <button [disabled]="!seleccionada" class="aprobar" (click)="aprobar()">Aprobar</button>
+  </div>
+</div>

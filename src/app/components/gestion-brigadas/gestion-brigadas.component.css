@@ -72,6 +72,43 @@
     cursor: pointer;
   }
   
-  
+  .calculadora-container {
+  margin-top: 40px;
+  padding: 20px;
+  border-top: 1px solid #ccc;
+}
+
+.calculadora-container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+.tabla-calculadora {
+  width: 100%;
+  border-collapse: collapse;
+  margin: auto;
+  margin-bottom: 20px;
+}
+
+.tabla-calculadora th,
+.tabla-calculadora td {
+  border: 1px solid #ccc;
+  padding: 12px;
+  text-align: center;
+}
+
+.tabla-calculadora thead {
+  background-color: #f5f5f5;
+  font-weight: bold;
+}
+
+.botones-calculadora {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
   
   

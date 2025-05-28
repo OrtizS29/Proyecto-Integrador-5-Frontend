@@ -60,3 +60,44 @@
 <button mat-raised-button color="primary" [routerLink]="'/admin/crear-brigada'">
   Crear
 </button>
+
+<button mat-raised-button color="primary" [routerLink]="'/admin/gestion-postulaciones'">
+  Ver postulaciones
+</button>
+
+<!-- Tabla Calculadora de Presupuesto -->
+<div class="calculadora-container">
+  <h2>Calculadora de presupuesto</h2>
+  <table class="tabla-calculadora">
+    <thead>
+      <tr>
+        <th>Brigadas</th>
+        <th>Sueldo total</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of sueldosCalculadora">
+        <td>{{ item.brigada }}</td>
+        <td>{{ item.sueldo | number:'1.0-0' }}</td>
+      </tr>
+    </tbody>
+  <tfoot>
+    <tr *ngIf="promedio !== null">
+      <td><strong>Promedio</strong></td>
+      <td>{{ promedio | number:'1.0-0' }}</td>
+    </tr>
+    <tr *ngIf="sumaTotal !== null">
+      <td><strong>Suma total</strong></td>
+      <td>{{ sumaTotal | number:'1.0-0' }}</td>
+    </tr>
+  </tfoot>
+  </table>
+
+  <div class="botones-calculadora">
+    <button mat-raised-button color="primary" (click)="calcularSumaTotal()">Suma total</button>
+    <button mat-raised-button color="accent" (click)="calcularPromedio()">Calcular promedio</button>
+    <button mat-raised-button color="warn" (click)="ordenarAscendente()">Organizar forma ascendente</button>
+    <button mat-raised-button color="warn" (click)="ordenarDescendente()">Organizar forma descendente</button>
+  </div>
+</div>
+

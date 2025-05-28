@@ -54,17 +54,28 @@ export class GestionBrigadasComponent implements AfterViewInit {
     this.brigadaService.obtenerTodos().subscribe({
       next: (brigadas: Brigada[]) => {
         console.log("Brigadas recibidas:", brigadas);
+
+        // Formatea fechas
         brigadas.forEach(brigada => {
           brigada.Fecha_Inicio = this.datePipe.transform(brigada.Fecha_Inicio, 'dd/MM/yyyy')!;
         });
+
+        // Asigna a la tabla principal
         this.dataSource.data = brigadas;
         this.dataSource.paginator = this.paginator;
+
+        // Llenar tabla calculadora con Nombre y Presupuesto
+        this.sueldosCalculadora = brigadas.map(b => ({
+          brigada: b.Nombre,
+          sueldo: Number(b.Presupuesto) // Asegurarse de que sea numérico
+        }));
       },
       error: (error) => {
         console.error("Error al cargar las brigadas", error);
       }
     });
   }
+
 
   eliminar(brigada: Brigada): void {
     if (confirm(`¿Estás seguro de eliminar la brigada ${brigada.Nombre} ?`)) {
@@ -111,6 +122,33 @@ export class GestionBrigadasComponent implements AfterViewInit {
         municipio: brigada.Municipio
       }
     });
+  }
+  // Datos simulados
+  sueldosCalculadora: { brigada: string; sueldo: number }[] = [];
+
+
+  // Resultados calculados
+  sumaTotal: number | null = null;
+  promedio: number | null = null;
+
+  // Funciones
+  calcularSumaTotal(): void {
+    this.sumaTotal = this.sueldosCalculadora.reduce((acc, item) => acc + item.sueldo, 0);
+    this.promedio = null; // Limpiamos el otro valor
+  }
+
+  calcularPromedio(): void {
+    const total = this.sueldosCalculadora.reduce((acc, item) => acc + item.sueldo, 0);
+    this.promedio = total / this.sueldosCalculadora.length;
+    this.sumaTotal = null; // Limpiamos el otro valor
+  }
+
+  ordenarAscendente(): void {
+    this.sueldosCalculadora.sort((a, b) => a.sueldo - b.sueldo);
+  }
+
+  ordenarDescendente(): void {
+    this.sueldosCalculadora.sort((a, b) => b.sueldo - a.sueldo);
   }
 
 }
