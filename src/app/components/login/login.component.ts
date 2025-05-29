@@ -19,6 +19,7 @@ export class LoginComponent {
   email = '';
   password = '';
   showPassword = false;
+  mostrarBannerCookies = false;
   /**
    * Inyeccion del servicio de autenticación de Firebase
    * @param router
@@ -29,6 +30,21 @@ export class LoginComponent {
     private auth: Auth //
   ) { }
 
+  ngOnInit() {
+    const consentimiento = localStorage.getItem('cookiesAceptadas');
+    this.mostrarBannerCookies = consentimiento !== 'true' && consentimiento !== 'false';
+  }
+
+  aceptarCookies() {
+    localStorage.setItem('cookiesAceptadas', 'true');
+    this.mostrarBannerCookies = false;
+  }
+
+  rechazarCookies() {
+    localStorage.setItem('cookiesAceptadas', 'false');
+    this.mostrarBannerCookies = false;
+  }
+
   togglePasswordVisibility() {
     this.showPassword = !this.showPassword;
   }
@@ -36,6 +52,8 @@ export class LoginComponent {
   irARegistro() {
     this.router.navigate(['/registro']);
   }
+
+
 
 onLogin() {
   signInWithEmailAndPassword(this.auth, this.email, this.password)
