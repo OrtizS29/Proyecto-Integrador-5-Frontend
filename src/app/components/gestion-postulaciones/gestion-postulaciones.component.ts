@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { PostulacionService } from '../../services/postulacionService';
+import { BrigadistaService } from '../../services/brigadistaService';
+import { CorreoService } from '../../services/correoService';
+import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 
 
@@ -23,7 +26,9 @@ export class GestionPostulacionesComponent{
 
   seleccionada: any = null;
 
-  constructor(private route: ActivatedRoute, private postulacionService: PostulacionService) {}
+  constructor(private route: ActivatedRoute, private postulacionService: PostulacionService,
+    private correoService: CorreoService, private router: Router, private brigadistaService: BrigadistaService
+  ) {}
 
   ngOnInit(): void {
     const idBrigada = Number(this.route.snapshot.paramMap.get("idBrigada"));
@@ -34,6 +39,8 @@ export class GestionPostulacionesComponent{
             id: p.id,
             cargo: p.cargo,
             estado: p.estado,
+            numeroDocumento: p.Brigadista?.Numero_Documento,
+            idBrigada: p.Brigada?.id,
             nombreBrigadista: `${p.Brigadista?.Nombre ?? 'N/A'} ${p.Brigadista?.Apellido ?? ''}`,
             nombreBrigada: p.Brigada?.Nombre ?? 'N/A'
           }));
@@ -51,21 +58,48 @@ export class GestionPostulacionesComponent{
   }
 
   aprobar(): void {
-    if (this.seleccionada) {
-      Swal.fire({
-        icon: 'success',
-        title: 'Aprobado',
-        text: `${this.seleccionada.nombreBrigadista} fue aprobado/a exitosamente`,
-        timer: 2000,
-        showConfirmButton: false
+    if (this.seleccionada && this.seleccionada.estado === "pendiente") {
+      const id = this.seleccionada.id;
+
+      const doc = this.seleccionada.numeroDocumento;
+
+      const datosB ={
+        Id_Brigada: this.seleccionada.idBrigada,
+        Cargo: this.seleccionada.cargo,
+      }
+
+      const datos = {estado: "Aceptado"};
+
+      this.postulacionService.actualizarPostulacion(id, datos).subscribe({
+        next: () => {
+          this.brigadistaService.asignarBrigadista(doc, datosB).subscribe({
+            next: () => {
+
+              const idBrigada = this.seleccionada.idBrigada;
+
+              this.enviarCorreoYRedirigir(idBrigada);
+
+              Swal.fire({
+                icon: 'success',
+                title: 'Aprobado',
+                text: `${this.seleccionada.nombreBrigadista} fue aprobado/a exitosamente`,
+                timer: 2000,
+                showConfirmButton: false
+              });
+              this.seleccionada.estado = 'Aprobado';
+              this.seleccionada = null;
+            }
+          });
+        }
       });
-      this.seleccionada.estado = 'Aprobado';
-      this.seleccionada = null;
+    } else{
+        Swal.fire("Acción no permitida", "Solo puedes aprobar postulaciones pendientes", "warning");
+        return;
     }
   }
 
   rechazar(): void {
-    if (this.seleccionada) {
+    if (this.seleccionada && this.seleccionada.estado === "pendiente") {
       const id = this.seleccionada.id;
       const datos = {estado: "Rechazado"};
       console.log(id,datos);
@@ -85,8 +119,22 @@ export class GestionPostulacionesComponent{
           Swal.fire('Error', 'No se pudo rechazar la postulación', 'error');
         }
       });
-
+    } else{
+        Swal.fire("Acción no permitida", "Solo puedes rechazar postulaciones pendientes", "warning");
+        return;
     }
+  }
+
+  private enviarCorreoYRedirigir(idBrigada: number): void {
+    this.correoService.enviarCorreo(idBrigada)
+      .then(() => {
+        console.log(`📩 Correo enviado para brigada ID: ${idBrigada}`);
+        this.router.navigate(['/admin/brigadas']);
+      })
+      .catch((error) => {
+        console.error('❌ Error al enviar correo:', error);
+        this.router.navigate(['/admin/brigadas']);
+      });
   }
 
 }
