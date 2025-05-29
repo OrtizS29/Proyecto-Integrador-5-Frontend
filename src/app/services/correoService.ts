@@ -5,7 +5,8 @@ import { HttpClient } from '@angular/common/http';
 @Injectable({ providedIn: 'root' })
 export class CorreoService {
   private serviceId = 'service_ytvdoq5';
-  private templateId = 'template_3vhp3wk';
+  private templateId_brigada = 'template_3vhp3wk';
+  private templateId_postulacion = 'template_oa0wkth';
   private userId = 'X1hTCkeS_6iqy9AsH';
 
   constructor(private http: HttpClient) {}
@@ -21,9 +22,9 @@ export class CorreoService {
             // 👉 Ver lo que se envía
             console.log('📤 Correos que se van a enviar:', to_email);
 
-            const templateParams = { to_email };
+            const templateParams = { to_email};
 
-            emailjs.send(this.serviceId, this.templateId, templateParams, this.userId)
+            emailjs.send(this.serviceId, this.templateId_brigada, templateParams, this.userId)
               .then((response) => {
                 console.log('✉️ Correos enviados:', response.status, response.text);
                 resolve(true);
@@ -47,7 +48,7 @@ export class CorreoService {
       console.log("a")
       const templateParams = { to_email };
 
-      emailjs.send(this.serviceId, this.templateId, templateParams, this.userId)
+      emailjs.send(this.serviceId, this.templateId_postulacion, templateParams, this.userId)
               .then((response) => {
                 console.log('✉️ Correos enviados:', response.status, response.text);
                 resolve(true);
