@@ -23,7 +23,7 @@ export class PostulacionService  {
   /*
    * Es la URL del backend con express
    */
-  private apiUrl = 'http://localhost:3000/api/postulacion';
+  private apiUrl = 'https://proyecto-integrador-5-backend.onrender.com/api/postulacion';
   /**
    * Inyeccion e instancia del cliente de HTTP para poder usarlo
    * @param http
