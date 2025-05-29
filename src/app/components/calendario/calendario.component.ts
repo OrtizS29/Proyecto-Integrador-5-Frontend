@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { BrigadaService } from '../../services/brigadaService';
+import { Brigada } from '../../models/brigada';
+import { CalendarioBrigada } from '../../models/calendario-brigada';
 
 @Component({
   selector: 'app-calendario',
@@ -18,9 +21,25 @@ export class CalendarioComponent implements OnInit {
     'Mayo', 'Junio', 'Julio', 'Agosto',
     'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
   ];
+  brigadasCalendario: CalendarioBrigada[] = [];
+
+  constructor(private brigadaService: BrigadaService) {}
 
   ngOnInit(): void {
     this.generateWeeks(this.currentYear, this.currentMonth);
+    this.cargarBrigadas();
+  }
+
+  cargarBrigadas(): void {
+    this.brigadaService.obtenerTodos().subscribe((brigadas: Brigada[]) => {
+      this.brigadasCalendario = brigadas
+        .map(b => ({
+          id: b.id,
+          Nombre: b.Nombre,
+          Fecha_Inicio: new Date(b.Fecha_Inicio)
+        }))
+        .filter(b => !isNaN(b.Fecha_Inicio.getTime()));
+    });
   }
 
   generateWeeks(year: number, month: number): void {

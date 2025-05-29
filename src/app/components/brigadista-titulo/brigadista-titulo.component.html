@@ -1,1 +1,35 @@
-<p>brigadista-titulo works!</p>
+<div *ngIf="cargando">Cargando títulos...</div>
+<div *ngIf="error">{{ error }}</div>
+
+<div class="titulo-header">
+  <h2>Títulos</h2>
+  <div class="acciones">
+    <button [disabled]="!tituloSeleccionado" (click)="editarTitulo()">
+      🖉
+    </button>
+    <button [disabled]="!tituloSeleccionado" (click)="eliminarTitulo()">
+      🗑️
+    </button>
+  </div>
+</div>
+
+<table *ngIf="!cargando && !error" class="tabla-titulos">
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Titulo</th>
+      <th>Nivel escolaridad</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let titulo of titulos"
+        [class.seleccionado]="titulo === tituloSeleccionado"
+        (click)="seleccionarFila(titulo)">
+      <td>{{ titulo.id }}</td>
+      <td>{{ titulo.Titulo }}</td>
+      <td>{{ titulo.Nivel_Escolaridad }}</td>
+    </tr>
+  </tbody>
+</table>
+
+<button class="btn-crear">Crear</button>

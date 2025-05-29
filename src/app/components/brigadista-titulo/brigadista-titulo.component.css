@@ -1,0 +1,46 @@
+.tabla-titulos {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.tabla-titulos th,
+.tabla-titulos td {
+  border: 1px solid #999;
+  padding: 8px;
+  text-align: center;
+}
+
+.titulo-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.acciones button {
+  font-size: 18px;
+  margin-left: 5px;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+.acciones button:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+tr.seleccionado {
+  background-color: #c2f0c2;
+}
+
+.btn-crear {
+  margin-top: 10px;
+  padding: 8px 16px;
+  border: none;
+  background-color: #3ADF00;
+  border-radius: 20px;
+  font-weight: bold;
+  color: white;
+  cursor: pointer;
+}

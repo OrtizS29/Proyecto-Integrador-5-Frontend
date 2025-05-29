@@ -24,8 +24,15 @@
             class="calendar-day"
             [class.empty]="!isDateValid(dia.date)"
             [class.today]="isToday(dia.date)">
+            <!-- Dentro de cada día válido -->
             <ng-container *ngIf="isDateValid(dia.date)">
               {{ dia.date?.getDate() }}
+
+              <div *ngFor="let b of brigadasCalendario">
+                <span *ngIf="b.Fecha_Inicio.toDateString() === dia.date?.toDateString()">
+                  📌 {{ b.Nombre }}
+                </span>
+              </div>
             </ng-container>
           </div>
         </ng-container>

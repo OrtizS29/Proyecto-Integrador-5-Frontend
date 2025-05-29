@@ -11,6 +11,7 @@ import { HttpClient } from '@angular/common/http';
  * Al hacer http. angular devuelve Observable que es una promesa.
  */
 import { Observable } from 'rxjs';
+import { Titulos } from '../models/titulos';
 /*
  * Con este decorador Injectable dice que se puede usar en cualquier parte del proyecto
  * sin tener que registrarlo en un modulo.
@@ -38,4 +39,17 @@ export class TituloService  {
     return this.http.put(`${this.apiUrl}/${id}`, datosActualizados);
   }
 
+  /*
+   * Obtener todos los títulos
+   */
+  obtenerTodos(): Observable<Titulos[]> {
+    return this.http.get<Titulos[]>(this.apiUrl);
+  }
+
+  /*
+   * Crear un nuevo título
+   */
+  crearTitulo(nuevoTitulo: Titulos): Observable<Titulos> {
+    return this.http.post<Titulos>(this.apiUrl, nuevoTitulo);
+  }
 }
