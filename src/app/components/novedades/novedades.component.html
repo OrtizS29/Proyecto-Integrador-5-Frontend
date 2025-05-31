@@ -1,33 +1,30 @@
-<div class="novedades-container">
-    <table class="tabla-novedades">
-      <thead>
-        <tr>
-          <th colspan="3" class="titulo">Novedades</th>
-          <th class="acciones">
-            <button class="icon-btn">➕</button>
-            <button class="icon-btn">✏️</button>
-            <button class="icon-btn">🗑️</button>
-          </th>
-        </tr>
-        <tr>
-          <th>Fecha:</th>
-          <th>Actividad:</th>
-          <th colspan="2">Observaciones:</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>2025-04-17</td>
-          <td>Capacitación</td>
-          <td colspan="2">Se brindó capacitación sobre protocolos ambientales.</td>
-        </tr>
-      </tbody>
-    </table>
-  
-    <div class="paginacion">
-      <button class="nav-btn">◀</button>
-      <span class="pagina">1/14</span>
-      <button class="nav-btn">▶</button>
-    </div>
+<div class="novedades-header">
+  <h2>Novedades</h2>
+  <div class="acciones">
+    <button mat-icon-button color="primary" aria-label="Actualizar novedad">
+      <mat-icon>refresh</mat-icon>
+    </button>
+    <button mat-icon-button color="warn" aria-label="Eliminar novedad">
+      <mat-icon>delete</mat-icon>
+    </button>
   </div>
-  
+</div>
+
+<table class="tabla-novedades">
+  <thead>
+    <tr>
+      <th>Fecha</th>
+      <th>Actividad</th>
+      <th>Observaciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let novedad of novedades">
+      <td>{{ novedad.fecha }}</td>
+      <td>{{ novedad.actividad }}</td>
+      <td>{{ novedad.observaciones }}</td>
+    </tr>
+  </tbody>
+</table>
+
+<button class="btn-crear">Añadir</button>

@@ -1,4 +1,3 @@
-
 export interface Brigadista {
   Numero_Documento: number;
   Nombre: string;
