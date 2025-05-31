@@ -1,6 +1,6 @@
 .tabla-scroll-wrapper {
     /* Esto permite el scroll horizontal solo cuando la tabla sea más ancha que el contenedor */
-     width: 160vh;
+     width: 200vh;
      
    }
    
