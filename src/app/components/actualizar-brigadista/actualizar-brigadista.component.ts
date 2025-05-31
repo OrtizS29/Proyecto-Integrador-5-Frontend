@@ -44,6 +44,9 @@ export class ActualizarBrigadistaComponent implements OnInit {
     Doc_Brigadista: 0
   };
 
+estadosCiviles: string[] = ['Soltero', 'Casado', 'Divorciado', 'Unión libre'];
+
+  
   constructor(
     private brigadistaService: BrigadistaDataService,
     private apiService: BrigadistaService,
