@@ -12,32 +12,38 @@ export class CorreoService {
   constructor(private http: HttpClient) {}
 
   enviarCorreo(idBrigada: number) {
-    return new Promise((resolve, reject) => {
-      this.http.get<any[]>(`https://proyecto-integrador-5-backend.onrender.com/api/brigadistas/brigada/${idBrigada}`)
-        .subscribe({
-          next: (brigadistas) => {
-            const correos = brigadistas.map(b => b.Correo_Electronico);
-            const to_email = correos.join(',');
+  return new Promise((resolve, reject) => {
+    this.http.get<any[]>(`http://localhost:3000/api/brigadistas/brigada/${idBrigada}`)
+      .subscribe({
+        next: async (brigadistas) => {
+          try {
+            for (const b of brigadistas) {
+              console.log('📦 brigadista:', b);
+              const templateParams = {
+                to_email: b.Correo_Electronico,
+                nombre: b.Nombre,
+                brigada: b.Brigada.Nombre,
+                municipio: b.Brigada.Municipio.Nombre,
+                fecha: b.Brigada.Fecha_Inicio,
+              };
 
-            // 👉 Ver lo que se envía
-            console.log('📤 Correos que se van a enviar:', to_email);
+              console.log('🧪 templateParams:', templateParams);
 
-            const templateParams = { to_email};
 
-            emailjs.send(this.serviceId, this.templateId_brigada, templateParams, this.userId)
-              .then((response) => {
-                console.log('✉️ Correos enviados:', response.status, response.text);
-                resolve(true);
-              })
-              .catch((error) => {
-                console.error('❌ Error al enviar correos:', error);
-                reject(error);
-              });
-          },
-          error: (err) => {
-            console.error('❌ Error al obtener brigadistas:', err);
-            reject(err);
+              await emailjs.send(this.serviceId, this.templateId_brigada, templateParams, this.userId);
+              console.log('✅ Correo enviado a', b.Correo_Electronico);
+
+            }
+            resolve(true);
+          } catch (error) {
+            console.error('❌ Error al enviar uno de los correos:', error);
+            reject(error);
           }
+        },
+        error: (err) => {
+          console.error('❌ Error al obtener brigadistas:', err);
+          reject(err);
+        }
         });
     });
   }
