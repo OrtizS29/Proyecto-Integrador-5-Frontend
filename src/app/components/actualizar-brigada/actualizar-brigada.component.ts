@@ -25,8 +25,8 @@ export class ActualizarBrigadaComponent implements OnInit {
   brigada: Brigada = {} as Brigada;
   cantidadPersonal: number = 0;
   personal: any[] = [];  // Lista de personal
-  cargos: string[] = [    
-    'Coordinador Sénior',
+  cargos: string[] = [
+    'Coordinador Senior',
     'Coordinador Júnior',
     'Ingeniero Forestal',
     'Biólogo o profesional botánico',
@@ -71,7 +71,7 @@ export class ActualizarBrigadaComponent implements OnInit {
           return; // Salimos si no hay brigada
         }
       }
-    
+
       // Solo si la brigada está bien definida con ID, traemos el personal
       if (this.brigada && this.brigada.id) {
         this.brigadistaService.obtenerBrigadistasPorBrigada(this.brigada.id).subscribe({
@@ -92,7 +92,7 @@ export class ActualizarBrigadaComponent implements OnInit {
     });
   }
 
-  
+
   formatearFecha(fecha: string): string {
     const partes = fecha.split('/');
     if (partes.length === 3) {
@@ -100,17 +100,8 @@ export class ActualizarBrigadaComponent implements OnInit {
     }
     return fecha;
   }
-  
 
-  ajustarCantidadPersonal(): void {
-    if (this.cantidadPersonal < 0 || this.cantidadPersonal > 10) {
-      alert('La cantidad de integrantes debe estar entre 0 y 10.');
-      return;
-    }
-    this.personal = Array.from({ length: this.cantidadPersonal }, (_, i) => this.personal[i] || { nombre: '', Cargo: '' });
-  }
 
-  
 
   cancelar(): void {
     // Lógica para cancelar la operación, por ejemplo redirigir a la página de brigadas
@@ -122,19 +113,25 @@ export class ActualizarBrigadaComponent implements OnInit {
     this.guardarCambios();
   }
 
-  
+
   guardarCambios() {
     if (this.brigada && this.brigada.id) {
-      const brigadaActualizada = { ...this.brigada };
-  
+      const brigadaActualizada = {
+        Nombre: this.brigada.Nombre,
+        Presupuesto: this.brigada.Presupuesto,
+        Fecha_Inicio: this.brigada.Fecha_Inicio,
+        ID_Municipio: this.brigada.Municipio?.id,
+        ID_Conglomerado: this.brigada.Conglomerado?.id
+      };
+
       // Convertir fecha a ISO si está presente
       if (brigadaActualizada.Fecha_Inicio) {
         brigadaActualizada.Fecha_Inicio = new Date(brigadaActualizada.Fecha_Inicio).toISOString();
       }
-  
+
       console.log('Enviando brigada actualizada:', brigadaActualizada); // Verificar que los datos son correctos
-  
-      this.apiService.actualizarBrigada(brigadaActualizada.id, brigadaActualizada).subscribe({
+
+      this.apiService.actualizarBrigada(this.brigada.id, brigadaActualizada).subscribe({
         next: (respuesta) => {
           console.log('Brigada actualizada correctamente:', respuesta);
           alert('Brigada actualizada exitosamente.');
@@ -149,6 +146,6 @@ export class ActualizarBrigadaComponent implements OnInit {
       alert('Datos incompletos de la brigada.');
     }
   }
-  
-  
+
+
 }

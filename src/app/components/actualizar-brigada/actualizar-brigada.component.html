@@ -25,14 +25,6 @@
   <!-- Personal asignado -->
   <div class="personal-section">
     <h3>Editar personal asignado</h3>
-    <label for="cantidad">¿Cuántos integrantes tendrá la brigada?</label>
-      <input
-        type="number"
-        id="cantidad"
-        [(ngModel)]="cantidadPersonal"
-        min="0"
-        max="10"
-        (change)="ajustarCantidadPersonal()" />
 
 
     <div class="personal-list" *ngFor="let persona of personal; let i = index">
@@ -40,13 +32,12 @@
       <input type="text" placeholder="Nombre del personal" [(ngModel)]="persona.nombre" />
       <select [(ngModel)]="persona.Cargo" [ngModelOptions]="{standalone: true}">
         <option value="" disabled>Escoja el rol del integrante</option>
-        <option *ngFor="let Cargo of cargos" [value]="Cargo" [selected]="persona.Cargo === Cargo">
+        <option *ngFor="let Cargo of cargos" [value]="Cargo">
           {{ Cargo }}
         </option>
       </select>
-      
+
     </div>
-  </div>
 
   <!-- Botones de acción -->
   <div class="fila" style="justify-content: flex-end; gap: 10px;">
