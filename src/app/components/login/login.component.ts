@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { Auth, signInWithEmailAndPassword } from '@angular/fire/auth';
 import { getIdToken } from 'firebase/auth';
+import { Login } from '../../services/loginService';
 import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 import Swal from 'sweetalert2';
 
@@ -27,7 +28,8 @@ export class LoginComponent {
    */
   constructor(
     private router: Router,
-    private auth: Auth //
+    private auth: Auth,
+    private loginService: Login
   ) { }
 
   ngOnInit() {
@@ -61,16 +63,28 @@ onLogin() {
       const user = UserCredential.user;
       const token = await getIdToken(user);
 
-      console.log('Login exitoso');
-      Swal.fire({
-        icon: 'success',
-        title: 'Bienvenido',
-        text: 'Se inició sesión correctamente',
-        timer: 2000,
-        showConfirmButton: false
-      });
+      this.loginService.loginConToken(token).subscribe({
+        next: (res) => {
+          const user = res.user;
+          const rol = user.Roll;
 
-      this.router.navigate(['/admin']);
+          console.log("Rol de usuario", rol);
+
+          Swal.fire({
+            icon: 'success',
+            title: 'Bienvenido',
+            text: 'Se inició sesión correctamente',
+            timer: 2000,
+            showConfirmButton: false
+          });
+
+          if (rol === "admin") {
+            this.router.navigate(['/admin']);
+          }else if (rol === "brigadista"){
+            this.router.navigate(['/usuario']);
+          }
+        }
+      })
     })
     .catch((error) => {
       console.error("Error al iniciar sesión", error);
@@ -87,10 +101,33 @@ onLogin() {
     const provider = new GoogleAuthProvider();
     const auth = getAuth();
     signInWithPopup(auth, provider)
-      .then((result) => {
+      .then( async ( result ) => {
+
         const user = result.user;
-        console.log('Usuario autenticado con Google:', user);
-        this.router.navigate(['/usuario']); // ajusta según tu ruta
+        const token = await user.getIdToken();
+
+        this.loginService.loginConToken(token).subscribe({
+          next: (res) => {
+            const user = res.user;
+            const rol = user.Roll;
+
+            console.log("Rol de usuario", rol);
+
+            Swal.fire({
+              icon: 'success',
+              title: 'Bienvenido',
+              text: 'Se inició sesión correctamente',
+              timer: 2000,
+              showConfirmButton: false
+            });
+
+            if (rol === "admin") {
+              this.router.navigate(['/admin']);
+            }else if (rol === "brigadista"){
+              this.router.navigate(['/usuario']);
+            }
+          }
+        })
       })
       .catch((error) => {
         console.error('Error al iniciar sesión con Google:', error);
