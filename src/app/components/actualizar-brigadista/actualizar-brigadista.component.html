@@ -93,11 +93,7 @@
         <div class="campo">
           <label>Estado civil:
             <select name="estadoCivil" [(ngModel)]="brigadista.Estado_Civil">
-              <option value="">Seleccione una opción</option>
-              <option value="Soltero">Soltero</option>
-              <option value="Casado">Casado</option>
-              <option value="Divorciado">Divorciado</option>
-              <option value="Union libre">Unión libre</option>
+              <option *ngFor="let estado of estadosCiviles" [value]="estado">{{ estado }}</option>
             </select>
           </label>
         </div>
