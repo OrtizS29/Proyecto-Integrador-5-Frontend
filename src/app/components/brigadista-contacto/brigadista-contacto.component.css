@@ -6,12 +6,12 @@
    
    .tabla-horizontal {
      width: max-content;
-     min-width: 800px;   /* Establece un mínimo para que la tabla sea más ancha que el contenedor */
+     min-width: 160vh;   /* Establece un mínimo para que la tabla sea más ancha que el contenedor */
    }
    
    .mat-header-cell, .mat-cell {
      white-space: nowrap; /* Asegura que el contenido no se envuelva */
-     padding: 10px 200px;   /* Ajuste de espaciado */
+     padding: 10px 20vh;   /* Ajuste de espaciado */
    }
    
    .import-container {
