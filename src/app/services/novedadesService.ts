@@ -14,4 +14,13 @@ export class NovedadesService {
   obtenerNovedades(): Observable<Novedad[]> {
     return this.http.get<Novedad[]>(this.apiUrl);
   }
+
+  crearNovedad(novedad: any): Observable<Novedad> {
+    return this.http.post<Novedad>(this.apiUrl, novedad);
+  }
+
+  eliminarNovedad(id: number): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/${id}`);
+  }
+
 }

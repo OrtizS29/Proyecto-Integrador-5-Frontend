@@ -1,10 +1,12 @@
 <div class="novedades-header">
   <h2>Novedades</h2>
   <div class="acciones">
-    <button mat-icon-button color="primary" aria-label="Actualizar novedad">
+    <button mat-icon-button color="primary" aria-label="Actualizar novedad"
+            (click)="actualizarSeleccionada()" [disabled]="!novedadSeleccionada">
       <mat-icon>refresh</mat-icon>
     </button>
-    <button mat-icon-button color="warn" aria-label="Eliminar novedad">
+    <button mat-icon-button color="warn" aria-label="Eliminar novedad"
+            (click)="eliminarSeleccionada()" [disabled]="!novedadSeleccionada">
       <mat-icon>delete</mat-icon>
     </button>
   </div>
@@ -13,18 +15,20 @@
 <table class="tabla-novedades">
   <thead>
     <tr>
-      <th>Fecha</th>
       <th>Actividad</th>
-      <th>Observaciones</th>
+      <th>Descripción</th>
+      <th>Brigada</th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let novedad of novedades">
-      <td>{{ novedad.fecha }}</td>
+    <tr *ngFor="let novedad of novedades" [class.selected]="novedad === novedadSeleccionada" (click)="seleccionarNovedad(novedad)">
       <td>{{ novedad.actividad }}</td>
-      <td>{{ novedad.observaciones }}</td>
+      <td>{{ novedad.descActividad }}</td>
+      <td>{{ obtenerNombreBrigada(novedad.idBrigada) }}</td>
     </tr>
   </tbody>
 </table>
 
-<button class="btn-crear">Añadir</button>
+<button class="btn-crear" mat-raised-button color="primary" [routerLink]="'/admin/agregar-novedad'">
+  Añadir
+</button>
