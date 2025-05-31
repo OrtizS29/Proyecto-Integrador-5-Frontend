@@ -6,7 +6,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTableDataSource } from '@angular/material/table';
 import { RouterModule, Router } from '@angular/router';
-import { Contacto_Emergencia } from '../../models/contacto-emergencia'; // Ajusta la ruta si es necesario
+import { ContactoEmergenciaService } from '../../services/contacto_emergenciaService'; // Ajusta si la ruta cambia
+import { Contacto_Emergencia } from '../../models/contacto-emergencia';
 
 @Component({
   selector: 'app-brigadista-contacto',
@@ -36,30 +37,23 @@ export class BrigadistaContactoComponent implements OnInit {
   dataSource = new MatTableDataSource<Contacto_Emergencia>([]);
   filaSeleccionada: Contacto_Emergencia | null = null;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router,private contactoService: ContactoEmergenciaService) {}
 
   ngOnInit(): void {
-    // Aquí deberías traer tus datos reales desde un servicio
-    this.dataSource.data = [
-      {
-        id: 1,
-        Nombre_Completo: 'Ana López',
-        Parentesco: 'Madre',
-        Telefono_Movil: '3123456789',
-        Correo_Electronico: 'ana@example.com',
-        Doc_Brigadista: 1001
-      },
-      {
-        id: 2,
-        Nombre_Completo: 'Carlos Ruiz',
-        Parentesco: 'Hermano',
-        Telefono_Movil: '3009876543',
-        Correo_Electronico: 'carlos@example.com',
-        Doc_Brigadista: 1002
-      }
-    ];
+    this.cargarContactos();
   }
 
+  cargarContactos(): void {
+    this.contactoService.obtenerTodos().subscribe(
+      (contactos: Contacto_Emergencia[]) => {
+        this.dataSource.data = contactos;
+      },
+      (error) => {
+        console.error('Error al cargar los contactos:', error);
+        alert('Error al cargar los contactos de emergencia.');
+      }
+    );
+  }
   seleccionarFila(row: Contacto_Emergencia): void {
     this.filaSeleccionada = row;
   }
@@ -69,7 +63,7 @@ export class BrigadistaContactoComponent implements OnInit {
     if (contacto) {
       // Puedes guardar el contacto en el localStorage si lo necesitas
       localStorage.setItem('contactoSeleccionado', JSON.stringify(contacto));
-      this.router.navigate(['/admin/editar-contacto', contacto.id]);
+      this.router.navigate(['/admin/actualizar-contacto', contacto.id]);
     }
   }
 

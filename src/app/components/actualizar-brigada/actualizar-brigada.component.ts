@@ -7,8 +7,10 @@ import { Brigada } from './../../models/brigada';
 import { BrigadaService } from '../../services/brigadaService';
 import { BrigadistaService } from '../../services/brigadistaService'; // Asegúrate de tener este servicio
 import { ChangeDetectorRef } from '@angular/core';
-
-
+import { MunicipioService } from '../../services/municipioService';
+import { ConglomeradoService } from '../../services/conglomeradoService';
+import { Municipio } from '../../models/municipio';
+import { Conglomerado } from '../../models/conglomerado';
 
 @Component({
   selector: 'app-actualizar-brigada',
@@ -18,6 +20,8 @@ import { ChangeDetectorRef } from '@angular/core';
   styleUrls: ['./actualizar-brigada.component.css']
 })
 export class ActualizarBrigadaComponent implements OnInit {
+  municipios: Municipio[] = [];
+  conglomerados: Conglomerado[] = [];
   brigada: Brigada = {} as Brigada;
   cantidadPersonal: number = 0;
   personal: any[] = [];  // Lista de personal
@@ -35,11 +39,23 @@ export class ActualizarBrigadaComponent implements OnInit {
     private brigadaService: BrigadaDataService,
     private apiService: BrigadaService,
     private brigadistaService: BrigadistaService,
+    private municipioService: MunicipioService,
+    private conglomeradoService: ConglomeradoService,
     public router: Router,
     private cdRef: ChangeDetectorRef  // Inyectamos el ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
+    this.municipioService.obtenerMunicipios().subscribe({
+      next: (data) => this.municipios = data,
+      error: (err) => console.error('Error al cargar municipios', err)
+    });
+
+    this.conglomeradoService.obtenerConglomerados().subscribe({
+      next: (data) => this.conglomerados = data,
+      error: (err) => console.error('Error al cargar conglomerados', err)
+    });
+
     this.brigadaService.currentBrigada.subscribe(data => {
       if (data) {
         this.brigada = data;
@@ -87,8 +103,13 @@ export class ActualizarBrigadaComponent implements OnInit {
   
 
   ajustarCantidadPersonal(): void {
-    this.personal = Array.from({ length: this.cantidadPersonal }, () => ({ nombre: '', rol: '' }));
+    if (this.cantidadPersonal < 0 || this.cantidadPersonal > 10) {
+      alert('La cantidad de integrantes debe estar entre 0 y 10.');
+      return;
+    }
+    this.personal = Array.from({ length: this.cantidadPersonal }, (_, i) => this.personal[i] || { nombre: '', Cargo: '' });
   }
+
   
 
   cancelar(): void {

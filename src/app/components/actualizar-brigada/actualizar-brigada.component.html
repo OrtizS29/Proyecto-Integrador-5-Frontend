@@ -7,7 +7,16 @@
     <input type="text" id="nombre" [(ngModel)]="brigada.Nombre">
 
     <label for="municipio">Municipio:</label>
-    <input type="text" id="municipio" [(ngModel)]="brigada.Municipio">
+    <select id="municipio" [(ngModel)]="brigada.ID_Municipio">
+      <option [ngValue]="null" disabled selected>Seleccione un municipio</option>
+      <option *ngFor="let m of municipios" [ngValue]="m.id">{{ m.Nombre }}</option>
+    </select>
+
+    <label for="conglomerado">Conglomerado:</label>
+    <select id="conglomerado" [(ngModel)]="brigada.ID_Conglomerado">
+      <option [ngValue]="null" disabled selected>Seleccione un conglomerado</option>
+      <option *ngFor="let c of conglomerados" [ngValue]="c.id">{{ c.Nombre }}</option>
+    </select>
 
     <label for="fecha">Fecha de inicio:</label>
     <input type="date" id="fecha" [(ngModel)]="brigada.Fecha_Inicio">
@@ -17,8 +26,14 @@
   <div class="personal-section">
     <h3>Editar personal asignado</h3>
     <label for="cantidad">¿Cuántos integrantes tendrá la brigada?</label>
-    <input type="number" id="cantidad" [(ngModel)]="cantidadPersonal" min="6" max="10"
-      (change)="ajustarCantidadPersonal()" />
+      <input
+        type="number"
+        id="cantidad"
+        [(ngModel)]="cantidadPersonal"
+        min="0"
+        max="10"
+        (change)="ajustarCantidadPersonal()" />
+
 
     <div class="personal-list" *ngFor="let persona of personal; let i = index">
       <label>{{ i + 1 }}.</label>

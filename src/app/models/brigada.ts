@@ -4,4 +4,6 @@ export interface Brigada{
     Municipio: string;
     Presupuesto: string;
     Fecha_Inicio: string;
+    ID_Municipio: number;
+    ID_Conglomerado: number;
 }

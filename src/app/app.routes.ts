@@ -17,6 +17,10 @@ import { PostularseComponent } from './components/postularse/postularse.componen
 import { PendientePostulacionComponent } from './components/pendiente-postulacion/pendiente-postulacion.component';
 import { GestionPostulacionesComponent } from './components/gestion-postulaciones/gestion-postulaciones.component';
 import { AgregarNovedadComponent } from './components/agregar-novedad/agregar-novedad.component';
+import { ActualizarNovedadComponent } from './components/actualizar-novedad/actualizar-novedad.component';
+import { AgregarTituloComponent } from './components/agregar-titulo/agregar-titulo.component';
+import { EditarTituloComponent } from './components/editar-titulo/editar-titulo.component';
+import { ActualizarContactoComponent } from './components/actualizar-contacto/actualizar-contacto.component';
 
 export const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -37,7 +41,12 @@ export const routes: Routes = [
       { path: 'novedades', component: NovedadesComponent },
       { path: 'calendario', component: CalendarioComponent },
       { path: 'gestion-postulaciones/:idBrigada', component: GestionPostulacionesComponent },
-      { path: 'agregar-novedad', component: AgregarNovedadComponent }
+      { path: 'agregar-novedad', component: AgregarNovedadComponent },
+      { path: 'actualizar-novedad', component: ActualizarNovedadComponent },
+      { path: 'agregar-titulo', component: AgregarTituloComponent },
+      {path: 'editar-titulo/:id',component: EditarTituloComponent},
+      {path: 'actualizar-contacto/:id',component: ActualizarContactoComponent}
+
     ]
   },
   {

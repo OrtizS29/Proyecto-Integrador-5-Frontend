@@ -17,8 +17,7 @@ import { MunicipioService } from '../../services/municipioService';
 import { Municipio as MunicipioModel } from '../../models/municipio';
 import { Conglomerado } from '../../models/conglomerado';
 import { ConglomeradoService } from '../../services/conglomeradoService';
-
-
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-crear-brigada',
@@ -196,8 +195,13 @@ actualizarIntegrantes(): void {
         });
       },
       error: (err) => {
-        console.error('❌ Error al guardar brigada:', err);
-        this.mensajeError = 'Ocurrió un error al guardar la brigada.';
+        console.error('Error al guardar brigada:', err);
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'Ocurrió un error al guardar la brigada. Intenta nuevamente.',
+          confirmButtonText: 'Aceptar'
+        });
       }
     });
   }
@@ -205,13 +209,24 @@ actualizarIntegrantes(): void {
   private enviarCorreoYRedirigir(idBrigada: number): void {
     this.correoService.enviarCorreo(idBrigada)
       .then(() => {
-        console.log(`📩 Correo enviado para brigada ID: ${idBrigada}`);
-        this.router.navigate(['/admin/brigadas']);
+        console.log(`Correo enviado para brigada ID: ${idBrigada}`);
+        this.mostrarExitoYRedirigir(idBrigada);
       })
       .catch((error) => {
-        console.error('❌ Error al enviar correo:', error);
-        this.router.navigate(['/admin/brigadas']);
+        console.error('Error al enviar correo:', error);
+        this.mostrarExitoYRedirigir(idBrigada); // Aun si falla el correo, mostramos éxito
       });
+  }
+
+  private mostrarExitoYRedirigir(idBrigada: number): void {
+    Swal.fire({
+      icon: 'success',
+      title: 'Brigada creada',
+      text: 'La brigada fue creada correctamente.',
+      confirmButtonText: 'Ir a la gestión de brigadas'
+    }).then(() => {
+      this.router.navigate(['/admin/brigadas']);
+    });
   }
 
 

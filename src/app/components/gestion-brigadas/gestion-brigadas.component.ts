@@ -8,7 +8,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterModule, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
-
+import Swal from 'sweetalert2';
 import { Brigada } from '../../models/brigada';
 import { BrigadaService } from '../../services/brigadaService';
 import { PersonalDialogComponent } from '../personal-dialog/personal-dialog.component';
@@ -77,19 +77,43 @@ export class GestionBrigadasComponent implements AfterViewInit {
   }
 
 
-  eliminar(brigada: Brigada): void {
-    if (confirm(`¿Estás seguro de eliminar la brigada ${brigada.Nombre} ?`)) {
+eliminar(brigada: Brigada): void {
+  Swal.fire({
+    title: `¿Estás seguro de eliminar la brigada "${brigada.Nombre}"?`,
+    text: "Esta acción no se puede deshacer.",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#d33',
+    cancelButtonColor: '#3085d6',
+    confirmButtonText: 'Sí, eliminar',
+    cancelButtonText: 'Cancelar'
+  }).then((result) => {
+    if (result.isConfirmed) {
       this.brigadaService.eliminarBrigada(brigada.id).subscribe({
         next: () => {
+          Swal.fire({
+            icon: 'success',
+            title: 'Eliminado',
+            text: `La brigada "${brigada.Nombre}" fue eliminada correctamente.`,
+            confirmButtonText: 'Aceptar'
+          });
           this.filaSeleccionada = null;
           this.cargarBrigadas();
         },
         error: (error) => {
-          console.error('Error al eliminar brigadista:', error);
+          console.error('Error al eliminar brigada:', error);
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'No se pudo eliminar la brigada. Intenta nuevamente.',
+            confirmButtonText: 'Aceptar'
+          });
         }
       });
     }
-  }
+  });
+}
+
 
   seleccionarFila(fila: any): void {
     this.filaSeleccionada = fila;

@@ -74,7 +74,7 @@ export class NovedadesComponent implements OnInit {
     if (!this.novedadSeleccionada) return;
 
     // Puedes cambiar esta ruta luego
-    this.router.navigate(['/admin/novedades'], {
+    this.router.navigate(['/admin/actualizar-novedad'], {
       queryParams: { id: this.novedadSeleccionada.id }
     });
   }

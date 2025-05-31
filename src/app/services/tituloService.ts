@@ -52,4 +52,15 @@ export class TituloService  {
   crearTitulo(nuevoTitulo: Titulos): Observable<Titulos> {
     return this.http.post<Titulos>(this.apiUrl, nuevoTitulo);
   }
+
+  eliminarTitulo(id: number): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/${id}`);
+  }
+
+  // tituloService.ts
+  obtenerTituloPorId(id: number): Observable<Titulos> {
+    return this.http.get<Titulos>(`${this.apiUrl}/${id}`);
+  }
+
+
 }

@@ -15,6 +15,8 @@ import { Observable } from 'rxjs';
  * Con este decorador Injectable dice que se puede usar en cualquier parte del proyecto
  * sin tener que registrarlo en un modulo.
  */
+import { Contacto_Emergencia } from '../models/contacto-emergencia'; // Ajusta la ruta si es necesario
+
 @Injectable({
   providedIn: 'root'
 })
@@ -38,4 +40,9 @@ export class ContactoEmergenciaService   {
   actualizarContacto(id: number, datosActualizados: any): Observable<any> {
     return this.http.put(`${this.apiUrl}/${id}`, datosActualizados);
   }
+
+  obtenerTodos(): Observable<Contacto_Emergencia[]> {
+    return this.http.get<Contacto_Emergencia[]>(this.apiUrl);
+  }
+
 }

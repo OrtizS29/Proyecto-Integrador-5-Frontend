@@ -23,4 +23,9 @@ export class NovedadesService {
     return this.http.delete(`${this.apiUrl}/${id}`);
   }
 
+  actualizarNovedad(id: number, novedad: any): Observable<Novedad> {
+    return this.http.put<Novedad>(`${this.apiUrl}/${id}`, novedad);
+  }
+
+
 }

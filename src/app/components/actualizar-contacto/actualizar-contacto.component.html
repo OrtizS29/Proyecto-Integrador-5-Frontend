@@ -1,0 +1,31 @@
+<div class="container">
+  <h2>Actualizar contacto</h2>
+  <form [formGroup]="contactoForm" (ngSubmit)="guardar()">
+    <div class="form-grid">
+      <div>
+        <label for="nombre">Nombre completo:</label>
+        <input id="nombre" formControlName="Nombre_Completo" />
+      </div>
+
+      <div>
+        <label for="telefono">Teléfono móvil:</label>
+        <input id="telefono" formControlName="Telefono_Movil" />
+      </div>
+
+      <div>
+        <label for="parentesco">Parentesco:</label>
+        <input id="parentesco" formControlName="Parentesco" />
+      </div>
+
+      <div>
+        <label for="correo">Correo electrónico:</label>
+        <input id="correo" formControlName="Correo_Electronico" />
+      </div>
+    </div>
+
+    <div class="botones">
+      <button type="button" (click)="cancelar()">Cancelar</button>
+      <button type="submit" [disabled]="!contactoForm.valid">Guardar</button>
+    </div>
+  </form>
+</div>

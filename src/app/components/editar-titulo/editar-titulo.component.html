@@ -1,0 +1,27 @@
+<div class="formulario-editar">
+  <h2>Editar título</h2>
+  <form (ngSubmit)="guardarCambios()" #formTitulo="ngForm">
+    <label for="titulo">Título:</label>
+    <input
+      type="text"
+      id="titulo"
+      name="titulo"
+      [(ngModel)]="titulo.Titulo"
+      required
+    />
+
+    <label for="nivel">Nivel escolaridad:</label>
+    <input
+      type="text"
+      id="nivel"
+      name="nivel"
+      [(ngModel)]="titulo.Nivel_Escolaridad"
+      required
+    />
+
+    <div class="botones">
+      <button type="button" (click)="cancelar()">Cancelar</button>
+      <button type="submit" [disabled]="formTitulo.invalid">Guardar</button>
+    </div>
+  </form>
+</div>

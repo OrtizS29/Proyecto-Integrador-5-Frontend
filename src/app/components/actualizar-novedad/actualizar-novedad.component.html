@@ -1,0 +1,38 @@
+<div class="contenedor-formulario">
+  <h2>Actualizar novedad</h2>
+  <form *ngIf="novedad.id !== 0" (ngSubmit)="actualizarNovedad()" #formulario="ngForm">
+    <label for="actividad">Actividad:</label>
+    <input
+      type="text"
+      id="actividad"
+      name="actividad"
+      [(ngModel)]="novedad.actividad"
+      required
+    />
+
+    <label for="descActividad">Descripción de la actividad:</label>
+    <textarea
+      id="descActividad"
+      name="descActividad"
+      [(ngModel)]="novedad.descActividad"
+      required
+    ></textarea>
+
+    <label for="idBrigada">Brigada:</label>
+    <select
+      id="idBrigada"
+      name="idBrigada"
+      [(ngModel)]="novedad.idBrigada"
+      required
+    >
+      <option *ngFor="let brigada of brigadas" [value]="brigada.id">
+        {{ brigada.Nombre }} - {{ brigada.Municipio }}
+      </option>
+    </select>
+
+    <div class="botones">
+      <button type="button" (click)="cancelar()">Cancelar</button>
+      <button type="submit" [disabled]="formulario.invalid">Actualizar</button>
+    </div>
+  </form>
+</div>
