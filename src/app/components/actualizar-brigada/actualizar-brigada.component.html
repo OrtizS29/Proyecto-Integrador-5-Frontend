@@ -3,23 +3,38 @@
 
   <!-- Datos generales -->
   <div class="brigada-section">
-    <label for="nombre">Nombre:</label>
-    <input type="text" id="nombre" [(ngModel)]="brigada.Nombre">
 
-    <label for="municipio">Municipio:</label>
-    <select id="municipio" [(ngModel)]="brigada.ID_Municipio">
-      <option [ngValue]="null" disabled selected>Seleccione un municipio</option>
-      <option *ngFor="let m of municipios" [ngValue]="m.id">{{ m.Nombre }}</option>
-    </select>
+    <div class="campo">
+      <label for="nombre">Nombre:</label>
+      <input type="text" id="nombre" [(ngModel)]="brigada.Nombre">
+    </div>
 
-    <label for="conglomerado">Conglomerado:</label>
-    <select id="conglomerado" [(ngModel)]="brigada.ID_Conglomerado">
-      <option [ngValue]="null" disabled selected>Seleccione un conglomerado</option>
-      <option *ngFor="let c of conglomerados" [ngValue]="c.id">{{ c.Nombre }}</option>
-    </select>
+    <div class="campo">
+      <label for="municipio">Municipio:</label>
+      <select id="municipio" [(ngModel)]="brigada.ID_Municipio">
+        <option [ngValue]="null" disabled selected>Seleccione un municipio</option>
+        <option *ngFor="let m of municipios" [ngValue]="m.id">{{ m.Nombre }}</option>
+      </select>
+    </div>
 
-    <label for="fecha">Fecha de inicio:</label>
-    <input type="date" id="fecha" [(ngModel)]="brigada.Fecha_Inicio">
+    <div class="campo">
+      <label for="conglomerado">Conglomerado:</label>
+      <select id="conglomerado" [(ngModel)]="brigada.ID_Conglomerado">
+        <option [ngValue]="null" disabled selected>Seleccione un conglomerado</option>
+        <option *ngFor="let c of conglomerados" [ngValue]="c.id">{{ c.Nombre }}</option>
+      </select>
+    </div>
+
+    <div class="campo">
+      <label for="fecha">Fecha de inicio:</label>
+      <input type="date" id="fecha" [(ngModel)]="brigada.Fecha_Inicio">
+    </div>
+
+    <div class="campo">
+      <label for="presupuesto">Presupuesto:</label>
+      <input type="text" id="presupuesto" [(ngModel)]="brigada.Presupuesto">
+    </div>
+
   </div>
 
   <!-- Personal asignado -->
@@ -40,12 +55,13 @@
     </div>
 
   <!-- Botones de acción -->
-  <div class="fila" style="justify-content: flex-end; gap: 10px;">
+  <div class="botones-derecha">
     <button class="btn-cancel" (click)="router.navigate(['/admin/brigadas'])">
       Cancelar
     </button>
     <button class="btn-guardar" (click)="guardarCambios()">
       Guardar
     </button>
+  </div>
   </div>
 </div>

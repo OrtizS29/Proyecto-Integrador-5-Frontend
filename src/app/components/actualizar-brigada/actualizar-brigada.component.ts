@@ -11,6 +11,7 @@ import { MunicipioService } from '../../services/municipioService';
 import { ConglomeradoService } from '../../services/conglomeradoService';
 import { Municipio } from '../../models/municipio';
 import { Conglomerado } from '../../models/conglomerado';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-actualizar-brigada',
@@ -66,7 +67,11 @@ export class ActualizarBrigadaComponent implements OnInit {
           this.brigada.Fecha_Inicio = this.formatearFecha(this.brigada.Fecha_Inicio);
           this.brigadaService.cambiarBrigada(this.brigada);
         } else {
-          alert('No se ha seleccionado ninguna brigada.');
+          Swal.fire({
+            icon: 'warning',
+            title: 'Atención',
+            text: 'No se ha seleccionado ninguna brigada.'
+          });
           this.router.navigate(['/admin/brigadas']);
           return; // Salimos si no hay brigada
         }
@@ -118,12 +123,11 @@ export class ActualizarBrigadaComponent implements OnInit {
     if (this.brigada && this.brigada.id) {
       const brigadaActualizada = {
         Nombre: this.brigada.Nombre,
-        Presupuesto: this.brigada.Presupuesto,
+        Presupuesto: this.brigada.Presupuesto, // <- ya está presente
         Fecha_Inicio: this.brigada.Fecha_Inicio,
         ID_Municipio: this.brigada.Municipio?.id,
         ID_Conglomerado: this.brigada.Conglomerado?.id
       };
-
       // Convertir fecha a ISO si está presente
       if (brigadaActualizada.Fecha_Inicio) {
         brigadaActualizada.Fecha_Inicio = new Date(brigadaActualizada.Fecha_Inicio).toISOString();
@@ -134,16 +138,28 @@ export class ActualizarBrigadaComponent implements OnInit {
       this.apiService.actualizarBrigada(this.brigada.id, brigadaActualizada).subscribe({
         next: (respuesta) => {
           console.log('Brigada actualizada correctamente:', respuesta);
-          alert('Brigada actualizada exitosamente.');
+          Swal.fire({
+            icon: 'success',
+            title: 'Éxito',
+            text: 'Brigada actualizada exitosamente.'
+          });
           this.router.navigate(['/admin/brigadas']);
         },
         error: (error) => {
           console.error('Error al actualizar la brigada:', error);
-          alert('Ocurrió un error al guardar los cambios.');
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'Ocurrió un error al guardar los cambios.'
+          });
         }
       });
     } else {
-      alert('Datos incompletos de la brigada.');
+      Swal.fire({
+        icon: 'info',
+        title: 'Datos incompletos',
+        text: 'Verifica que todos los campos estén completos.'
+      });
     }
   }
 

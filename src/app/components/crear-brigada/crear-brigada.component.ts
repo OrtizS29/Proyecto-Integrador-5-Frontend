@@ -49,12 +49,9 @@ export class CrearBrigadaComponent {
   municipio: string = '';
   fechaInicio: Date | null = null;
 
-  cantidadIntegrantes: number = 6;
+  cantidadIntegrantes: number = 0;
+  integrantes: { persona: Brigadista | null; rol: string }[] = [];
 
-  integrantes: { persona: Brigadista | null; rol: string }[] = Array.from({ length: 6 }, () => ({
-    persona: null,
-    rol: ''
-  }));
 
   mensajeError: string = '';
 
@@ -114,35 +111,9 @@ export class CrearBrigadaComponent {
   }
 
 
-actualizarIntegrantes(): void {
-  const cantidad = this.cantidadIntegrantes;
-
-  if (cantidad < 0 || cantidad > 10) {
-    this.mensajeError = 'El número de integrantes debe estar entre 0 y 10.';
-    return;
-  }
-
-  this.mensajeError = '';
-
-  if (cantidad > this.integrantes.length) {
-    for (let i = this.integrantes.length; i < cantidad; i++) {
-      this.integrantes.push({ persona: null, rol: '' });
-    }
-  } else if (cantidad < this.integrantes.length) {
-    this.integrantes = this.integrantes.slice(0, cantidad);
-  }
-}
-
-
   guardarBrigada(): void {
     if (!this.nombreBrigada || !this.municipioSeleccionado || !this.fechaInicio) {
       this.mensajeError = 'Por favor, completa todos los campos principales.';
-      return;
-    }
-
-    const camposIncompletos = this.integrantes.some(integ => !integ.persona || !integ.rol);
-    if (camposIncompletos) {
-      this.mensajeError = 'Todos los integrantes deben tener persona y rol asignado.';
       return;
     }
 
@@ -160,39 +131,7 @@ actualizarIntegrantes(): void {
     this.brigadaService.crearBrigada(nuevaBrigada).subscribe({
       next: (brigadaCreada) => {
         const idBrigada = brigadaCreada.id;
-        const integrantesValidos = this.integrantes.filter(i => i.persona);
-        if (integrantesValidos.length === 0) {
-          // 📩 Si no hay integrantes, igual enviamos el correo
-          this.router.navigate(['/admin/brigadas']);
-          return;
-        }
-
-        let actualizacionesPendientes = integrantesValidos.length;
-
-        integrantesValidos.forEach(integrante => {
-          const datosActualizados = {
-            Id_Brigada: idBrigada,
-            Cargo: integrante.rol
-          };
-
-          this.brigadistaService.asignarBrigadista(integrante.persona!.Numero_Documento, datosActualizados)
-            .subscribe({
-              next: () => {
-                actualizacionesPendientes--;
-                if (actualizacionesPendientes === 0) {
-                  this.enviarCorreoYRedirigir(idBrigada);
-                }
-              },
-              error: err => {
-                console.error(`❌ Error actualizando brigadista ${integrante.persona?.Nombre}`, err);
-                // Seguimos el flujo aunque falle un brigadista
-                actualizacionesPendientes--;
-                if (actualizacionesPendientes === 0) {
-                  this.enviarCorreoYRedirigir(idBrigada);
-                }
-              }
-            });
-        });
+        this.enviarCorreoYRedirigir(idBrigada);
       },
       error: (err) => {
         console.error('Error al guardar brigada:', err);
@@ -204,6 +143,7 @@ actualizarIntegrantes(): void {
         });
       }
     });
+
   }
 
   private enviarCorreoYRedirigir(idBrigada: number): void {

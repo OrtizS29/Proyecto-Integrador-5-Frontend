@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { MatDialogModule } from '@angular/material/dialog';
 import { BrigadistaService } from '../../services/brigadistaService';
 import { Brigada } from '../../models/brigada';
+import { Municipio } from '../../models/municipio';
 
 @Component({
   selector: 'app-personal-dialog',
@@ -21,16 +22,20 @@ export class PersonalDialogComponent implements OnInit {
   personalAsignado: { nombreCompleto: string, rol: string }[] = [];
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: { id: number, nombre: string, municipio: string },
+    @Inject(MAT_DIALOG_DATA) public data: { id: number, nombre: string, municipio: Municipio },
     private brigadistaService: BrigadistaService
   ) {}
 
   ngOnInit(): void {
-    // Setear datos directamente desde los datos inyectados
     this.nombreBrigada = this.data.nombre;
-    this.municipioBrigada = this.data.municipio;
 
-    // Obtener el personal asignado por ID de brigada
+    // Verificamos si el municipio es un objeto y sacamos solo el nombre
+    if (typeof this.data.municipio === 'object' && this.data.municipio !== null) {
+      this.municipioBrigada = this.data.municipio.Nombre || 'Sin nombre';
+    } else {
+      this.municipioBrigada = this.data.municipio; // fallback si ya es string
+    }
+
     this.brigadistaService.obtenerBrigadistasPorBrigada(this.data.id).subscribe({
       next: (brigadistas) => {
         this.personalAsignado = brigadistas.map((b: any) => ({
@@ -43,4 +48,5 @@ export class PersonalDialogComponent implements OnInit {
       }
     });
   }
+
 }

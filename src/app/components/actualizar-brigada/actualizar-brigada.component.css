@@ -33,10 +33,11 @@
   }
   
   .brigada-section input,
+  .brigada-section select,
   .personal-section input,
   .personal-section select {
-    margin-bottom: 10px;
-    padding: 6px;
+    margin-bottom: 20px; /* Aumentamos de 10px a 20px */
+    padding: 8px;
     border-radius: 5px;
     border: 1px solid #aaa;
     width: calc(100% - 20px);
@@ -71,3 +72,17 @@
     background-color: #004a7c;
   }
   
+  .botones-derecha {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.campo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
