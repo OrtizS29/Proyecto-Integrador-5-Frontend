@@ -52,10 +52,16 @@ export class PostularseComponent {
 guardarPostulacion() {
   if (this.brigadaSeleccionada && this.cargoSeleccionado) {
 
+    const usuario = JSON.parse(localStorage.getItem("usuarioLogueado")!);
+    const numDocumento = usuario?.Brigadista?.Numero_Documento;
+
+    console.log("usuario",usuario);
+    console.log("usuario id", numDocumento);
+
     const nuevaPostulacion = {
       cargo: this.cargoSeleccionado,
       ID_Brigada: Number(this.brigadaSeleccionada),
-      ID_Brigadista: 900200003
+      ID_Brigadista: numDocumento
     };
 
     this.postulacionService.crearPostulacion(nuevaPostulacion).subscribe({
