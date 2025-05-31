@@ -92,7 +92,13 @@
         </div>
         <div class="campo">
           <label>Estado civil:
-            <input type="text" name="estadoCivil" [(ngModel)]="brigadista.Estado_Civil" />
+            <select name="estadoCivil" [(ngModel)]="brigadista.Estado_Civil">
+              <option value="">Seleccione una opción</option>
+              <option value="Soltero">Soltero</option>
+              <option value="Casado">Casado</option>
+              <option value="Divorciado">Divorciado</option>
+              <option value="Union libre">Unión libre</option>
+            </select>
           </label>
         </div>
         <div class="campo">
