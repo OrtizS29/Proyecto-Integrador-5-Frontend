@@ -1,3 +1,7 @@
+export interface Brigadista {
+  Numero_Documento: string;
+}
+
 export interface LoginResponse {
   success: boolean;
   user: {
@@ -7,6 +11,7 @@ export interface LoginResponse {
     Nombre: string,
     createdAt: string,
     updatedAt: string,
-    Roll: string
+    Roll: string,
+    Brigadista?: Brigadista
   }
 }

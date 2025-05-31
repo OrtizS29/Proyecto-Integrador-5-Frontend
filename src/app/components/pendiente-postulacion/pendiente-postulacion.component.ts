@@ -25,10 +25,11 @@ export class PendientePostulacionComponent {
   constructor(private postulacionService: PostulacionService) {}
 
   ngOnInit(): void {
-    const idBrigadista = 900200003; // Puedes luego obtener esto desde un servicio de login
+    const usuario = JSON.parse(localStorage.getItem("usuarioLogueado")!);
+    const numDocumento = usuario?.Brigadista?.Numero_Documento; // Puedes luego obtener esto desde un servicio de login
     console.log("📦 Iniciando carga de postulaciones");
 
-    this.postulacionService.buscarPostulacionPorBrigadista(idBrigadista).subscribe({
+    this.postulacionService.buscarPostulacionPorBrigadista(numDocumento).subscribe({
       next: (data) => {
         console.log("✅ Respuesta de postulaciones:", data);
         // Mapeamos la respuesta para adaptarla a lo que espera el HTML

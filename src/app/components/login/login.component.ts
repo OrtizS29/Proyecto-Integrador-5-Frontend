@@ -81,6 +81,7 @@ onLogin() {
           if (rol === "admin") {
             this.router.navigate(['/admin']);
           }else if (rol === "brigadista"){
+            localStorage.setItem('usuarioLogueado', JSON.stringify(user));
             this.router.navigate(['/usuario']);
           }
         }
@@ -124,6 +125,8 @@ onLogin() {
             if (rol === "admin") {
               this.router.navigate(['/admin']);
             }else if (rol === "brigadista"){
+              localStorage.setItem('usuarioLogueado', JSON.stringify(user));
+              console.log(user);
               this.router.navigate(['/usuario']);
             }
           }
