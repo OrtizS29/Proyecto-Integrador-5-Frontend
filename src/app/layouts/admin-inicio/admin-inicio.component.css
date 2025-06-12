@@ -63,7 +63,7 @@ h1, h2 {
 
 .user-icon img {
   height: 50px;
-  border-radius: 50%;
+  border-radius: 45%;
   background-color: #005fa3;
   padding: 1px;
 }
@@ -269,5 +269,24 @@ h1, h2 {
 
 .logout-menu button:hover {
   background-color: #004a7c;
+}
+
+.user-info {
+  display: flex;
+  align-items: center; /* Alinea verticalmente al centro */
+  gap: 10px;
+  cursor: pointer;
+  position: relative;
+}
+
+.user-name {
+  font-weight: bold;
+  color: white;
+  font-size: 14px;
+  line-height: 1;
+  align-items: center;
+  position: relative;
+  bottom: 20px;
+  right: 10px;
 }
 
