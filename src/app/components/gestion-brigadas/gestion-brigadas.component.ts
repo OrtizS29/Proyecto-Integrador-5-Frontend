@@ -65,10 +65,16 @@ export class GestionBrigadasComponent implements AfterViewInit {
         this.dataSource.paginator = this.paginator;
 
         // Llenar tabla calculadora con Nombre y Presupuesto
-        this.sueldosCalculadora = brigadas.map(b => ({
-          brigada: b.Nombre,
-          sueldo: Number(b.Presupuesto) // Asegurarse de que sea numérico
-        }));
+        this.sueldosCalculadora = brigadas.map(b => {
+          const sueldo = Number(b.Presupuesto);
+          return {
+            brigada: b.Nombre,
+            sueldo,
+            viaticos: sueldo * 0.30,
+            alimentacion: sueldo * 0.20,
+            herramientas: sueldo * 0.50
+          };
+        });
       },
       error: (error) => {
         console.error("Error al cargar las brigadas", error);
@@ -148,24 +154,52 @@ eliminar(brigada: Brigada): void {
     });
   }
   // Datos simulados
-  sueldosCalculadora: { brigada: string; sueldo: number }[] = [];
+  sueldosCalculadora: any[] = [];
+
 
 
   // Resultados calculados
   sumaTotal: number | null = null;
   promedio: number | null = null;
+  totalViaticos: number | null = null;
+  totalAlimentacion: number | null = null;
+  totalHerramientas: number | null = null;
+
+  promedioViaticos: number | null = null;
+  promedioAlimentacion: number | null = null;
+  promedioHerramientas: number | null = null;
+
 
   // Funciones
   calcularSumaTotal(): void {
     this.sumaTotal = this.sueldosCalculadora.reduce((acc, item) => acc + item.sueldo, 0);
-    this.promedio = null; // Limpiamos el otro valor
+    this.totalViaticos = this.sueldosCalculadora.reduce((acc, item) => acc + item.viaticos, 0);
+    this.totalAlimentacion = this.sueldosCalculadora.reduce((acc, item) => acc + item.alimentacion, 0);
+    this.totalHerramientas = this.sueldosCalculadora.reduce((acc, item) => acc + item.herramientas, 0);
+
+    // Limpiamos los promedios
+    this.promedio = null;
+    this.promedioViaticos = null;
+    this.promedioAlimentacion = null;
+    this.promedioHerramientas = null;
   }
+
 
   calcularPromedio(): void {
     const total = this.sueldosCalculadora.reduce((acc, item) => acc + item.sueldo, 0);
     this.promedio = total / this.sueldosCalculadora.length;
-    this.sumaTotal = null; // Limpiamos el otro valor
+
+    this.promedioViaticos = this.sueldosCalculadora.reduce((acc, item) => acc + item.viaticos, 0) / this.sueldosCalculadora.length;
+    this.promedioAlimentacion = this.sueldosCalculadora.reduce((acc, item) => acc + item.alimentacion, 0) / this.sueldosCalculadora.length;
+    this.promedioHerramientas = this.sueldosCalculadora.reduce((acc, item) => acc + item.herramientas, 0) / this.sueldosCalculadora.length;
+
+    // Limpiamos las sumas
+    this.sumaTotal = null;
+    this.totalViaticos = null;
+    this.totalAlimentacion = null;
+    this.totalHerramientas = null;
   }
+
 
   ordenarAscendente(): void {
     this.sueldosCalculadora.sort((a, b) => a.sueldo - b.sueldo);

@@ -73,25 +73,38 @@
       <tr>
         <th>Brigadas</th>
         <th>Sueldo total</th>
+        <th>Viáticos</th>
+        <th>Alimentación</th>
+        <th>Herramientas</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let item of sueldosCalculadora">
         <td>{{ item.brigada }}</td>
         <td>{{ item.sueldo | number:'1.0-0' }}</td>
+        <td>{{ item.viaticos | number:'1.0-0' }}</td>
+        <td>{{ item.alimentacion | number:'1.0-0' }}</td>
+        <td>{{ item.herramientas | number:'1.0-0' }}</td>
       </tr>
     </tbody>
-  <tfoot>
-    <tr *ngIf="promedio !== null">
-      <td><strong>Promedio</strong></td>
-      <td>{{ promedio | number:'1.0-0' }}</td>
-    </tr>
-    <tr *ngIf="sumaTotal !== null">
-      <td><strong>Suma total</strong></td>
-      <td>{{ sumaTotal | number:'1.0-0' }}</td>
-    </tr>
-  </tfoot>
+    <tfoot>
+      <tr *ngIf="promedio !== null">
+        <td><strong>Promedio</strong></td>
+        <td>{{ promedio | number:'1.0-0' }}</td>
+        <td>{{ promedioViaticos | number:'1.0-0' }}</td>
+        <td>{{ promedioAlimentacion | number:'1.0-0' }}</td>
+        <td>{{ promedioHerramientas | number:'1.0-0' }}</td>
+      </tr>
+      <tr *ngIf="sumaTotal !== null">
+        <td><strong>Suma total</strong></td>
+        <td>{{ sumaTotal | number:'1.0-0' }}</td>
+        <td>{{ totalViaticos | number:'1.0-0' }}</td>
+        <td>{{ totalAlimentacion | number:'1.0-0' }}</td>
+        <td>{{ totalHerramientas | number:'1.0-0' }}</td>
+      </tr>
+    </tfoot>
   </table>
+
 
   <div class="botones-calculadora">
     <button mat-raised-button color="primary" (click)="calcularSumaTotal()">Suma total</button>
